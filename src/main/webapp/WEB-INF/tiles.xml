@@ -56,4 +56,34 @@
        <put-attribute name="title" value="Error"></put-attribute>  
        <put-attribute name="body" value="/WEB-INF/jsp/deferral/error.jsp"></put-attribute>  
 </definition> 
+
+<definition extends="base.definition" name="displayStudents">  
+       <put-attribute name="title" value="Students List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/student/listStudents.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="newStudent">  
+       <put-attribute name="title" value="Add New Student"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/student/newStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayStudent">  
+       <put-attribute name="title" value="Student Data Form"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/student/displayStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="deleteStudent">  
+        <put-attribute name="title" value="Delete Student"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/student/deleteStudent.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyStudent">  
+        <put-attribute name="title" value="Modify Student"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudent.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyStudentForm">  
+        <put-attribute name="title" value="Modify Student"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudentForm.jsp"></put-attribute>  
+</definition>
 </tiles-definitions>

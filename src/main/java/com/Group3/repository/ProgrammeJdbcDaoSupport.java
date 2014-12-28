@@ -1,16 +1,23 @@
 package com.Group3.repository;
 
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.Group3.domain.Deferral;
 import com.Group3.domain.Programme;
+import com.Group3.domain.mappers.DeferralMapper;
 import com.Group3.domain.mappers.ProgrammeMapper;
 import com.Group3.service.ProgrammeDAO;
 @Repository
@@ -21,9 +28,12 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		   setDataSource(dataSource);
 	} 
 
+	
+	
+	/**
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void createProgramme(String programmeId, int numYears,String coordinatorId,String startMonth) {
+	public void createProgramme(String programmeId, int numYears, String coordinatorId, String startMonth) {
 		
 		for (int x=0;x<numYears; x++){
 		int progYear=x+1;
@@ -53,9 +63,7 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		
 		}
 			
-	}
-		
-	
+	}  **/
 		
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -92,4 +100,51 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		int rows=getJdbcTemplate().queryForObject(SQL, Integer.class);
 		return rows;
 	}
+	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public Programme getProgramme(String programmeId) {
+		String SQL = "select * from programme where Programme_ID = ?";
+		Programme programme = (Programme) getJdbcTemplate().queryForObject(SQL, new Object[]{programmeId}, new ProgrammeMapper());
+		return programme;
+	}
+	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public void updateProgramme(String programmeId, int numYears, String coordinatorId,
+			int progYear) {
+		String SQL = "update Programme set Num_Years =?, Coord_ID = ?, Prog_Year =? where Programme_ID = ?";
+		getJdbcTemplate().update(SQL, new Object[] {numYears, coordinatorId, progYear, programmeId});
+		System.out.println("Updated record with Programme ID: "+ programmeId);
+		return;		
+	}
+
+	@Override
+	public void createProgramme(String programmeId, int numYears,
+			String coordinatorId, String startMonth) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public int createProgrammeGetId(String programmeId, int numYears,
+			String coordinatorId, int progYear) {
+		String SQL = "insert into programme (Programme_ID, Num_Years, Coord_ID, Prog_Year) values (?, ?, ?,?)";
+		
+		Object[] params=new Object[]{programmeId, numYears, coordinatorId, progYear};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("Programme_ID", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("Num_Years", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("Coord_ID", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("Prog_Year", Types.VARCHAR));
+		
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+		System.out.println("holder: " + holder.getKey().toString());
+		
+		String key = holder.getKey().toString();
+		return Integer.parseInt(key);
+	}
+
 }

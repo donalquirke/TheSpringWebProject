@@ -2,13 +2,18 @@ package com.Group3.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +37,25 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 		return;
 		}
 	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public int createStudentGetId(String studId, String firstName, String lastName, String email) {
+		String SQL = "insert into student (Student_ID, Firstname, Surname, Student_Email) values (?, ?, ?,?)";
+		
+		Object[] params=new Object[]{studId, firstName, lastName, email};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("Student_ID", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("Firstname", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("Surname", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("Student_Email", Types.VARCHAR));
+		
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+		System.out.println("holder: " + holder.getKey().toString());
+		
+		String key = holder.getKey().toString();
+		return Integer.parseInt(key);
+	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -95,11 +119,11 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void updateStudent(String id, String firstname, String lastname,
+	public void updateStudent(String studentId, String firstname, String lastname,
 			String email) {
 		String SQL = "update Student set Firstname =?, Surname = ?, Student_Email=? where Student_ID = ?";
-		getJdbcTemplate().update(SQL, new Object[] {firstname, lastname, email, id});
-		System.out.println("Updated record with id: "+ id);
+		getJdbcTemplate().update(SQL, new Object[] {firstname, lastname, email, studentId});
+		System.out.println("Updated record with Student ID: "+ studentId);
 		return;		
 	}
 

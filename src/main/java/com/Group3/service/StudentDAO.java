@@ -60,4 +60,7 @@ public interface StudentDAO {
 	 * This is the method used to count the rows in the table.
 	 */
 	public int countRows();
+
+	int createStudentGetId(String studId, String firstName, String lastName,
+			String email);
 }

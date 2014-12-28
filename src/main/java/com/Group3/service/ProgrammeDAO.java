@@ -44,4 +44,13 @@ public interface ProgrammeDAO {
 	 * This is the method used to count the rows in the table.
 	 */
 	public int countRows();
+
+	public Programme getProgramme(String programmeId);
+
+	void updateProgramme(String programmeId, int numYears,
+			String coordinatorId, int progYear);
+
+
+	public int createProgrammeGetId(String programmeId, int numYears,
+			String coordinatorId, int progYear);
 }

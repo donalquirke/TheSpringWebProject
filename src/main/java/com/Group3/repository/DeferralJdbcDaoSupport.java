@@ -4,9 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
@@ -17,13 +15,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.Group3.domain.Deferral;
-import com.Group3.domain.Lecturer;
 import com.Group3.domain.Module;
 import com.Group3.domain.Programme;
 import com.Group3.domain.mappers.DeferralMapper;
-import com.Group3.domain.mappers.LecturerMapper;
 import com.Group3.domain.mappers.ModuleMapper;
 import com.Group3.domain.mappers.ProgrammeMapper;
 import com.Group3.service.DeferralDAO;
