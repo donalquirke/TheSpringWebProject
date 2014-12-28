@@ -67,20 +67,20 @@ public class StudentController {
 		List<Student> listStudents=studentDAO.listStudents();
 		model.addAttribute("students", listStudents);		
 		return "deleteStudent";
-	}  //Working - displaying all students with delete buttons
+	}
 	
 	@RequestMapping(value = "/delete/studentId/{studentId}", method = RequestMethod.GET) 
 	public String deleteStudentById(@PathVariable String studentId, ModelMap model) { 
 		Student studentDelete=studentDAO.getStudent(studentId);
 		studentDAO.deleteStudent(studentId);
-		model.addAttribute("message", "Student with Student ID "+ studentId +" and details "
+		model.addAttribute("message", "Student with Student id "+ studentId +" and details "
 				+ "below have been deleted from the system");
 		model.addAttribute("studentId", studentDelete.getStudentId());
 		model.addAttribute("firstName", studentDelete.getFirstName());
 		model.addAttribute("lastName", studentDelete.getLastName());
 		model.addAttribute("email", studentDelete.getEmail());
 		return "displayStudent";
-	} // deleting student from database but not displaying the details on screen
+	}
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
@@ -89,7 +89,7 @@ public class StudentController {
 		model.addAttribute("students", listStudents);
 		model.addAttribute("now", date);
 		return "modifyStudent";			
-	}  //Working - displaying all students with modify buttons
+	}
 	
 	@RequestMapping(value = "/modify/studentId/{studentId}", method = RequestMethod.GET) 
 	public String modifyStudent(@PathVariable String studentId, ModelMap model) { 
@@ -97,7 +97,7 @@ public class StudentController {
 		model.addAttribute("message", "Student with id "+ studentId +" can now be modified");
 		model.addAttribute("student", studentModify);
 		return "modifyStudentForm";	
-	}  //Working - displaying student modify form
+	}
 	
 	@RequestMapping(value="/modify/studentId/{studentId}/email/{email}", method = RequestMethod.GET) 
 	public String modifyStudent(@PathVariable String studentId, @PathVariable String firstname, 
@@ -109,6 +109,6 @@ public class StudentController {
 		model.addAttribute("lectId", studentModify.getLastName());
 		model.addAttribute("programmeId", studentModify.getEmail());
 		return "displayStudent";		
-	}  //NOT WORKING - not updating database
+	}
 	
 }
