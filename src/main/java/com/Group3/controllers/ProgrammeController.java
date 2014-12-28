@@ -65,14 +65,14 @@ public class ProgrammeController {
 		}
 
 		return "displayProgramme";
-	}  //working
+	}  //NOT WORKING - FOREIGN KEY RESTRAINT
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteProgramme(ModelMap model) {   
 		List<Programme> listProgrammes=programmeDAO.listProgrammes();
-		model.addAttribute("students", listProgrammes);		
+		model.addAttribute("programmes", listProgrammes);		
 		return "deleteProgramme";
-	}
+	} //Working - displaying all programmes with delete buttons
 	
 	@RequestMapping(value = "/delete/programmeId/{programmeId}", method = RequestMethod.GET) 
 	public String deleteProgrammeById(@PathVariable String programmeId, ModelMap model) { 
@@ -94,7 +94,7 @@ public class ProgrammeController {
 		model.addAttribute("programmes", listProgrammes);
 		model.addAttribute("now", date);
 		return "modifyProgramme";			
-	}
+	}  //Working - displaying all programmes with modify buttons
 	
 	@RequestMapping(value = "/modify/programmeId/{programmeId}", method = RequestMethod.GET) 
 	public String modifyProgramme(@PathVariable String programmeId, ModelMap model) { 
@@ -102,7 +102,7 @@ public class ProgrammeController {
 		model.addAttribute("message", "Programme with id "+ programmeId +" can now be modified");
 		model.addAttribute("programme", programmeModify);
 		return "modifyProgrammeForm";	
-	}
+	}  //Working - displaying all programme modify form
 	
 	@RequestMapping(value="/modify/programmeId/{programmeId}/coordinatorId/{coordinatorId}", method = RequestMethod.GET) 
 	public String modifyProgramme(@PathVariable String programmeId, @PathVariable int numYears, 
@@ -114,7 +114,7 @@ public class ProgrammeController {
 		model.addAttribute("coordinatorId", programmeModify.getCoordinatorId());
 		model.addAttribute("progYear", programmeModify.getProgYear());
 		return "displayProgramme";		
-	}
+	}  //NOT WORKING - nothing happening, not updating database
 	
 }
 	

@@ -32,13 +32,13 @@ $("#modify").click(function(){
  		<div class="ui-field-contain">
  			<form:label path="coordinatorId">Coordinator ID</form:label>
  			<form:input path="coordinatorId" value="${programme.coordinatorId}"
-				disabled="true" />
+				 />
  		</div>
  
  		<div class="ui-field-contain">
  			<form:label path="progYear">Year of Programme</form:label>
  			<form:input path="progYear" value="${programme.progYear}"
-				 />
+				disabled="true" />
  		</div>
 
 		<input type="button" class="ui-btn" data-theme="b" data-icon="check"

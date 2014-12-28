@@ -86,4 +86,39 @@
         <put-attribute name="title" value="Modify Student"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudentForm.jsp"></put-attribute>  
 </definition>
+
+<definition extends="base.definition" name="displayProgrammes">  
+       <put-attribute name="title" value="Programmes List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/programme/listProgrammes.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="newProgramme">  
+       <put-attribute name="title" value="Add New Programme"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/programme/newProgramme.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayProgramme">  
+       <put-attribute name="title" value="Programme Data Form"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/programme/displayProgramme.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="deleteProgramme">  
+        <put-attribute name="title" value="Delete Programme"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/programme/deleteProgramme.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyProgramme">  
+        <put-attribute name="title" value="Modify Programme"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/programme/modifyProgramme.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyProgrammeForm">  
+        <put-attribute name="title" value="Modify Programme"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/programme/modifyProgrammeForm.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="deleteProgramme">  
+        <put-attribute name="title" value="Delete Programme"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/programme/deleteProgramme.jsp"></put-attribute>  
+</definition>
 </tiles-definitions>
