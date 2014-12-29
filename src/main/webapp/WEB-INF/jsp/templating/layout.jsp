@@ -75,64 +75,51 @@ tr:nth-child(even) {
     <h1 data-icon="plus">Add</h1>
     	<ul data-role="listview" data-inset="true">
       	<li><a href="<%= request.getContextPath() %>/deferral/addNew">Deferral</a></li>
-      	<li><a href="#">Student</a></li>
-      	<li><a href="#">Module</a></li>
-      	<li><a href="#">Lecturer</a></li>
-      	<li><a href="#">Programme</a></li>
-      	<li><a href="#">Registration</a></li>
-      	<li><a href="#">Semester</a></li>
+      	<li><a href="<%= request.getContextPath() %>/student/addNew">Student</a></li>
+      	<li><a href="<%= request.getContextPath() %>/module/addNew">Module</a></li>
+      	<li><a href="<%= request.getContextPath() %>/lecturer/addNew">Lecturer</a></li>
+      	<li><a href="<%= request.getContextPath() %>/programme/addNew">Programme</a></li>
+      	<li><a href="<%= request.getContextPath() %>/registration/addNew">Registration</a></li>
+      	<li><a href="<%= request.getContextPath() %>/semester/addNew">Semester</a></li>
  		</ul>   
   	</div>
   	
    	<div data-role="collapsible">
     	<h1 data-icon="delete">Remove</h1>
     	<ul data-role="listview" data-inset="true">
-    	<li><a href="#">Deferral</a></li>
-    	<li><a href="#">Student</a></li>
-      	<li><a href="#">Module</a></li>
-      	<li><a href="#">Lecturer</a></li>
-      	<li><a href="#">Programme</a></li>
-      	<li><a href="#">Registration</a></li>
-      	<li><a href="#">Semester</a></li>
+    	<li><a href="<%= request.getContextPath() %>/deferral/delete">Deferral</a></li>
+    	<li><a href="<%= request.getContextPath() %>/student/delete">Student</a></li>
+      	<li><a href="<%= request.getContextPath() %>/module/delete">Module</a></li>
+      	<li><a href="<%= request.getContextPath() %>/lecturer/delete">Lecturer</a></li>
+      	<li><a href="<%= request.getContextPath() %>/programme/delete">Programme</a></li>
+      	<li><a href="<%= request.getContextPath() %>/registration/delete">Registration</a></li>
+      	<li><a href="<%= request.getContextPath() %>/semester/delete">Semester</a></li>
  		</ul> 
  	</div>
  	
  	<div data-role="collapsible">
-    	<h1 data-icon="search">List</h1>
-    	<ul data-role="listview" data-inset="true">
-    	  <li><a href="<%= request.getContextPath() %>/deferral/listall">Deferral</a></li>  
-    	  <li><a href="#">Student</a></li>
-      	  <li><a href="#">Module</a></li>
-      	  <li><a href="#">Lecturer</a></li>
-      	  <li><a href="#">Programme</a></li>
-      	  <li><a href="#">Registration</a></li>
-      	  <li><a href="#">Semester</a></li>
- 		</ul>     
-  	</div>
-  
-  	<div data-role="collapsible">
     	<h1 data-icon="search">List All</h1>
     	<ul data-role="listview" data-inset="true">
-    	  <li><a href="#">Deferral</a></li>
-    	  <li><a href="#">Student</a></li>
-      	  <li><a href="#">Module</a></li>
-      	  <li><a href="#">Lecturer</a></li>
-      	  <li><a href="#">Programme</a></li>
-      	  <li><a href="#">Registration</a></li>
-      	  <li><a href="#">Semester</a></li>
+    	  <li><a href="<%= request.getContextPath() %>/deferral/listall">Deferral</a></li>  
+    	  <li><a href="<%= request.getContextPath() %>/student/listStudents">Student</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/module/listall">Module</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/lecturer/listal">Lecturer</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/programme/listProgrammes">Programme</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/registration/listRegistrations">Registration</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/semester/listall">Semester</a></li>
  		</ul>     
   	</div>
   
   	<div data-role="collapsible">
    	 	<h1 data-icon="star">Modify</h1>
     	<ul data-role="listview" data-inset="true">
-     	  <li><a href="#">Deferral</a></li>
-    	  <li><a href="#">Student</a></li>
-      	  <li><a href="#">Module</a></li>
-      	  <li><a href="#">Lecturer</a></li>
-      	  <li><a href="#">Programme</a></li>
-      	  <li><a href="#">Registration</a></li>
-      	  <li><a href="#">Semester</a></li>
+     	  <li><a href="<%= request.getContextPath() %>/deferral/modify">Deferral</a></li>
+    	  <li><a href="<%= request.getContextPath() %>/student/modify">Student</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/module/modify">Module</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/lecturer/modify">Lecturer</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/programme/modify">Programme</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/registration/modify">Registration</a></li>
+      	  <li><a href="<%= request.getContextPath() %>/semester/modify">Semester</a></li>
  		</ul>     
   	</div>
   

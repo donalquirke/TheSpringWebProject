@@ -121,4 +121,9 @@
         <put-attribute name="title" value="Delete Programme"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/programme/deleteProgramme.jsp"></put-attribute>  
 </definition>
+
+<definition extends="base.definition" name="displayRegistrations">  
+       <put-attribute name="title" value="Registrations List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/registration/listRegistrations.jsp"></put-attribute>  
+</definition>
 </tiles-definitions>
