@@ -53,4 +53,6 @@ public interface ProgrammeDAO {
 
 	public int createProgrammeGetId(String programmeId, int numYears,
 			String coordinatorId, int progYear);
+
+	public List<Programme> listProgrammeByStudentID(String studentID);
 }

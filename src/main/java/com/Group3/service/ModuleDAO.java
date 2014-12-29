@@ -73,4 +73,6 @@ public interface ModuleDAO {
 	 * This is the method used to count the rows in the table.
 	 */
 	public int countRows();
+
+	public List<Module> listModuleByProgrammeID(String programmeID);
 }

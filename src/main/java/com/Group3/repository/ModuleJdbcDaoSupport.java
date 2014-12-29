@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Group3.domain.Module;
+import com.Group3.domain.Programme;
 import com.Group3.domain.Semester;
 import com.Group3.domain.mappers.ModuleMapper;
+import com.Group3.domain.mappers.ProgrammeMapper;
 import com.Group3.domain.mappers.SemesterMapper;
 import com.Group3.service.ModuleDAO;
 @Repository
@@ -26,6 +28,17 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 		   setDataSource(dataSource);
 	} 
 	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public List<Module> listModuleByProgrammeID(String programmeID){
+		String SQL = "select m.* "
+				+ "from modules m "
+				+ "left join semester s on m.semester_id = s.semester_id "
+				+ "where s.programme_id = ?";
+		System.out.println("SQL : " + SQL);
+		List<Module> moduleList = getJdbcTemplate().query(SQL,  new Object[]{programmeID}, new ModuleMapper());
+		return moduleList;
+	}
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)

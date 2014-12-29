@@ -71,57 +71,73 @@ tr:nth-child(even) {
 	<!-- Panel -->
 	<div data-role="panel" id="myPanelDefault" style="text-align:center;"> 
 	<div data-role="collapsibleset">
-  	<div data-role="collapsible">
-    <h1 data-icon="plus">Add</h1>
-    	<ul data-role="listview" data-inset="true">
-      	<li><a href="<%= request.getContextPath() %>/deferral/addNew">Deferral</a></li>
-      	<li><a href="<%= request.getContextPath() %>/student/addNew">Student</a></li>
-      	<li><a href="<%= request.getContextPath() %>/module/addNew">Module</a></li>
-      	<li><a href="<%= request.getContextPath() %>/lecturer/addNew">Lecturer</a></li>
-      	<li><a href="<%= request.getContextPath() %>/programme/addNew">Programme</a></li>
-      	<li><a href="<%= request.getContextPath() %>/registration/addNew">Registration</a></li>
-      	<li><a href="<%= request.getContextPath() %>/semester/addNew">Semester</a></li>
- 		</ul>   
-  	</div>
   	
-   	<div data-role="collapsible">
-    	<h1 data-icon="delete">Remove</h1>
-    	<ul data-role="listview" data-inset="true">
-    	<li><a href="<%= request.getContextPath() %>/deferral/delete">Deferral</a></li>
-    	<li><a href="<%= request.getContextPath() %>/student/delete">Student</a></li>
-      	<li><a href="<%= request.getContextPath() %>/module/delete">Module</a></li>
-      	<li><a href="<%= request.getContextPath() %>/lecturer/delete">Lecturer</a></li>
-      	<li><a href="<%= request.getContextPath() %>/programme/delete">Programme</a></li>
-      	<li><a href="<%= request.getContextPath() %>/registration/delete">Registration</a></li>
-      	<li><a href="<%= request.getContextPath() %>/semester/delete">Semester</a></li>
- 		</ul> 
- 	</div>
- 	
- 	<div data-role="collapsible">
-    	<h1 data-icon="search">List All</h1>
-    	<ul data-role="listview" data-inset="true">
-    	  <li><a href="<%= request.getContextPath() %>/deferral/listall">Deferral</a></li>  
-    	  <li><a href="<%= request.getContextPath() %>/student/listStudents">Student</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/module/listall">Module</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/lecturer/listal">Lecturer</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/programme/listProgrammes">Programme</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/registration/listRegistrations">Registration</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/semester/listall">Semester</a></li>
- 		</ul>     
-  	</div>
-  
-  	<div data-role="collapsible">
-   	 	<h1 data-icon="star">Modify</h1>
-    	<ul data-role="listview" data-inset="true">
-     	  <li><a href="<%= request.getContextPath() %>/deferral/modify">Deferral</a></li>
-    	  <li><a href="<%= request.getContextPath() %>/student/modify">Student</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/module/modify">Module</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/lecturer/modify">Lecturer</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/programme/modify">Programme</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/registration/modify">Registration</a></li>
-      	  <li><a href="<%= request.getContextPath() %>/semester/modify">Semester</a></li>
- 		</ul>     
-  	</div>
+		<div data-role="collapsible">
+			
+<h1 data-icon="plus">Deferral</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/deferral/addNew">Add</a></li>
+			 	<li><a href="<%= request.getContextPath() %>/deferral/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/deferral/listall">List All</a></li>  
+				<li><a href="<%= request.getContextPath() %>/deferral/modify">Modify</a></li>   
+			</ul>
+		</div>
+		<div data-role="collapsible">
+			<h1 data-icon="plus">Student</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/student/addNew">Add</a></li>
+				<li><a href="<%= request.getContextPath() %>/student/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/student/listStudents">List All</a></li>
+				<li><a href="<%= request.getContextPath() %>/student/modify">Modify</a></li>
+      	
+			</ul>
+		</div>
+		<div data-role="collapsible">
+			<h1 data-icon="plus">Module</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/module/addNew">Add</a></li>
+				<li><a href="<%= request.getContextPath() %>/module/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/module/listall">List All</a></li>
+				<li><a href="<%= request.getContextPath() %>/module/modify">Modify</a></li>
+			</ul>
+		</div>
+		<div data-role="collapsible">
+			<h1 data-icon="plus">Lecturer</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/lecturer/addNew">Add</a></li>
+				<li><a href="<%= request.getContextPath() %>/lecturer/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/lecturer/listall">List All</a></li>
+				<li><a href="<%= request.getContextPath() %>/lecturer/modify">Modify</a></li> 
+			</ul>
+		</div>
+		<div data-role="collapsible">
+			<h1 data-icon="plus">Programme</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/programme/addNew">Add</a></li>
+				<li><a href="<%= request.getContextPath() %>/programme/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/programme/listProgrammes">List All</a></li>
+				<li><a href="<%= request.getContextPath() %>/programme/modify">Modify</a></li>
+				
+			</ul>
+		</div>
+		<div data-role="collapsible">
+			<h1 data-icon="plus">Registration</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/registration/addNew">Add</a></li>
+			    <li><a href="<%= request.getContextPath() %>/registration/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/registration/listRegistrations">List All</a></li>
+				<li><a href="<%= request.getContextPath() %>/registration/modify">Modify</a></li>
+			</ul>
+		</div>
+		<div data-role="collapsible">
+			<h1 data-icon="plus">Semester</h1>
+			<ul data-role="listview" data-inset="true">
+				<li><a href="<%= request.getContextPath() %>/semester/addNew">Add</a></li>
+				<li><a href="<%= request.getContextPath() %>/semester/delete">Delete</a></li>
+				<li><a href="<%= request.getContextPath() %>/semester/listall">List All</a></li>
+				<li><a href="<%= request.getContextPath() %>/semester/modify">Modify</a></li>
+			</ul>
+		</div>
   
   </div>  
 

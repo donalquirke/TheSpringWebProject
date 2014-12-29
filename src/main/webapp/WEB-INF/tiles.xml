@@ -31,7 +31,10 @@
        <put-attribute name="title" value="Add New Deferral"></put-attribute>  
        <put-attribute name="body" value="/WEB-INF/jsp/deferral/newDeferral.jsp"></put-attribute>  
 	</definition>
-	
+	<definition extends="base.definition" name="addNewDeferralForStudent">  
+       <put-attribute name="title" value="Add New Deferral"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/deferral/addNewDeferralForStudent.jsp"></put-attribute>  
+	</definition>	
 	<definition extends="base.definition" name="displayDeferral">  
        <put-attribute name="title" value="Deferral Data Form"></put-attribute>  
        <put-attribute name="body" value="/WEB-INF/jsp/deferral/display.jsp"></put-attribute>  

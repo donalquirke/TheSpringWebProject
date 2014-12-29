@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,17 +27,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.Group3.Form.DeferralForm;
 import com.Group3.domain.Deferral;
+import com.Group3.domain.Lecturer;
+import com.Group3.domain.Module;
+import com.Group3.domain.Programme;
 import com.Group3.exceptions.ImageUploadException;
 import com.Group3.service.DeferralDAO;
+import com.Group3.service.LecturerDAO;
+import com.Group3.service.ModuleDAO;
+import com.Group3.service.ProgrammeDAO;
 
 @Controller
 @RequestMapping("/deferral")
 public class DeferralController {
+
+	Logger logger = Logger.getLogger(DeferralController.class);
 	
 	@Autowired
 	DeferralDAO deferralDAO;
+	
+	@Autowired
+	ProgrammeDAO programmeDAO;
+	
+	@Autowired
+	ModuleDAO moduleDAO;
+	
+	@Autowired
+	LecturerDAO lecturerDAO;
+	
 	@Autowired
     private ServletContext servletContext;
 	
@@ -47,7 +68,7 @@ public class DeferralController {
 			model.addAttribute("deferrals", listDeferrals);
 			model.addAttribute("now", date);
 		    return "displayDeferrals";			
-		}    
+	}    
 		
 	@RequestMapping(value="/programme/{programmeID}", method = RequestMethod.GET) 
 	public String listDeferralsByProgramme(@PathVariable("programmeID") String programmeID, ModelMap model){
@@ -94,6 +115,17 @@ public class DeferralController {
 	    return "displayDeferrals";	
 	}
 	
+
+	@RequestMapping(value = "/addNewDeferralForStudent", method = RequestMethod.GET) 
+	public ModelAndView addNewDeferralForStudent() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("deferral", new Deferral());  //sending a blank deferral
+		modelAndView.addObject("deferralForm", new DeferralForm());  //sending a blank deferral form
+		modelAndView.setViewName("addNewDeferralForStudent");
+		
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
 	public String addNewDeferral(ModelMap model) {
 		model.addAttribute("deferral", new Deferral());
@@ -101,29 +133,32 @@ public class DeferralController {
 	} 
 
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
-	public String displayDeferral(@ModelAttribute("deferral") @Valid Deferral deferral, 
+	public ModelAndView displayDeferral(@ModelAttribute("deferral") @Valid Deferral deferral, 
 			@RequestParam("file") MultipartFile file, BindingResult result, ModelMap model) {
-
-		if(result.hasErrors())
-			return "newDeferral";
+		logger.debug("addNew Submit");
+		ModelAndView returnModel = new ModelAndView();
+		if(result.hasErrors()){
+			logger.debug("form errors found : redirect back to : newDeferral");
+			returnModel.setViewName("newDeferral");
+			return returnModel;
+		}
 		
 		try {
 			 if (!file.isEmpty()) {
-				 
+				 logger.trace("file not empty");
 				 validateImage(file);
 				 
+				  
 		            try {
-		
-		            	model.addAttribute("studentId", deferral.getStudentId());
-		            	model.addAttribute("lectId", deferral.getLectId());	
-		            	model.addAttribute("programmeId", deferral.getProgrammeId());
-		            	model.addAttribute("moduleId", deferral.getModuleId());
-		            	model.addAttribute("approval", deferral.getApproval());
-		            	model.addAttribute("message", "The following deferral has been added to the system");
-
+		            		
+		            	
 			        	int defId = deferralDAO.createDeferralGetId(deferral.getStudentId(), deferral.getLectId(),
 		            			deferral.getProgrammeId(), deferral.getModuleId(), deferral.getApproval());
-		            	model.addAttribute("defId", Integer.toString(defId));
+		            	logger.debug("new Deferral created with Id:" + defId);
+		            	deferral.setDefId(defId); //update deferral with new ID
+		            	returnModel.addObject("deferral", deferral);  //add the deferral to the new model
+		            	returnModel.addObject("message", "The following deferral has been added to the system");
+
 		
 		            	byte[] bytes = file.getBytes(); 
 		            	File dir = new File(servletContext.getRealPath("/")+"/resources/images");
@@ -145,21 +180,26 @@ public class DeferralController {
 		            			stream.close();		  
 		
 		            } catch (Exception e) {
-		            	model.addAttribute("message", "Creation of deferral failed, "+e.getLocalizedMessage());
-		            	return "displayError"; 
-
+		            	logger.error("Creation of deferral failed, "+e.getMessage());
+		            	returnModel.addObject("message", "Creation of deferral failed, "+e.getLocalizedMessage());
+		            	returnModel.setViewName("displayError");
+		        		return returnModel;
 		            }
 			 }else{
-				 model.addAttribute("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
-				 return "displayError"; 
+				 logger.error("You failed to upload " + (file!=null?file.getOriginalFilename():"no File found") + " because the file was empty.");
+				 returnModel.addObject("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
+				 returnModel.setViewName("displayError");
+				 return returnModel;
 			 }
 		} catch(ImageUploadException e){
-			model.addAttribute("message", "Creation of deferral failed. The system only supports JPEGs.");
-			return "displayError"; 
+			logger.error("Creation of deferral failed. The system only supports JPEGs. : " + e.getMessage());
+			returnModel.addObject("message", "Creation of deferral failed. The system only supports JPEGs.");
+			returnModel.setViewName("displayError");
+			return returnModel;
 
 		}
-
-		return "displayDeferral";
+		returnModel.setViewName("displayDeferral");
+		return returnModel;
 	}
 	
 	@RequestMapping(value = "/downloadImage/{defId}", method = RequestMethod.GET) 
@@ -246,6 +286,7 @@ public class DeferralController {
 	
 	@RequestMapping(value = "/modify/defId/{defId}", method = RequestMethod.GET) 
 	public String modifyDeferral(@PathVariable int defId, ModelMap model) { 
+		logger.debug("Load Deferral Modify Display");
 		Deferral deferralModify=deferralDAO.getDeferral(defId);
 		model.addAttribute("message", "Deferral with id "+ defId +" can now be modified");
 		model.addAttribute("deferral", deferralModify);
@@ -253,16 +294,50 @@ public class DeferralController {
 	}
 	
 	@RequestMapping(value="/modify/defId/{defId}/approval/{approval}", method = RequestMethod.GET) 
-	public String modifyDeferral(@PathVariable int defId, @PathVariable String studentId,  ModelMap model) {			
-		deferralDAO.updateDeferral(defId, studentId);
+	public ModelAndView modifyDeferral(@PathVariable int defId, @PathVariable String approval,  ModelMap model) {			
+		logger.debug("update request");
+		ModelAndView modelAndView = new ModelAndView();
+		deferralDAO.updateDeferral(defId, approval);
 		Deferral deferralModify=deferralDAO.getDeferral(defId);
 		model.addAttribute("message", "Deferral with deferral id "+ defId +" has been modified");
-		model.addAttribute("studentId", deferralModify.getStudentId());
-		model.addAttribute("lectId", deferralModify.getLectId());
-		model.addAttribute("programmeId", deferralModify.getProgrammeId());
-		model.addAttribute("moduleId", deferralModify.getModuleId());
-		model.addAttribute("approval", deferralModify.getApproval());
-		return "displayDeferral";		
-	}
+		modelAndView.addObject("deferral", deferralModify);
+		modelAndView.setViewName("displayDeferral");
+		return modelAndView;		
+	} //WORKING
 
+	@RequestMapping(value={"/getStudentProgrammeList"})
+	@ResponseBody
+	public DeferralForm getStudentProgrammeList(@RequestParam String studentId) { 
+		logger.info("getStudentProgrammeList");
+		DeferralForm deferralForm = new DeferralForm();
+
+		List<Programme> programmeList = programmeDAO.listProgrammeByStudentID(studentId);
+		deferralForm.setProgrammeList(programmeList);
+		return deferralForm;
+	
+	}
+	
+	@RequestMapping(value={"/getProgrammeModuleList"})
+	@ResponseBody
+	public DeferralForm getProgrammeModuleList(@RequestParam String programmeId) { 
+		logger.info("getProgrammeModuleList");
+		DeferralForm deferralForm = new DeferralForm();
+		
+		List<Module> moduleList = moduleDAO.listModuleByProgrammeID(programmeId);
+		deferralForm.setModuleList(moduleList);
+		return deferralForm;
+	
+	}
+	
+	@RequestMapping(value={"/getModuleDetails"})
+	@ResponseBody
+	public Lecturer getModuleDetails(@RequestParam String combindedKey) { 
+		logger.info("getModuleDetails");
+		String combindedKeyArray[] = combindedKey.split("-");
+		
+		Module module = moduleDAO.getModule(combindedKeyArray[0], Integer.parseInt(combindedKeyArray[1]));
+		Lecturer lecturer = lecturerDAO.getLecturer(module.getLectId());
+		return lecturer;
+	
+	}
 }
