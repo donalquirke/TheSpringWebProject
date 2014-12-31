@@ -120,13 +120,39 @@
         <put-attribute name="body" value="/WEB-INF/jsp/programme/modifyProgrammeForm.jsp"></put-attribute>  
 </definition>
 
-<definition extends="base.definition" name="deleteProgramme">  
-        <put-attribute name="title" value="Delete Programme"></put-attribute>  
-        <put-attribute name="body" value="/WEB-INF/jsp/programme/deleteProgramme.jsp"></put-attribute>  
-</definition>
-
 <definition extends="base.definition" name="displayRegistrations">  
        <put-attribute name="title" value="Registrations List"></put-attribute>  
        <put-attribute name="body" value="/WEB-INF/jsp/registration/listRegistrations.jsp"></put-attribute>  
 </definition>
+
+<definition extends="base.definition" name="displayLecturers">  
+       <put-attribute name="title" value="Lecturers List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/lecturer/listLecturers.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="newLecturer">  
+       <put-attribute name="title" value="Add New Lecturer"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/lecturer/newLecturer.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayLecturer">  
+       <put-attribute name="title" value="Lecturer Data Form"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/lecturer/displayLecturer.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="deleteLecturer">  
+        <put-attribute name="title" value="Delete Lecturer"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/lecturer/deleteLecturer.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyLecturer">  
+        <put-attribute name="title" value="Modify Lecturer"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/lecturer/modifyLecturer.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyLecturerForm">  
+        <put-attribute name="title" value="Modify Lecturer"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/lecturer/modifyLecturerForm.jsp"></put-attribute>  
+</definition>
+
 </tiles-definitions>

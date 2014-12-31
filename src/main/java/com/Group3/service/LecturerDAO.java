@@ -48,4 +48,12 @@ public interface LecturerDAO {
 	 * This is the method used to count the rows in the table.
 	 */
 	public int countRows();
+
+	public void updateLecturer(String lectId, String firstname,
+			String lastname, String email);
+
+	public int createLecturerGetId(String lectId, String firstName,
+			String lastName, String email);
+
+	public void updateLecturer(String lectId, String email);
 }
