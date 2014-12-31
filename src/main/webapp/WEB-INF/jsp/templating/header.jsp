@@ -1,3 +1,15 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#ajaxBtn").click(function(){
+	
+	  $.ajax({url:"ajaxCall",success:function(result){
+		  
+	    alert(result);
+	  }});
+	});
+});
+</script>
+
 <div data-role="header" data-fullscreen="true"> 
   
  <h1>
@@ -5,7 +17,7 @@
   </h1> 
   <a href="/home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
   <a href="#/logout" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>
-  
+<button type="button" id="ajaxBtn">ajax Button</button>  
    <div data-role="navbar">
       <ul>
         <li><a href="#">BSc Cloud</a></li>

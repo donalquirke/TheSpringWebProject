@@ -26,8 +26,8 @@
 		
 	</c:if>
 	
-	<c:if test="${empty students}">
+	<c:if test="${empty programmes}">
 	<div class="notification warning">
-		No Students.
+		No Programmes.
 	</div>
 	</c:if>

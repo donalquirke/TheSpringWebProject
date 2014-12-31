@@ -16,6 +16,10 @@ public class Module {
 	}
 
 
+	public String  getCombindedKey() {
+		return moduleId + "-" +crnNumber;
+	}
+
 	public Module(String moduleId, int crnNumber, String name, String lectId,
 			String semesterId) {
 		super();
@@ -65,5 +69,6 @@ public class Module {
 	public void setSemesterId(String semesterId) {
 		this.semesterId = semesterId;
 	}
+	
 
 }

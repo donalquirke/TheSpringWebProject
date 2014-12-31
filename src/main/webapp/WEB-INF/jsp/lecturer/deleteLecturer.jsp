@@ -1,10 +1,10 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<c:if test="${not empty students}">
+<c:if test="${not empty lecturers}">
 	<table data-role="table" class="ui-responsive" data-mode="columntoggle"
 		id="myTable">
 		<thead>
 			<tr>
-    			<th data-priority="1">Student ID</th>
+    			<th data-priority="1">Lecturer ID</th>
     			<th data-priority="3">First Name</th>
     			<th data-priority="2">Surname</th>  
     			<th data-priority="4">Email Address</th>
@@ -14,14 +14,14 @@
 
 		<tbody>
 
-			<c:forEach var="student" items="${students}" varStatus="status">
+			<c:forEach var="lecturer" items="${lecturers}" varStatus="status">
 				<tr>
-					<td>${student.studentId}</td>
-					<td>${student.firstName}</td>
-					<td>${student.lastName}</td>
-					<td>${student.email}</td>
+					<td>${lecturer.lectId}</td>
+					<td>${lecturer.firstName}</td>
+					<td>${lecturer.lastName}</td>
+					<td>${lecturer.email}</td>
 					<td><a
-						href="<%= request.getContextPath() %>/student/delete/studentId/${status.current.studentId}"
+						href="<%= request.getContextPath() %>/lecturer/delete/lectId/${status.current.lectId}"
 						class="ui-btn">Delete</a></td>
 				</tr>
 			</c:forEach>

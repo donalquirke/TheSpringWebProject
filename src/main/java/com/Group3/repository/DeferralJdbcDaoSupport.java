@@ -53,7 +53,7 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 		String lecturerId= programmeList.get(0).getCoordinatorId();
 
 		/* Execute Insert Statement */
-		String SQL3 = "insert into deferrals (Student_ID, Lect_ID,Programme_ID,Module_ID) values (?, ?, ?,?)";
+		String SQL3 = "insert into deferrals (Student_ID, Lect_ID, Programme_ID, Module_ID) values (?, ?, ?,?)";
 
 		Object[] params = new Object[] { studentId, lecturerId, programmeId,moduleId };
 		PreparedStatementCreatorFactory psc = new PreparedStatementCreatorFactory(SQL3);
@@ -308,6 +308,8 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{approved, studentID}, new DeferralMapper());
 		return deferralsList;
 	}
+	
+	
 	
 
 }
