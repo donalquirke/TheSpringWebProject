@@ -86,4 +86,11 @@
         <put-attribute name="title" value="Modify Student"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudentForm.jsp"></put-attribute>  
 </definition>
+
+    <definition extends="base.definition" name="displayModules">  
+       <put-attribute name="title" value="Modules List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/dmodule/listModules.jsp"></put-attribute>  
+	</definition> 
+	
+    
 </tiles-definitions>
