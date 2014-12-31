@@ -157,4 +157,11 @@
 </definition>
 
 
+<definition extends="base.definition" name="displayModules">  
+       <put-attribute name="title" value="Module List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/programme/listModules.jsp"></put-attribute>  
+</definition>
+
+
+
 </tiles-definitions>
