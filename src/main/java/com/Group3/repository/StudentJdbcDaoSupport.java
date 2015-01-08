@@ -129,7 +129,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void deleteMultipleStudents(final List<Student> students) {
-		String SQL = "delete from student where Student_ID = ?";
+		String SQL = "delete from student where StudentAutoID = ?";
 		getJdbcTemplate().batchUpdate(SQL, new BatchPreparedStatementSetter() {
 			
 			@Override
