@@ -162,6 +162,9 @@
        <put-attribute name="body" value="/WEB-INF/jsp/programme/listModules.jsp"></put-attribute>  
 </definition>
 
-
+<definition extends="base.definition" name="email">  
+       <put-attribute name="title" value="Create Email"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/email.jsp"></put-attribute>  
+</definition>
 
 </tiles-definitions>

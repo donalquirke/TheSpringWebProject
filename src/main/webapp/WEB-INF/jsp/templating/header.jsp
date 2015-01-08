@@ -15,9 +15,9 @@ $(document).ready(function(){
  <h1>
  Deferrals
   </h1> 
-  <a href="/home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+  <a href="home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
   <a href="#/logout" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>
-<button type="button" id="ajaxBtn">ajax Button</button>  
+  <button type="button" id="ajaxBtn">ajax Button</button>  
    <div data-role="navbar">
       <ul>
         <li><a href="#">BSc Cloud</a></li>

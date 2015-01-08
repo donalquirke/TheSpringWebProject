@@ -119,58 +119,12 @@ tr:nth-child(even) {
 				<li><a href="<%= request.getContextPath() %>/programme/modify">Modify</a></li>
 				
 			</ul>
-		</div>
-		<div data-role="collapsible">
-			<h1 data-icon="plus">Registration</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/registration/addNew">Add</a></li>
-			    <li><a href="<%= request.getContextPath() %>/registration/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/registration/listRegistrations">List All</a></li>
-				<li><a href="<%= request.getContextPath() %>/registration/modify">Modify</a></li>
-			</ul>
-		</div>
-		<div data-role="collapsible">
-			<h1 data-icon="plus">Semester</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/semester/addNew">Add</a></li>
-				<li><a href="<%= request.getContextPath() %>/semester/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/semester/listall">List All</a></li>
-				<li><a href="<%= request.getContextPath() %>/semester/modify">Modify</a></li>
-			</ul>
-		</div>
-  
+		</div>	
   </div>  
 
 	<a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close Menu</a>
 	</div>
 </div>
-
-
-
-
-
-<%-- 
-<table>
-    <tr>
-        <td id="header" colspan="2" align="center">
-            <tiles:insertAttribute name="header"></tiles:insertAttribute>
-        </td>
-    </tr>
-    <tr>
-        
-        <td id="body">
-            <tiles:insertAttribute name="body"></tiles:insertAttribute>
-        </td>
-         <td id="login">
-            <tiles:insertAttribute name="login"></tiles:insertAttribute>
-        </td>
-    </tr>
-    <tr>
-        <td id = "footer" colspan="2" align="center">
-            <tiles:insertAttribute name="footer"></tiles:insertAttribute>
-        </td>
-    </tr>
-</table>	 --%>
 
 </body> 
 </html>

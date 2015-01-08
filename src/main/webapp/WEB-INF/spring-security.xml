@@ -9,6 +9,10 @@
 	
 	 <http auto-config="true">
         <intercept-url pattern="/deferral/**" access="ROLE_USER" />
+        <intercept-url pattern="/lecturer/**" access="ROLE_USER" />
+        <intercept-url pattern="/programme/**" access="ROLE_USER" />
+        <intercept-url pattern="/module/**" access="ROLE_USER" />
+        <intercept-url pattern="/student/**" access="ROLE_USER" />
         <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
     </http>
 	
