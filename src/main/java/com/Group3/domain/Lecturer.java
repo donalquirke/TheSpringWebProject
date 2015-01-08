@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 public class Lecturer extends Person {
 
+	private int lecturerAutoId;
 	private String lectId;
 	@Size(min=2, max=10, message="A Lecturer ID cannot have less than 2 characters or greater than 10")
 
@@ -24,6 +25,14 @@ public class Lecturer extends Person {
 
 	public void setLectId(String lectId) {
 		this.lectId = lectId;
+	}
+
+	public int getLecturerAutoId() {
+		return lecturerAutoId;
+	}
+
+	public void setLecturerAutoId(int lecturerAutoId) {
+		this.lecturerAutoId = lecturerAutoId;
 	}
 
 	@Override

@@ -6,8 +6,8 @@
 $(function() {
 $("#modify").click(function(){		
 	var coordinatorId = $("#coordinatorId").val(); 
-	var programmeId=${programme.programmeId};	
-	var url="/programme/modify/programmeId/"+programmeId+"/coordinatorId/"+coordinatorId;
+	var programmeAutoId=${programme.programmeAutoId};	
+	var url="/programme/modify/programmeAutoId/"+programmeAutoId+"/coordinatorId/"+coordinatorId;
 	location.href="<%= request.getContextPath() %>"+url;
 });
 });

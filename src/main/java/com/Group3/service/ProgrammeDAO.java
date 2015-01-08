@@ -26,7 +26,7 @@ public interface ProgrammeDAO {
 	 * This is the method to be used to delete a record from the Programme table
 	 * corresponding to a passed Programme ID.
 	 */
-	public void deleteProgramme(String programmeId);
+	public void deleteProgramme(int programmeAutoId);
 
 	/**
 	 * This is the method to be used to return a student's registered Programme
@@ -45,11 +45,9 @@ public interface ProgrammeDAO {
 	 */
 	public int countRows();
 
-	public Programme getProgramme(String programmeId);
+	public Programme getProgramme(int programmeAutoId);
 
-	void updateProgramme(String programmeId, int numYears,
-			String coordinatorId, int progYear);
-
+	public void updateProgramme(int programmeAutoId, String coordinatorId);
 
 	public int createProgrammeGetId(String programmeId, int numYears,
 			String coordinatorId, int progYear);

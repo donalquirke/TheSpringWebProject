@@ -13,6 +13,7 @@ public class LecturerMapper implements RowMapper {
 	@Override
 	public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		Lecturer lecturer = new Lecturer();
+		lecturer.setLecturerAutoId(rs.getInt("LecturerAutoID"));
 		lecturer.setLectId(rs.getString("Lect_ID"));
 		lecturer.setFirstName(rs.getString("Firstname"));
 		lecturer.setLastName(rs.getString("Surname"));

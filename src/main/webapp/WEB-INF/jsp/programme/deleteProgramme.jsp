@@ -21,7 +21,7 @@
 					<td>${programme.coordinatorId}</td>
 					<td>${programme.progYear}</td>
 					<td><a
-						href="<%= request.getContextPath() %>/programme/delete/programmeId/${status.current.programmeId}"
+						href="<%= request.getContextPath() %>/programme/delete/programmeAutoId/${status.current.programmeAutoId}"
 						class="ui-btn">Delete</a></td>
 				</tr>
 			</c:forEach>

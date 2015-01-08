@@ -26,14 +26,13 @@ public interface StudentDAO {
 	/**
 	 * This is the method to be used to update a student record.
 	 */
-	public void updateStudent(String id, String firstname, String lastname,
-			String email);
+	public void updateStudent(int studentAutoId, String email);
 
 	/**
 	 * This is the method to be used to delete a record from the Student table
 	 * corresponding to a passed Student ID.
 	 */
-	public void deleteStudent(String studId);
+	public void deleteStudent(int studentAutoId);
 
 	/**
 	 * This is the method to be used to create multiple students.
@@ -48,7 +47,7 @@ public interface StudentDAO {
 	/**
 	 * This is the method to be used to get a Student.
 	 */
-	public Student getStudent(String id);
+	public Student getStudent(int studentAutoId);
 
 	/**
 	 * This is the method to be used to list down all the records from the

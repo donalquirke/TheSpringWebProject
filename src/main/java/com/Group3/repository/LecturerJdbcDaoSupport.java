@@ -41,13 +41,13 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void deleteLecturer(String lectId) {
-		String SQL = "delete from lecturer where Lect_ID = ?";
-		getJdbcTemplate().update(SQL, new Object[] { lectId });
+	public void deleteLecturer(int lecturerAutoId) {
+		String SQL = "delete from lecturer where LecturerAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] { lecturerAutoId });
 		return;
 	}
 	
-	@Override
+	@Override // LOSE IT
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void createMultipleLecturers(final List<Lecturer> lecturers) {
 		String SQL = "insert into lecturer (Lect_ID, Firstname, Surname, Lecturer_Email) values (?, ?, ?, ?)";
@@ -74,10 +74,10 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public Lecturer getLecturer(String id) {
-		String SQL = "select * from lecturer where Lect_ID = ?";
+	public Lecturer getLecturer(int lecturerAutoId) {
+		String SQL = "select * from lecturer where LecturerAutoID = ?";
 		Lecturer lecturer= (Lecturer) getJdbcTemplate().queryForObject(SQL, 
-						new Object[]{id}, new LecturerMapper());
+						new Object[]{lecturerAutoId}, new LecturerMapper());
 		return lecturer;
 	}
 
@@ -102,11 +102,10 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void updateLecturer(String lectId, String firstname,
-			String lastname, String email) {
-		String SQL = "update Lecturer set Firstname =?, Surname = ?, Lecturer_Email=? where Lect_ID = ?";
-		getJdbcTemplate().update(SQL, new Object[] {firstname, lastname, email, lectId});
-		System.out.println("Updated record with Lecturer ID: "+ lectId);
+	public void updateLecturer(int lecturerAutoId, String email) {
+		String SQL = "update Lecturer set Lecturer_Email=? where LecturerAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] {email, lecturerAutoId});
+		System.out.println("Updated record with Lecturer ID: "+ lecturerAutoId);
 		return;		
 	}
 

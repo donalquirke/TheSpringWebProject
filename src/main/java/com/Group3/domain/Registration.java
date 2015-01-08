@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 public class Registration {
 
+	private int registrationAutoId;
 	private String studentId;
 	@Size(min=2, max=10, message="A student ID cannot have less than 2 characters or greater than 10")
 	private int crnNumber;
@@ -43,6 +44,14 @@ public class Registration {
 
 	public void setProgrammeId(String programmeId) {
 		this.programmeId = programmeId;
+	}
+
+	public int getRegistrationAutoId() {
+		return registrationAutoId;
+	}
+
+	public void setRegistrationAutoId(int registrationAutoId) {
+		this.registrationAutoId = registrationAutoId;
 	}
 	
 }

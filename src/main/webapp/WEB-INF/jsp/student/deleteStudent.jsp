@@ -21,7 +21,7 @@
 					<td>${student.lastName}</td>
 					<td>${student.email}</td>
 					<td><a
-						href="<%= request.getContextPath() %>/student/delete/studentId/${status.current.studentId}"
+						href="<%= request.getContextPath() %>/student/delete/studentAutoId/${status.current.studentAutoId}"
 						class="ui-btn">Delete</a></td>
 				</tr>
 			</c:forEach>

@@ -2,6 +2,8 @@ package com.Group3.controllers;
 
 import java.util.Date;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,12 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.Group3.domain.Student;
 import com.Group3.service.StudentDAO;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+	
+	Logger logger = Logger.getLogger(StudentController.class);
 	
 	@Autowired
 	StudentDAO studentDAO;
@@ -26,7 +32,7 @@ public class StudentController {
 			model.addAttribute("students", listStudents);
 			model.addAttribute("now", date);
 		    return "displayStudents";			
-		}  //working
+		}  //WORKING
 	
 	@RequestMapping(value="/listById/{studentId}", method = RequestMethod.GET) 
 	public String getStudent(ModelMap model) {			
@@ -41,7 +47,7 @@ public class StudentController {
 	public String createStudent(ModelMap model) {
 		model.addAttribute("student", new Student());
 		return "newStudent";
-	}  //working
+	}  //WORKING
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public String displayStudent(@ModelAttribute("student") Student student, ModelMap model) {
@@ -60,27 +66,27 @@ public class StudentController {
 		}
 
 		return "displayStudent";
-	}  //working
+	}  //WORKING
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteStudent(ModelMap model) {   
 		List<Student> listStudents=studentDAO.listStudents();
 		model.addAttribute("students", listStudents);		
 		return "deleteStudent";
-	} //Working - displaying all students with delete buttons
+	} //WORKING
 	
-	@RequestMapping(value = "/delete/studentId/{studentId}", method = RequestMethod.GET) 
-	public String deleteStudentById(@PathVariable String studentId, ModelMap model) { 
-		Student studentDelete=studentDAO.getStudent(studentId);
-		studentDAO.deleteStudent(studentId);
-		model.addAttribute("message", "Student with Student id "+ studentId +" and details "
+	@RequestMapping(value = "/delete/studentAutoId/{studentAutoId}", method = RequestMethod.GET) 
+	public String deleteStudentById(@PathVariable int studentAutoId, ModelMap model) { 
+		Student studentDelete=studentDAO.getStudent(studentAutoId);
+		studentDAO.deleteStudent(studentAutoId);
+		model.addAttribute("message", "Student with Student id "+ studentAutoId +" and details "
 				+ "below have been deleted from the system");
 		model.addAttribute("studentId", studentDelete.getStudentId());
 		model.addAttribute("firstName", studentDelete.getFirstName());
 		model.addAttribute("lastName", studentDelete.getLastName());
 		model.addAttribute("email", studentDelete.getEmail());
 		return "displayStudent";
-	} // deleting student from database but not displaying the details on screen
+	} // WORKING
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
@@ -91,24 +97,25 @@ public class StudentController {
 		return "modifyStudent";			
 	} //Working - displaying all students with modify buttons
 	
-	@RequestMapping(value = "/modify/studentId/{studentId}", method = RequestMethod.GET) 
-	public String modifyStudent(@PathVariable String studentId, ModelMap model) { 
-		Student studentModify=studentDAO.getStudent(studentId);
-		model.addAttribute("message", "Student with id "+ studentId +" can now be modified");
+	@RequestMapping(value = "/modify/studentAutoId/{studentAutoId}", method = RequestMethod.GET) 
+	public String modifyStudent(@PathVariable int studentAutoId, ModelMap model) { 
+		logger.info("modify");
+		Student studentModify=studentDAO.getStudent(studentAutoId);
+		model.addAttribute("message", "Student with id "+ studentAutoId +" can now be modified");
 		model.addAttribute("student", studentModify);
 		return "modifyStudentForm";	
 	} //Working - displaying student modify form
 	
-	@RequestMapping(value="/modify/studentId/{studentId}/email/{email}", method = RequestMethod.GET) 
-	public String modifyStudent(@PathVariable String studentId, @PathVariable String firstname, 
-			@PathVariable String lastname, @PathVariable String email, ModelMap model) {			
-		studentDAO.updateStudent(studentId, firstname, lastname, email);
-		Student studentModify=studentDAO.getStudent(studentId);
-		model.addAttribute("message", "Student with student id "+ studentId +" has been modified");
-		model.addAttribute("studentId", studentModify.getFirstName());
-		model.addAttribute("lectId", studentModify.getLastName());
-		model.addAttribute("programmeId", studentModify.getEmail());
-		return "displayStudent";		
+	@RequestMapping(value="/modify/studentAutoId/{studentAutoId}/email/{email}", method = RequestMethod.GET) 
+	public ModelAndView modifyStudent(@PathVariable int studentAutoId, @PathVariable String email, ModelMap model) {
+		logger.debug("update request");
+		ModelAndView modelAndView = new ModelAndView();
+		studentDAO.updateStudent(studentAutoId, email);
+		Student studentModify=studentDAO.getStudent(studentAutoId);
+		model.addAttribute("message", "Student with student id "+ studentAutoId +" has been modified");
+		modelAndView.addObject("student", studentModify);
+		modelAndView.setViewName("displayStudent");
+		return modelAndView;		
 	} //NOT WORKING - not updating database
 	
 }

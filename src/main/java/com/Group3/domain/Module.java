@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 public class Module {
 
+	private int ModuleAutoId;
 	private String moduleId;
 	@Size(min=2, max=15, message="A Module ID cannot have less than 2 characters or greater than 15")
 	private int crnNumber;
@@ -65,6 +66,16 @@ public class Module {
 	public String getSemesterId() {
 		return semesterId;
 	}
+
+	public int getModuleAutoId() {
+		return ModuleAutoId;
+	}
+
+
+	public void setModuleAutoId(int moduleAutoId) {
+		ModuleAutoId = moduleAutoId;
+	}
+
 
 	public void setSemesterId(String semesterId) {
 		this.semesterId = semesterId;

@@ -68,7 +68,7 @@ public class DeferralController {
 			model.addAttribute("deferrals", listDeferrals);
 			model.addAttribute("now", date);
 		    return "displayDeferrals";			
-	}    
+	}  //WORKING  
 		
 	@RequestMapping(value="/programme/{programmeID}", method = RequestMethod.GET) 
 	public String listDeferralsByProgramme(@PathVariable("programmeID") String programmeID, ModelMap model){
@@ -124,13 +124,13 @@ public class DeferralController {
 		modelAndView.setViewName("addNewDeferralForStudent");
 		
 		return modelAndView;
-	}
+	} //
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
 	public String addNewDeferral(ModelMap model) {
 		model.addAttribute("deferral", new Deferral());
 		return "newDeferral";
-	} 
+	} //WORKING
 
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public ModelAndView displayDeferral(@ModelAttribute("deferral") @Valid Deferral deferral, 
@@ -200,7 +200,7 @@ public class DeferralController {
 		}
 		returnModel.setViewName("displayDeferral");
 		return returnModel;
-	}
+	} //WORKING
 	
 	@RequestMapping(value = "/downloadImage/{defId}", method = RequestMethod.GET) 
 	public @ResponseBody void downloadImageDeferral(@PathVariable int defId, HttpServletRequest request, HttpServletResponse response) {   
@@ -259,7 +259,7 @@ public class DeferralController {
 		List<Deferral> listDeferrals=deferralDAO.listDeferrals();
 		model.addAttribute("deferrals", listDeferrals);		
 		return "delete";
-	}
+	} //WORKING
 	
 	@RequestMapping(value = "/delete/defId/{defId}", method = RequestMethod.GET) 
 	public String deleteDeferralById(@PathVariable int defId, ModelMap model) { 
@@ -273,7 +273,7 @@ public class DeferralController {
 		model.addAttribute("moduleId", deferralDelete.getModuleId());
 		model.addAttribute("approval", deferralDelete.getApproval());
 		return "displayDeferral";
-	}
+	} //WORKING
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
@@ -282,7 +282,7 @@ public class DeferralController {
 		model.addAttribute("deferrals", listDeferrals);
 		model.addAttribute("now", date);
 		return "modify";			
-	}
+	} //WORKING
 	
 	@RequestMapping(value = "/modify/defId/{defId}", method = RequestMethod.GET) 
 	public String modifyDeferral(@PathVariable int defId, ModelMap model) { 
@@ -291,7 +291,7 @@ public class DeferralController {
 		model.addAttribute("message", "Deferral with id "+ defId +" can now be modified");
 		model.addAttribute("deferral", deferralModify);
 		return "modifyForm";	
-	}
+	} //WORKING
 	
 	@RequestMapping(value="/modify/defId/{defId}/approval/{approval}", method = RequestMethod.GET) 
 	public ModelAndView modifyDeferral(@PathVariable int defId, @PathVariable String approval,  ModelMap model) {			
@@ -329,15 +329,15 @@ public class DeferralController {
 	
 	}
 	
-	@RequestMapping(value={"/getModuleDetails"})
+	/**@RequestMapping(value={"/getModuleDetails"})
 	@ResponseBody
 	public Lecturer getModuleDetails(@RequestParam String combindedKey) { 
 		logger.info("getModuleDetails");
 		String combindedKeyArray[] = combindedKey.split("-");
 		
 		Module module = moduleDAO.getModule(combindedKeyArray[0], Integer.parseInt(combindedKeyArray[1]));
-		Lecturer lecturer = lecturerDAO.getLecturer(module.getLectId());
+		Lecturer lecturer = lecturerDAO.getLecturer(module.getLect());
 		return lecturer;
 	
-	}
+	}**/
 }

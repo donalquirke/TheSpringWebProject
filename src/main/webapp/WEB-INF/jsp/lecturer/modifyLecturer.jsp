@@ -22,7 +22,7 @@
 					<td>${lecturer.lastName}</td>
 					<td>${lecturer.email}</td>
 					<td><a
-						href="<%= request.getContextPath() %>/lecturer/modify/lectId/${status.current.lectId}"
+						href="<%= request.getContextPath() %>/lecturer/modify/lecturerAutoId/${status.current.lecturerAutoId}"
 						class="ui-btn">Modify</a></td>
 				</tr>
 			</c:forEach>

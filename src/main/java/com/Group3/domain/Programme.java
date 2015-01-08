@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 public class Programme {
 
+	private int programmeAutoId;
 	private String programmeId;
 	@Size(min=2, max=15, message="A Programme ID cannot have less than 2 characters or greater than 15")
 	private int numYears;
@@ -53,6 +54,14 @@ public class Programme {
 
 	public void setProgYear(int progYear) {
 		this.progYear = progYear;
+	}
+
+	public int getProgrammeAutoId() {
+		return programmeAutoId;
+	}
+
+	public void setProgrammeAutoId(int programmeAutoId) {
+		this.programmeAutoId = programmeAutoId;
 	}
 
 }

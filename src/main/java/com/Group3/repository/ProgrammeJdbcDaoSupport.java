@@ -76,10 +76,10 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void deleteProgramme(String programmeId) {
-		String SQL = "delete from programme where Programme_ID like ?";
-		String allProgrammeYears=programmeId +"%";
-		getJdbcTemplate().update(SQL, new Object[] { allProgrammeYears});
+	public void deleteProgramme(int programmeAutoId) {
+		String SQL = "delete from programme where ProgrammeAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] { programmeAutoId});
+		System.out.println("deleted record id: "+ programmeAutoId);
 		return;
 	}
 	
@@ -112,19 +112,18 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public Programme getProgramme(String programmeId) {
-		String SQL = "select * from programme where Programme_ID = ?";
-		Programme programme = (Programme) getJdbcTemplate().queryForObject(SQL, new Object[]{programmeId}, new ProgrammeMapper());
+	public Programme getProgramme(int programmeAutoId) {
+		String SQL = "select * from programme where ProgrammeAutoID = ?";
+		Programme programme = (Programme) getJdbcTemplate().queryForObject(SQL, new Object[]{programmeAutoId}, new ProgrammeMapper());
 		return programme;
 	}
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void updateProgramme(String programmeId, int numYears, String coordinatorId,
-			int progYear) {
-		String SQL = "update Programme set Num_Years =?, Coord_ID = ?, Prog_Year =? where Programme_ID = ?";
-		getJdbcTemplate().update(SQL, new Object[] {numYears, coordinatorId, progYear, programmeId});
-		System.out.println("Updated record with Programme ID: "+ programmeId);
+	public void updateProgramme(int programmeAutoId, String coordinatorId) {
+		String SQL = "update Programme set Coord_ID = ? where ProgrammeAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] {coordinatorId, programmeAutoId});
+		System.out.println("Updated record with Programme ID: "+ programmeAutoId);
 		return;		
 	}
 

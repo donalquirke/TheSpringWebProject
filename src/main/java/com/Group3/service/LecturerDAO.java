@@ -26,7 +26,7 @@ public interface LecturerDAO {
 	/**
 	 * This is the method to be used to delete a record from the Lecturer table.
 	 */
-	public void deleteLecturer(String lectId);
+	public void deleteLecturer(int lecturerAutoId);
 
 	/**
 	 * This is the method to be used to create multiple lecturers.
@@ -36,7 +36,7 @@ public interface LecturerDAO {
 	/**
 	 * This is the method to be used to get a specific Lecturer.
 	 */
-	public Lecturer getLecturer(String id);
+	public Lecturer getLecturer(int lecturerAutoId);
 
 	/**
 	 * This is the method to be used to list down all the records from the
@@ -49,8 +49,7 @@ public interface LecturerDAO {
 	 */
 	public int countRows();
 
-	public void updateLecturer(String lectId, String firstname,
-			String lastname, String email);
+	public void updateLecturer(int lecturerAutoId, String email);
 
 	public int createLecturerGetId(String lectId, String firstName,
 			String lastName, String email);

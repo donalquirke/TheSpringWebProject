@@ -22,7 +22,7 @@
 	  				<td>${programme.coordinatorId}</td>
 	  				<td>${programme.progYear}</td>
 					<td><a
-						href="<%= request.getContextPath() %>/programme/modify/programmeId/${status.current.programmeId}"
+						href="<%= request.getContextPath() %>/programme/modify/programmeAutoId/${status.current.programmeAutoId}"
 						class="ui-btn">Modify</a></td>
 				</tr>
 			</c:forEach>

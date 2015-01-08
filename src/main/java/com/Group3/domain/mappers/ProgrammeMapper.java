@@ -13,6 +13,7 @@ public class ProgrammeMapper implements RowMapper {
 	@Override
 	public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		Programme programme = new Programme();
+		programme.setProgrammeAutoId(rs.getInt("ProgrammeAutoID"));
 		programme.setProgrammeId(rs.getString("Programme_ID"));
 		programme.setNumYears(rs.getInt("Num_Years"));
 		programme.setCoordinatorId(rs.getString("Coord_ID"));

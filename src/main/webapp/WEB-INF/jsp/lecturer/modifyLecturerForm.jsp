@@ -6,8 +6,8 @@
 $(function() {
 $("#modify").click(function(){		
 	var email = $("#email").val(); 
-	var lectId=${lecturer.lectId};	
-	var url="/lecturer/modify/lectId/"+lectId+"/email/"+email;
+	var lectId=${lecturer.lecturerAutoId};	
+	var url="/lecturer/modify/lecturerAutoId/"+lectId+"/email/"+email;
 	location.href="<%= request.getContextPath() %>"+url;
 });
 });
