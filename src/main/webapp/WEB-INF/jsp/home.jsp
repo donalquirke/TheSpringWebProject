@@ -6,13 +6,13 @@
 <title>Welcome page</title>
 </head>
 <body>
-
+<img alt=CitCloud" src="resources/images/citcloud.jpg" width="950" height="150">
 <div id="messageTest">
 <h3>Cork Institute of Technology - Deferral System</h3>
 <h5>${message}</h5>
 
 </div>
-
+ 
 <table>
 <tr>
 	<td class="deferralDescription">CIT are currently accepting applications for deferral of modules. 
@@ -27,11 +27,14 @@
 <td><a href="#"><img alt="DeferralApply" src="resources/images/deferProgramme.png" width="180" height="40"></a></td>
 </tr>
 
+<!-- 
 <tr>
 	<td class="deferralDescription">To send an email please click here</td>
 	<td><a href="createEmail"><img alt="ContactUs" src="resources/images/contactBtn.png" width="180" height="40"></a></td>
-</tr>
+</tr>  -->
 
 </table>
+
+
 </body>
 </html>
