@@ -29,7 +29,7 @@
 
 <tr>
 	<td class="deferralDescription">To send an email please click here</td>
-	<td><a href="createEmail"><img alt="DeferralApply" src="resources/images/deferProgramme.png" width="180" height="40"></a></td>
+	<td><a href="createEmail"><img alt="ContactUs" src="resources/images/contactBtn.png" width="180" height="40"></a></td>
 </tr>
 
 </table>
