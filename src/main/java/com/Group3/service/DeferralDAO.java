@@ -21,8 +21,8 @@ public interface DeferralDAO {
 	 * This is the method to be used to create a Deferral entry and return the
 	 * id generated.
 	 */
-	public int createDeferralGetId(String studentID, String lectID,
-			String progID, String moduleID, String approval);
+	public int createDeferralGetId(int studentAutoID, String lectID,
+			int programmeAutoID, int moduleAutoID, String approval);
 
 	/**
 	 * This is the method to be used to create a Module Deferral.
@@ -65,7 +65,7 @@ public interface DeferralDAO {
 	 * This is the method to be used to list all deferrals of a particular
 	 * student.
 	 */
-	public List<Deferral> listDeferralsByStudent(String studentID);
+	public List<Deferral> listDeferralsByStudent(int studentAutoID);
 
 	/**
 	 * This is the method to be used to list all deferrals of a particular
@@ -118,6 +118,10 @@ public interface DeferralDAO {
 	 * This is the method used to count the rows in the table.
 	 */	
 	public int countRows();
+
+	void createModuleDeferral(int studentAutoID, String moduleId, int crnNumber);
+
+	void createProgrammeDeferral(int studentAutoID, String programmeId);
 
 	
 }

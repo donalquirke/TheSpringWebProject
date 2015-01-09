@@ -5,45 +5,45 @@ import javax.validation.constraints.Size;
 public class Registration {
 
 	private int registrationAutoId;
-	private String studentId;
+	private int studentAutoID;
 	@Size(min=2, max=10, message="A student ID cannot have less than 2 characters or greater than 10")
-	private int crnNumber;
-	private String programmeId;
+	private int moduleAutoID;
+	private int programmeAutoID;
 	@Size(min=2, max=15, message="A Programme ID cannot have less than 2 characters or greater than 15")
 	
-	public Registration(String studentId, int crnNumber, String programmeId) {
+	public Registration(int studentAutoID, int moduleAutoID, int programmeAutoID) {
 		super();
-		this.studentId = studentId;
-		this.crnNumber = crnNumber;
-		this.programmeId = programmeId;
+		this.studentAutoID = studentAutoID;
+		this.moduleAutoID = moduleAutoID;
+		this.programmeAutoID = programmeAutoID;
 	}
 
 	public Registration() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public int getStudentAutoID() {
+		return studentAutoID;
 	}
 
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setStudentAutoID(int studentAutoID) {
+		this.studentAutoID = studentAutoID;
 	}
 
-	public int getCrnNumber() {
-		return crnNumber;
+	public int getModuleAutoID() {
+		return moduleAutoID;
 	}
 
-	public void setCrnNumber(int crnNumber) {
-		this.crnNumber = crnNumber;
+	public void setModuleAutoID(int moduleAutoID) {
+		this.moduleAutoID = moduleAutoID;
 	}
 
-	public String getProgrammeId() {
-		return programmeId;
+	public int getProgrammeAutoID() {
+		return programmeAutoID;
 	}
 
-	public void setProgrammeId(String programmeId) {
-		this.programmeId = programmeId;
+	public void setProgrammeAutoID(int programmeAutoID) {
+		this.programmeAutoID = programmeAutoID;
 	}
 
 	public int getRegistrationAutoId() {

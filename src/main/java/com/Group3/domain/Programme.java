@@ -1,5 +1,8 @@
 package com.Group3.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.Size;
 
 public class Programme {
@@ -8,18 +11,20 @@ public class Programme {
 	private String programmeId;
 	@Size(min=2, max=15, message="A Programme ID cannot have less than 2 characters or greater than 15")
 	private int numYears;
-	private String coordinatorId;
+	private int lecturerAutoID;
 	private int progYear;
+	
+	private List<Lecturer> lecturerList = new ArrayList<>();
 
 	public Programme() {
 		// Blank Contructor
 	}
 
-	public Programme(String programmeId, int numYears, String coordinatorId, int progYear) {
+	public Programme(String programmeId, int numYears, int lecturerAutoID, int progYear) {
 		super();
 		this.programmeId = programmeId;
 		this.numYears = numYears;
-		this.coordinatorId = coordinatorId;
+		this.lecturerAutoID = lecturerAutoID;
 		this.progYear = progYear;
 	}
 
@@ -39,12 +44,12 @@ public class Programme {
 		this.numYears = numYears;
 	}
 
-	public String getCoordinatorId() {
-		return coordinatorId;
+	public int getLecturerAutoID() {
+		return lecturerAutoID;
 	}
 
-	public void setCoordinatorId(String coordinatorId) {
-		this.coordinatorId = coordinatorId;
+	public void setLecturerAutoID(int lecturerAutoID) {
+		this.lecturerAutoID = lecturerAutoID;
 	}
 
 
@@ -62,6 +67,14 @@ public class Programme {
 
 	public void setProgrammeAutoId(int programmeAutoId) {
 		this.programmeAutoId = programmeAutoId;
+	}
+
+	public List<Lecturer> getLecturerList() {
+		return lecturerList;
+	}
+
+	public void setLecturerList(List<Lecturer> lecturerList) {
+		this.lecturerList = lecturerList;
 	}
 
 }

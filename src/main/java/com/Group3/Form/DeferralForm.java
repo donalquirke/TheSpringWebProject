@@ -14,7 +14,7 @@ import com.Group3.domain.Programme;
 public class DeferralForm {
 
 	private int defId;
-	private String studentId;
+	private int studentAutoID;
 	private List<Programme> programmeList = new ArrayList<>();
 	private List<Module> moduleList = new ArrayList<>();
 	private List<Lecturer> lectList = new ArrayList<>();
@@ -24,11 +24,11 @@ public class DeferralForm {
 	public void setDefId(int defId) {
 		this.defId = defId;
 	}
-	public String getStudentId() {
-		return studentId;
+	public int getStudentAutoID() {
+		return studentAutoID;
 	}
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setStudentAutoID(int studentAutoID) {
+		this.studentAutoID = studentAutoID;
 	}
 	public List<Programme> getProgrammeList() {
 		return programmeList;

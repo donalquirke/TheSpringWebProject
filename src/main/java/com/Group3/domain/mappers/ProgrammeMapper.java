@@ -16,7 +16,7 @@ public class ProgrammeMapper implements RowMapper {
 		programme.setProgrammeAutoId(rs.getInt("ProgrammeAutoID"));
 		programme.setProgrammeId(rs.getString("Programme_ID"));
 		programme.setNumYears(rs.getInt("Num_Years"));
-		programme.setCoordinatorId(rs.getString("Coord_ID"));
+		programme.setLecturerAutoID(rs.getInt("LecturerAutoID"));
 		programme.setProgYear(rs.getInt("Prog_Year"));
 		return programme;
 

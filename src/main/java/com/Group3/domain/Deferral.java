@@ -6,13 +6,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class Deferral {
 
 	private int defId;
-	private String studentId;
+	private int studentAutoID;
 	@Size(min=2, max=10, message="A student ID cannot have less than 2 characters or greater than 10")
 	private String lectId;
 	@Size(min=2, max=20)
-	private String programmeId;
+	private int programmeAutoID;
 	@Size(min=2, max=10)
-	private String moduleId;
+	private int moduleAutoID;
 	private String approval;
 	private MultipartFile file;
 
@@ -20,14 +20,14 @@ public class Deferral {
 		// Blank Constructor
 	}
 
-	public Deferral(int defId, String studentId, String lectId,
-			String programmeId, String moduleId) {
+	public Deferral(int defId, int studentAutoID, String lectId,
+			int programmeAutoID, int moduleAutoID) {
 		super();
 		this.defId = defId;
-		this.studentId = studentId;
+		this.studentAutoID = studentAutoID;
 		this.lectId = lectId;
-		this.programmeId = programmeId;
-		this.moduleId = moduleId;
+		this.programmeAutoID = programmeAutoID;
+		this.moduleAutoID = moduleAutoID;
 	}
 
 	public int getDefId() {
@@ -38,12 +38,12 @@ public class Deferral {
 		this.defId = defId;
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public int getStudentAutoID() {
+		return studentAutoID;
 	}
 
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setStudentAutoID(int studentAutoID) {
+		this.studentAutoID = studentAutoID;
 	}
 
 	public String getLectId() {
@@ -54,20 +54,20 @@ public class Deferral {
 		this.lectId = lectId;
 	}
 
-	public String getProgrammeId() {
-		return programmeId;
+	public int getProgrammeAutoID() {
+		return programmeAutoID;
 	}
 
-	public void setProgrammeId(String programmeId) {
-		this.programmeId = programmeId;
+	public void setProgrammeAutoID(int programmeAutoID) {
+		this.programmeAutoID = programmeAutoID;
 	}
 
-	public String getModuleId() {
-		return moduleId;
+	public int getModuleAutoID() {
+		return moduleAutoID;
 	}
 
-	public void setModuleId(String moduleId) {
-		this.moduleId = moduleId;
+	public void setModuleAutoID(int moduleAutoID) {
+		this.moduleAutoID = moduleAutoID;
 	}
 
 	public String getApproval() {

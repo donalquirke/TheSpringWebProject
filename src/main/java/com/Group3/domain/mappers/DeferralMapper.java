@@ -14,10 +14,10 @@ public class DeferralMapper implements RowMapper {
 	public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		Deferral deferral = new Deferral();
 		deferral.setDefId(rs.getInt("Def_ID"));
-		deferral.setStudentId(rs.getString("Student_ID"));
+		deferral.setStudentAutoID(rs.getInt("StudentAutoID"));
 		deferral.setLectId(rs.getString("Lect_ID"));
-		deferral.setProgrammeId(rs.getString("Programme_ID"));
-		deferral.setModuleId(rs.getString("Module_ID"));
+		deferral.setProgrammeAutoID(rs.getInt("ProgrammeAutoID"));
+		deferral.setModuleAutoID(rs.getInt("ModuleAutoID"));
 		deferral.setApproval(rs.getString("Approved"));
 		return deferral;
 

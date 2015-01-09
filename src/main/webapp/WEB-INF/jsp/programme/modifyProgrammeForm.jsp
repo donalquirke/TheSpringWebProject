@@ -5,9 +5,9 @@
 <script type="text/javascript">
 $(function() {
 $("#modify").click(function(){		
-	var coordinatorId = $("#coordinatorId").val(); 
+	var lecturerAutoID = $("#lecturerAutoID").val(); 
 	var programmeAutoId=${programme.programmeAutoId};	
-	var url="/programme/modify/programmeAutoId/"+programmeAutoId+"/coordinatorId/"+coordinatorId;
+	var url="/programme/modify/programmeAutoId/"+programmeAutoId+"/lecturerAutoID/"+lecturerAutoID;
 	location.href="<%= request.getContextPath() %>"+url;
 });
 });
@@ -30,8 +30,8 @@ $("#modify").click(function(){
  		</div>
  
  		<div class="ui-field-contain">
- 			<form:label path="coordinatorId">Coordinator ID</form:label>
- 			<form:input path="coordinatorId" value="${programme.coordinatorId}"
+ 			<form:label path="lecturerAutoID">Coordinator ID</form:label>
+ 			<form:input path="lecturerAutoID" value="${programme.lecturerAutoID}"
 				 />
  		</div>
  

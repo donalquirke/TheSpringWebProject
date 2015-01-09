@@ -42,7 +42,7 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 	/**
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void createProgramme(String programmeId, int numYears, String coordinatorId, String startMonth) {
+	public void createProgramme(String programmeId, int numYears, int lecturerAutoID, String startMonth) {
 		
 		for (int x=0;x<numYears; x++){
 		int progYear=x+1;
@@ -55,7 +55,7 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		
 		//Create Programme 
 		String SQL = "insert into programme (Programme_ID, Num_Years, Coord_ID, Prog_Year) values (?, ?, ?, ?)";
-		getJdbcTemplate().update(SQL,new Object[] { programmeIdFormatted, numYears, coordinatorId, progYear  });
+		getJdbcTemplate().update(SQL,new Object[] { programmeIdFormatted, numYears, lecturerAutoID, progYear  });
 		
 		//Need to create entries in Semester Table
 		String SQL2 = "insert into semester (Semester_ID, Programme_ID, StartDate, FinishDate) values (?, ?, ?, ?)";
@@ -120,31 +120,24 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void updateProgramme(int programmeAutoId, String coordinatorId) {
-		String SQL = "update Programme set Coord_ID = ? where ProgrammeAutoID = ?";
-		getJdbcTemplate().update(SQL, new Object[] {coordinatorId, programmeAutoId});
+	public void updateProgramme(int programmeAutoId, int lecturerAutoID) {
+		String SQL = "update Programme set LecturerAutoID = ? where ProgrammeAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] {lecturerAutoID, programmeAutoId});
 		System.out.println("Updated record with Programme ID: "+ programmeAutoId);
 		return;		
-	}
-
-	@Override
-	public void createProgramme(String programmeId, int numYears,
-			String coordinatorId, String startMonth) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public int createProgrammeGetId(String programmeId, int numYears,
-			String coordinatorId, int progYear) {
-		String SQL = "insert into programme (Programme_ID, Num_Years, Coord_ID, Prog_Year) values (?, ?, ?,?)";
+			int lecturerAutoID, int progYear) {
+		String SQL = "insert into programme (Programme_ID, Num_Years, LecturerAutoID, Prog_Year) values (?, ?, ?,?)";
 		
-		Object[] params=new Object[]{programmeId, numYears, coordinatorId, progYear};
+		Object[] params=new Object[]{programmeId, numYears, lecturerAutoID, progYear};
 		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
 		psc.addParameter(new SqlParameter("Programme_ID", Types.VARCHAR));
 		psc.addParameter(new SqlParameter("Num_Years", Types.VARCHAR));
-		psc.addParameter(new SqlParameter("Coord_ID", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("LecturerAutoID", Types.VARCHAR));
 		psc.addParameter(new SqlParameter("Prog_Year", Types.VARCHAR));
 		
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -153,6 +146,13 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		
 		String key = holder.getKey().toString();
 		return Integer.parseInt(key);
+	}
+
+	@Override
+	public void createProgramme(String programmeId, int numYears,
+			String coordinatorId, String startMonth) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

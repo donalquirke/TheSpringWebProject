@@ -86,11 +86,11 @@ public class DeferralController {
 	    return "searchDeferral";
 	}
 	
-	@RequestMapping(value="/search/{studentID}", method = RequestMethod.GET) 
-	public String listDeferralsByStudent(@PathVariable("studentID") String studentID, ModelMap model){
-		logger.debug("search by ID");
+	@RequestMapping(value="/search/studentAutoID/{studentAutoID}", method = RequestMethod.GET) 
+	public String listDeferralsByStudent(@PathVariable("studentAutoID") int studentAutoID, ModelMap model){
+		logger.debug("search by Id");
 		Date date = new java.util.Date();	
-		List <Deferral> deferrals=deferralDAO.listDeferralsByStudent(studentID);
+		List <Deferral> deferrals=deferralDAO.listDeferralsByStudent(studentAutoID);
 		model.addAttribute("deferrals", deferrals);
 		model.addAttribute("now", date);
 	    return "displayDeferrals";	
@@ -161,8 +161,8 @@ public class DeferralController {
 		            try {
 		            		
 		            	
-			        	int defId = deferralDAO.createDeferralGetId(deferral.getStudentId(), deferral.getLectId(),
-		            			deferral.getProgrammeId(), deferral.getModuleId(), deferral.getApproval());
+			        	int defId = deferralDAO.createDeferralGetId(deferral.getStudentAutoID(), deferral.getLectId(),
+		            			deferral.getProgrammeAutoID(), deferral.getModuleAutoID(), deferral.getApproval());
 		            	logger.debug("new Deferral created with Id:" + defId);
 		            	deferral.setDefId(defId); //update deferral with new ID
 		            	returnModel.addObject("deferral", deferral);  //add the deferral to the new model
@@ -329,10 +329,10 @@ public class DeferralController {
 		deferralDAO.deleteDeferralById(defId);
 		model.addAttribute("message", "Deferral with deferral id "+ defId +" and details "
 				+ "below have been deleted from the system");
-		model.addAttribute("studentId", deferralDelete.getStudentId());
+		model.addAttribute("studentAutoID", deferralDelete.getStudentAutoID());
 		model.addAttribute("lectId", deferralDelete.getLectId());
-		model.addAttribute("programmeId", deferralDelete.getProgrammeId());
-		model.addAttribute("moduleId", deferralDelete.getModuleId());
+		model.addAttribute("programmeId", deferralDelete.getProgrammeAutoID());
+		model.addAttribute("moduleId", deferralDelete.getModuleAutoID());
 		model.addAttribute("approval", deferralDelete.getApproval());
 		return "displayDeferral";
 	} //WORKING

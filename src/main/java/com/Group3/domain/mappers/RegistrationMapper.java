@@ -14,9 +14,9 @@ public class RegistrationMapper implements RowMapper {
 	public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		Registration registration = new Registration();
 		registration.setRegistrationAutoId(rs.getInt("RegistrationAutoID"));
-		registration.setStudentId(rs.getString("Student_ID"));
-		registration.setCrnNumber(rs.getInt("CRN"));
-		registration.setProgrammeId(rs.getString("Programme_ID"));
+		registration.setStudentAutoID(rs.getInt("StudentAutoID"));
+		registration.setModuleAutoID(rs.getInt("ModuleAutoID"));
+		registration.setProgrammeAutoID(rs.getInt("ProgrammeAutoID"));
 		return registration;
 
 	}

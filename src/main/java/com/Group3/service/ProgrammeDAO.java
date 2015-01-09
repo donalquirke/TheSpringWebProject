@@ -47,10 +47,10 @@ public interface ProgrammeDAO {
 
 	public Programme getProgramme(int programmeAutoId);
 
-	public void updateProgramme(int programmeAutoId, String coordinatorId);
+	public void updateProgramme(int programmeAutoId, int lecturerAutoID);
 
 	public int createProgrammeGetId(String programmeId, int numYears,
-			String coordinatorId, int progYear);
+			int lecturerAutoID, int progYear);
 
 	public List<Programme> listProgrammeByStudentID(String studentID);
 }

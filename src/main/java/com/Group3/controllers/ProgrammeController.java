@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Group3.domain.Lecturer;
 import com.Group3.domain.Programme;
 import com.Group3.domain.Student;
+import com.Group3.service.LecturerDAO;
 import com.Group3.service.ProgrammeDAO;
 import com.Group3.service.StudentDAO;
 
@@ -26,6 +28,9 @@ public class ProgrammeController {
 	
 	@Autowired
 	ProgrammeDAO programmeDAO;
+	
+	@Autowired
+	LecturerDAO lecturerDAO;
 	
 	@RequestMapping(value="/listProgrammes", method = RequestMethod.GET) 
 	public String listAll(ModelMap model) {			
@@ -46,29 +51,39 @@ public class ProgrammeController {
 		}
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
-	public String createProgramme(ModelMap model) {
+	public ModelAndView createProgramme(ModelMap model) {
+		logger.debug("addNew Programme");
+		ModelAndView modelAndView = new ModelAndView();
+		List<Lecturer> lecturerList=lecturerDAO.listLecturers();
+		System.out.println("list: " +lecturerList);
 		model.addAttribute("programme", new Programme());
-		return "newProgramme";
-	}  //working
+		//modelAndView.addObject("lecturerList", lecturerList);
+		modelAndView.setViewName("newProgramme");
+		return modelAndView;
+	}  //
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
-	public String displayProgramme(@ModelAttribute("programme") Programme programme, ModelMap model) {
-
+	public ModelAndView displayProgramme(@ModelAttribute("programme") Programme programme, ModelMap model) {
+		logger.debug("programme add form");
+		ModelAndView modelAndView = new ModelAndView();
+		List<Lecturer> lecturerList=lecturerDAO.listLecturers();
+		System.out.println("list: " +lecturerList);
 		model.addAttribute("programmeId", programme.getProgrammeId());
 		model.addAttribute("numYears", programme.getNumYears());	
-		model.addAttribute("coordinatorId", programme.getCoordinatorId());
+		model.addAttribute("lecturerAutoID", programme.getLecturerAutoID());
+		modelAndView.addObject("lecturerList", lecturerList);
 		model.addAttribute("progYear", programme.getProgYear());
 		model.addAttribute("message", "The following programme has been added to the system");
 
 		try {
 			int programmeId=programmeDAO.createProgrammeGetId(programme.getProgrammeId(), 
-					programme.getNumYears(), programme.getCoordinatorId(), programme.getProgYear());
+					programme.getNumYears(), programme.getLecturerAutoID(), programme.getProgYear());
 			model.addAttribute("programmeId", Integer.toString(programmeId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return "displayProgramme";
+		modelAndView.setViewName("displayProgramme");
+		return modelAndView;
 	}  //NOT WORKING - FOREIGN KEY RESTRAINT
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
@@ -86,7 +101,7 @@ public class ProgrammeController {
 				+ "below have been deleted from the system");
 		model.addAttribute("programmeId", programmeDelete.getProgrammeId());
 		model.addAttribute("numYears", programmeDelete.getNumYears());
-		model.addAttribute("coordinatorId", programmeDelete.getCoordinatorId());
+		model.addAttribute("lecturerAutoID", programmeDelete.getLecturerAutoID());
 		model.addAttribute("progYear", programmeDelete.getProgYear());
 		return "displayProgramme";
 	}
@@ -109,11 +124,11 @@ public class ProgrammeController {
 		return "modifyProgrammeForm";	
 	}  // WORKING
 	
-	@RequestMapping(value="/modify/programmeAutoId/{programmeAutoId}/coordinatorId/{coordinatorId}", method = RequestMethod.GET) 
-	public ModelAndView modifyProgramme(@PathVariable int programmeAutoId, @PathVariable String coordinatorId, ModelMap model) {			
+	@RequestMapping(value="/modify/programmeAutoId/{programmeAutoId}/lecturerAutoID/{lecturerAutoID}", method = RequestMethod.GET) 
+	public ModelAndView modifyProgramme(@PathVariable int programmeAutoId, @PathVariable int lecturerAutoID, ModelMap model) {			
 		logger.debug("update request");
 		ModelAndView modelAndView = new ModelAndView();
-		programmeDAO.updateProgramme(programmeAutoId, coordinatorId);
+		programmeDAO.updateProgramme(programmeAutoId, lecturerAutoID);
 		Programme programmeModify=programmeDAO.getProgramme(programmeAutoId);
 		model.addAttribute("message", "Programme with programme id "+ programmeAutoId +" has been modified");
 		modelAndView.addObject("programme", programmeModify);

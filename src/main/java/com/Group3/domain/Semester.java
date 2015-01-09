@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 public class Semester {
 
 	private String semesterId;
-	private String programmeId;
+	private int programmeAutoID;
 	@Size(min=2, max=15, message="A Programme ID cannot have less than 2 characters or greater than 15")
 	private String startMonth;
 	private String endMonth;
@@ -14,11 +14,11 @@ public class Semester {
 		// Blank Constructor
 	}
 
-	public Semester(String semesterId, String programmeId, String startMonth,
+	public Semester(String semesterId, int programmeAutoID, String startMonth,
 			String endMonth) {
 		super();
 		this.semesterId = semesterId;
-		this.programmeId = programmeId;
+		this.programmeAutoID = programmeAutoID;
 		this.startMonth = startMonth;
 		this.endMonth = endMonth;
 	}
@@ -31,12 +31,12 @@ public class Semester {
 		this.semesterId = semesterId;
 	}
 
-	public String getProgrammeId() {
-		return programmeId;
+	public int getProgrammeAutoID() {
+		return programmeAutoID;
 	}
 
-	public void setProgrammeId(String programmeId) {
-		this.programmeId = programmeId;
+	public void setProgrammeAutoID(int programmeAutoID) {
+		this.programmeAutoID = programmeAutoID;
 	}
 
 	public String getStartMonth() {

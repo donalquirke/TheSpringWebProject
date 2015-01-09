@@ -19,7 +19,7 @@
 				<tr>
 					<td>${programme.programmeId}</td>
 	  				<td>${programme.numYears}</td>
-	  				<td>${programme.coordinatorId}</td>
+	  				<td>${programme.lecturerAutoID}</td>
 	  				<td>${programme.progYear}</td>
 					<td><a
 						href="<%= request.getContextPath() %>/programme/modify/programmeAutoId/${status.current.programmeAutoId}"

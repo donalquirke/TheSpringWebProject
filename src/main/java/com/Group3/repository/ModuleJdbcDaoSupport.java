@@ -132,7 +132,7 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 		String SQL2="SELECT * from semester"
 				+ " WHERE Semester_ID=?";
 		semesterList = getJdbcTemplate().query(SQL2, new Object[] {semesterId}, new SemesterMapper());
-		String moduleProgramme=semesterList.get(0).getProgrammeId();
+		int moduleProgramme=semesterList.get(0).getProgrammeAutoID();
 		
 		/*Now that we have the correct programme ID.
 		Excecute insert statement*/ 

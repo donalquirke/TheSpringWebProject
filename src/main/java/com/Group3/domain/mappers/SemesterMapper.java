@@ -14,7 +14,7 @@ public class SemesterMapper implements RowMapper {
 	public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		Semester semester = new Semester();
 		semester.setSemesterId(rs.getString("Semester_ID"));
-		semester.setProgrammeId(rs.getString("Programme_ID"));
+		semester.setProgrammeAutoID(rs.getInt("ProgrammeAutoID"));
 		semester.setStartMonth(rs.getString("StartDate"));
 		semester.setEndMonth(rs.getString("FinishDate"));
 		return semester;
