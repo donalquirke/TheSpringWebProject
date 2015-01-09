@@ -79,8 +79,16 @@ public class DeferralController {
 	    return "displayDeferrals";	
 	}
 	
-	@RequestMapping(value="/student/{studentID}", method = RequestMethod.GET) 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String SearchDeferrals(ModelMap model) {
+		logger.debug("search form");
+		model.addAttribute("deferral", new Deferral());
+	    return "searchDeferral";
+	}
+	
+	@RequestMapping(value="/search/{studentID}", method = RequestMethod.GET) 
 	public String listDeferralsByStudent(@PathVariable("studentID") String studentID, ModelMap model){
+		logger.debug("search by ID");
 		Date date = new java.util.Date();	
 		List <Deferral> deferrals=deferralDAO.listDeferralsByStudent(studentID);
 		model.addAttribute("deferrals", deferrals);
@@ -128,6 +136,7 @@ public class DeferralController {
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
 	public String addNewDeferral(ModelMap model) {
+		logger.debug("addNew");
 		model.addAttribute("deferral", new Deferral());
 		return "newDeferral";
 	} //WORKING
@@ -161,7 +170,7 @@ public class DeferralController {
 
 		
 		            	byte[] bytes = file.getBytes(); 
-		            	File dir = new File(servletContext.getRealPath("/")+"/resources/images");
+		            	File dir = new File(servletContext.getRealPath("/")+"/resources/uploads");
 		            	System.out.println(dir.getAbsolutePath());
         
 		            	if (!dir.exists())
@@ -206,7 +215,7 @@ public class DeferralController {
 	public @ResponseBody void downloadImageDeferral(@PathVariable int defId, HttpServletRequest request, HttpServletResponse response) {   
 		try {
 	 
-		File fullPath = new File(servletContext.getRealPath("/")+"/resources/images");
+		File fullPath = new File(servletContext.getRealPath("/")+"/resources/uploads");
         System.out.println(fullPath.getAbsolutePath());
         
         File downloadFile = new File(fullPath+"/"+defId+".jpg");
