@@ -55,4 +55,6 @@ public interface LecturerDAO {
 			String lastName, String email);
 
 	public void updateLecturer(String lectId, String email);
+
+	public Lecturer getLecturerByLectID(String lectId);
 }

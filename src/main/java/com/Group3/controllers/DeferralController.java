@@ -254,6 +254,59 @@ public class DeferralController {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/downloadForm", method = RequestMethod.GET) 
+	public @ResponseBody void downloadApplicationForm(HttpServletRequest request, HttpServletResponse response) {   
+		try {
+	 
+		File fullPath = new File(servletContext.getRealPath("/")+"/resources/images");
+        System.out.println(fullPath.getAbsolutePath());
+        
+        File downloadFile = new File(fullPath+"/deferralApplication.jpg");
+        FileInputStream inputStream = new FileInputStream(downloadFile);		     
+       
+        // get MIME type of the file
+        String mimeType = "image/jpeg";         
+ 
+        // set content attributes for the response
+        response.setContentType(mimeType);
+        response.setContentLength((int) downloadFile.length());
+ 
+        // set headers for the response
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                downloadFile.getName());
+        response.setHeader(headerKey, headerValue);
+ 
+        // get output stream of the response
+        OutputStream outStream = response.getOutputStream();
+ 
+        byte[] buffer = new byte[1024];
+        int bytesRead = -1;
+ 
+        // write bytes read from the input stream into the output stream
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }		   
+ 
+        inputStream.close();
+        outStream.close();
+        
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	
+	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteDeferral(ModelMap model) {   
 		List<Deferral> listDeferrals=deferralDAO.listDeferrals();

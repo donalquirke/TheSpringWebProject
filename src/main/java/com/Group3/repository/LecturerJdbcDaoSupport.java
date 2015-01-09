@@ -80,6 +80,16 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 						new Object[]{lecturerAutoId}, new LecturerMapper());
 		return lecturer;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public Lecturer getLecturerByLectID(String lectId) {
+		String SQL = "select * from lecturer where Lect_ID = ?";
+		Lecturer lecturer= (Lecturer) getJdbcTemplate().queryForObject(SQL, 
+						new Object[]{lectId}, new LecturerMapper());
+		return lecturer;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

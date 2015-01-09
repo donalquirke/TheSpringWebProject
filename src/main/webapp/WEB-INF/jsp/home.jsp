@@ -15,16 +15,21 @@
  
 <table>
 <tr>
+	<td class="deferralDescription">To download Deferral Application Form please click here</td>
+	<td><a href="downloadForm"><img alt="DownloadForm" src="resources/images/downloadbutton.png" width="180" height="140"></a></td>
+</tr>
+
+<tr>
 	<td class="deferralDescription">CIT are currently accepting applications for deferral of modules. 
 			If you wish to defer a module please click here</td>
-	<td><a href="deferral/addNewDeferralForStudent"><img alt="DeferralApply" src="resources/images/deferModule.png" width="180" height="40"></a></td>
+	<td><a href="deferral/addNewDeferralForStudent"><img alt="ModuleDeferral" src="resources/images/deferModule.png" width="180" height="40"></a></td>
 </tr>
 
 <tr>
 
 <td class="deferralDescription">CIT are currently accepting applications for deferral of programmes. 
 		If you wish to defer a programme please click here</td>
-<td><a href="#"><img alt="DeferralApply" src="resources/images/deferProgramme.png" width="180" height="40"></a></td>
+<td><a href="#"><img alt="ProgrammeDeferral" src="resources/images/deferProgramme.png" width="180" height="40"></a></td>
 </tr>
 
 <!-- 
