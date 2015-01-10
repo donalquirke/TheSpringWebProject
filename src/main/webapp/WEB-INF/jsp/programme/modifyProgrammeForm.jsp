@@ -6,8 +6,8 @@
 $(function() {
 $("#modify").click(function(){		
 	var lecturerAutoID = $("#lecturerAutoID").val(); 
-	var programmeAutoId=${programme.programmeAutoId};	
-	var url="/programme/modify/programmeAutoId/"+programmeAutoId+"/lecturerAutoID/"+lecturerAutoID;
+	var programmeAutoID=${programme.programmeAutoID};	
+	var url="/programme/modify/programmeAutoID/"+programmeAutoID+"/lecturerAutoID/"+lecturerAutoID;
 	location.href="<%= request.getContextPath() %>"+url;
 });
 });

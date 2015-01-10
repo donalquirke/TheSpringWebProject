@@ -6,7 +6,7 @@
 <title>Welcome page</title>
 </head>
 <body>
-<img alt=CitCloud" src="resources/images/citcloud.jpg" width="950" height="150">
+<img alt="CitCloud" src="resources/images/citcloud.jpg" width="950" height="150">
 <div id="messageTest">
 <h3>Cork Institute of Technology - Deferral System</h3>
 <h5>${message}</h5>

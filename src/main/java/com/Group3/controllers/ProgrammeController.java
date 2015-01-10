@@ -93,11 +93,11 @@ public class ProgrammeController {
 		return "deleteProgramme";
 	} //Working - displaying all programmes with delete buttons
 	
-	@RequestMapping(value = "/delete/programmeAutoId/{programmeAutoId}", method = RequestMethod.GET) 
-	public String deleteProgrammeById(@PathVariable int programmeAutoId, ModelMap model) { 
-		Programme programmeDelete=programmeDAO.getProgramme(programmeAutoId);
-		programmeDAO.deleteProgramme(programmeAutoId);
-		model.addAttribute("message", "Programme with Programme id "+ programmeAutoId +" and details "
+	@RequestMapping(value = "/delete/programmeAutoID/{programmeAutoID}", method = RequestMethod.GET) 
+	public String deleteProgrammeById(@PathVariable int programmeAutoID, ModelMap model) { 
+		Programme programmeDelete=programmeDAO.getProgramme(programmeAutoID);
+		programmeDAO.deleteProgramme(programmeAutoID);
+		model.addAttribute("message", "Programme with Programme id "+ programmeAutoID +" and details "
 				+ "below have been deleted from the system");
 		model.addAttribute("programmeId", programmeDelete.getProgrammeId());
 		model.addAttribute("numYears", programmeDelete.getNumYears());
@@ -107,30 +107,32 @@ public class ProgrammeController {
 	}
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
-	public String modify(ModelMap model) {			
+	public String modify(ModelMap model) {		
+		logger.debug("modify programme");
 		List<Programme> listProgrammes=programmeDAO.listProgrammes();
 		Date date = new java.util.Date();	
 		model.addAttribute("programmes", listProgrammes);
 		model.addAttribute("now", date);
+		System.out.println(" " + listProgrammes);
 		return "modifyProgramme";			
 	}  // WORKING
 	
-	@RequestMapping(value = "/modify/programmeAutoId/{programmeAutoId}", method = RequestMethod.GET) 
-	public String modifyProgramme(@PathVariable int programmeAutoId, ModelMap model) { 
+	@RequestMapping(value = "/modify/programmeAutoID/{programmeAutoID}", method = RequestMethod.GET) 
+	public String modifyProgramme(@PathVariable int programmeAutoID, ModelMap model) { 
 		logger.debug("Load Programme Modify Display");
-		Programme programmeModify=programmeDAO.getProgramme(programmeAutoId);
-		model.addAttribute("message", "Programme with id "+ programmeAutoId +" can now be modified");
+		Programme programmeModify=programmeDAO.getProgramme(programmeAutoID);
+		model.addAttribute("message", "Programme with id "+ programmeAutoID +" can now be modified");
 		model.addAttribute("programme", programmeModify);
 		return "modifyProgrammeForm";	
 	}  // WORKING
 	
-	@RequestMapping(value="/modify/programmeAutoId/{programmeAutoId}/lecturerAutoID/{lecturerAutoID}", method = RequestMethod.GET) 
-	public ModelAndView modifyProgramme(@PathVariable int programmeAutoId, @PathVariable int lecturerAutoID, ModelMap model) {			
+	@RequestMapping(value="/modify/programmeAutoID/{programmeAutoID}/lecturerAutoID/{lecturerAutoID}", method = RequestMethod.GET) 
+	public ModelAndView modifyProgramme(@PathVariable int programmeAutoID, @PathVariable int lecturerAutoID, ModelMap model) {			
 		logger.debug("update request");
 		ModelAndView modelAndView = new ModelAndView();
-		programmeDAO.updateProgramme(programmeAutoId, lecturerAutoID);
-		Programme programmeModify=programmeDAO.getProgramme(programmeAutoId);
-		model.addAttribute("message", "Programme with programme id "+ programmeAutoId +" has been modified");
+		programmeDAO.updateProgramme(programmeAutoID, lecturerAutoID);
+		Programme programmeModify=programmeDAO.getProgramme(programmeAutoID);
+		model.addAttribute("message", "Programme with programme id "+ programmeAutoID +" has been modified");
 		modelAndView.addObject("programme", programmeModify);
 		modelAndView.setViewName("displayProgramme");
 		return modelAndView;	

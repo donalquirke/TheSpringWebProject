@@ -11,7 +11,7 @@
     <th data-priority="2">Programme ID</th> 
     <th data-priority="2">Module ID</th>
     <th data-priority="2">Approval</th>  
-    <th data-priority="2">Download</th>  
+    <th data-priority="2">Form</th>  
     </tr>
   </thead>
 
@@ -26,7 +26,7 @@
       <td>${deferral.moduleAutoID}</td>
       <td>${deferral.approval}</td>
       <td><a href="<%= request.getContextPath() %>/deferral/downloadImage/${deferral.defId}"
-						class="ui-btn">Download Deferral Form</a></td>        
+						class="ui-btn">Download</a></td>        
     </tr>
      </c:forEach>
   </tbody>
@@ -41,28 +41,3 @@
 	</div>
 	</c:if>
 
-
-
-
-<%--<%@ include file="/WEB-INF/jsp/include.jsp"%>
-
-	<c:if test="${not empty deferrals}">
-		<ol class="deferrals-list">
-			<c:forEach var="deferral" items="${deferrals}">
-				<li><span class="deferralImage"> 
-				<img alt="deferral" width="48" border="0" align="middle" src="<c:url value="/resources/images/cit.jpg"/>">	
-				</span>
-				<span class="deferralText"> 
-				<c:out	value="${deferral.defId}" />
-				<c:out value="${deferral.studentAutoID}" />
-				<c:out value="${deferral.lectId}" />
-				<c:out value="${deferral.programmeAutoID}" />
-				<c:out value="${deferral.moduleAutoID}" />
-				<c:out value="${deferral.approval}" />	<br />
-				<small><fmt:formatDate value="${now}" pattern="hh:mma MMM d, yyyy" /></small>
-				</span>
-				</li>
-
-			</c:forEach>
-		</ol>
-	</c:if>	 --%>

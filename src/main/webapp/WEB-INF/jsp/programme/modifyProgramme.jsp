@@ -18,13 +18,13 @@
 
 			<c:forEach var="programme" items="${programmes}" varStatus="status">
 				<tr>
-					<td>${programme.programmeAutoId}</td>
+					<td>${programme.programmeAutoID}</td>
 					<td>${programme.programmeId}</td>
 	  				<td>${programme.numYears}</td>
 	  				<td>${programme.lecturerAutoID}</td>
 	  				<td>${programme.progYear}</td>
 					<td><a
-						href="<%= request.getContextPath() %>/programme/modify/programmeAutoId/${status.current.programmeAutoId}"
+						href="<%= request.getContextPath() %>/programme/modify/programmeAutoID/${status.current.programmeAutoID}"
 						class="ui-btn">Modify</a></td>
 				</tr>
 			</c:forEach>

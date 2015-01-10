@@ -76,10 +76,10 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 		
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void deleteProgramme(int programmeAutoId) {
+	public void deleteProgramme(int programmeAutoID) {
 		String SQL = "delete from programme where ProgrammeAutoID = ?";
-		getJdbcTemplate().update(SQL, new Object[] { programmeAutoId});
-		System.out.println("deleted record id: "+ programmeAutoId);
+		getJdbcTemplate().update(SQL, new Object[] { programmeAutoID});
+		System.out.println("deleted record id: "+ programmeAutoID);
 		return;
 	}
 	
@@ -112,18 +112,18 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public Programme getProgramme(int programmeAutoId) {
+	public Programme getProgramme(int programmeAutoID) {
 		String SQL = "select * from programme where ProgrammeAutoID = ?";
-		Programme programme = (Programme) getJdbcTemplate().queryForObject(SQL, new Object[]{programmeAutoId}, new ProgrammeMapper());
+		Programme programme = (Programme) getJdbcTemplate().queryForObject(SQL, new Object[]{programmeAutoID}, new ProgrammeMapper());
 		return programme;
 	}
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void updateProgramme(int programmeAutoId, int lecturerAutoID) {
+	public void updateProgramme(int programmeAutoID, int lecturerAutoID) {
 		String SQL = "update Programme set LecturerAutoID = ? where ProgrammeAutoID = ?";
-		getJdbcTemplate().update(SQL, new Object[] {lecturerAutoID, programmeAutoId});
-		System.out.println("Updated record with Programme ID: "+ programmeAutoId);
+		getJdbcTemplate().update(SQL, new Object[] {lecturerAutoID, programmeAutoID});
+		System.out.println("Updated record with Programme ID: "+ programmeAutoID);
 		return;		
 	}
 	
