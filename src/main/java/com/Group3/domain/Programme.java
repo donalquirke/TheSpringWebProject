@@ -20,8 +20,9 @@ public class Programme {
 		// Blank Contructor
 	}
 
-	public Programme(String programmeId, int numYears, int lecturerAutoID, int progYear) {
+	public Programme(int programmeAutoID, String programmeId, int numYears, int lecturerAutoID, int progYear) {
 		super();
+		this.programmeAutoID = programmeAutoID;
 		this.programmeId = programmeId;
 		this.numYears = numYears;
 		this.lecturerAutoID = lecturerAutoID;

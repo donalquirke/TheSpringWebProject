@@ -5,6 +5,7 @@
 		id="myTable">
 		<thead>
 			<tr>
+				<th data-priority="3">Programme Auto ID</th>
     			<th data-priority="1">Programme ID</th>
     			<th data-priority="3">No. of Years</th>
     			<th data-priority="2">Co-Ordinator Id</th>  
@@ -17,6 +18,7 @@
 
 			<c:forEach var="programme" items="${programmes}" varStatus="status">
 				<tr>
+					<td>${programme.programmeAutoId}</td>
 					<td>${programme.programmeId}</td>
 	  				<td>${programme.numYears}</td>
 	  				<td>${programme.lecturerAutoID}</td>

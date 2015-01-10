@@ -12,9 +12,10 @@ public class Lecturer extends Person {
 		// blank constructor
 	}
 
-	public Lecturer(String lectId, String firstName, String lastName,
+	public Lecturer(int lecturerAutoId, String lectId, String firstName, String lastName,
 			String email) {
 		super(firstName, lastName, email);
+		this.lecturerAutoId = lecturerAutoId;
 		this.lectId = lectId;
 
 	}
