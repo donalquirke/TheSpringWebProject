@@ -12,7 +12,7 @@
 <html>
 <head>
 <title>Footer</title>
-<link href="<c:url value="/resources/css/deferrals.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/somecss/deferrals.css" />" rel="stylesheet">
 </head>
 <body>
     <p>Copyright &copy; CAF, Group 3: 2014 </p>  

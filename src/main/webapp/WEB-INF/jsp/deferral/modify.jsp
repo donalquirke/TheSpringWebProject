@@ -1,8 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 <c:if test="${not empty deferrals}">
-	<table data-role="table" class="ui-responsive" data-mode="columntoggle"
-		id="myTable">
+	<table data-role="table" class="ui-responsive" data-mode="columntoggle" id="myTable">
 		<thead>
 			<tr>
 				<th data-priority="3">Image </th>
@@ -17,7 +16,6 @@
 		</thead>
 
 		<tbody>
-
 			<c:forEach var="deferral" items="${deferrals}" varStatus="status">
 				<tr>
 					<td><img alt="deferral" width="24" border="0" align="middle"

@@ -10,21 +10,21 @@ $(document).ready(function(){
 });
 </script>
 
-<div data-role="header" data-position="inline"> 
-  
- <h1>
-	DEFERRALS
-  </h1> 
-  <a href="/home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
-  <a href="#/logout" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>
-<!--  <button type="button" id="ajaxBtn">ajax Button</button>  -->
-   <div data-role="navbar">
-      <ul>
-        <li><a href="#">BSc Cloud</a></li>
-        <li><a href="#">MSc Cloud</a></li>
-        <li><a href="#">HDip Cloud</a></li>
-      </ul>
-    </div>
+<div data-role="header" data-position="inline">  
+ 	<h1>
+		DEFERRALS
+  	</h1> 
+  	<a href="/home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+  	<a href="#/logout" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>
+	<!--  <button type="button" id="ajaxBtn">ajax Button</button>  -->
+   
+	<div data-role="navbar">
+ 		<ul>
+       		<li><a href="#">BSc Cloud</a></li>
+        	<li><a href="#">MSc Cloud</a></li>
+        	<li><a href="#">HDip Cloud</a></li>
+ 		</ul>
+ 	</div>
 </div>
 <%-- 
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 <head>
 <title>Header</title>
-<link href="<c:url value="/resources/css/deferrals.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/somecss/deferrals.css" />" rel="stylesheet">
 </head>
 <body>
 

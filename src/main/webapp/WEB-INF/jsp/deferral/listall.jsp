@@ -17,27 +17,25 @@
 
   <tbody>
     <c:forEach var="deferral" items="${deferrals}">
-    <tr>
-   	  <td><img alt="cit" width="24" border="0" align="middle" src="<c:url value="/resources/images/cit.jpg"/>"></td>
-      <td>${deferral.defId}</td>
-      <td>${deferral.studentAutoID}</td>
-      <td>${deferral.lectId}</td>
-      <td>${deferral.programmeAutoID}</td>  
-      <td>${deferral.moduleAutoID}</td>
-      <td>${deferral.approval}</td>
-      <td><a href="<%= request.getContextPath() %>/deferral/downloadImage/${deferral.defId}"
+    	<tr>
+   	  		<td><img alt="cit" width="24" border="0" align="middle" src="<c:url value="/resources/images/cit.jpg"/>"></td>
+      		<td>${deferral.defId}</td>
+      		<td>${deferral.studentAutoID}</td>
+      		<td>${deferral.lectId}</td>
+      		<td>${deferral.programmeAutoID}</td>  
+      		<td>${deferral.moduleAutoID}</td>
+      		<td>${deferral.approval}</td>
+      		<td><a href="<%= request.getContextPath() %>/deferral/downloadImage/${deferral.defId}"
 						class="ui-btn">Download</a></td>        
-    </tr>
+    	</tr>
      </c:forEach>
   </tbody>
- 
 </table>			
 		
-	</c:if>
+</c:if>
 	
-	<c:if test="${empty deferrals}">
+<c:if test="${empty deferrals}">
 	<div class="notification warning">
 		No Deferrals.
 	</div>
-	</c:if>
-
+</c:if>

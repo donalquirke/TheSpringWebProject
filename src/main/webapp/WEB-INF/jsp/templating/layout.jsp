@@ -1,15 +1,14 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-
- 
 <html>  
-<head>
-<title><tiles:insertAttribute name="title" ignore="true"></tiles:insertAttribute></title>
-<%-- <link href="<c:url value="/resources/css/deferrals.css" />" rel="stylesheet">  --%>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
-<style>
+	<head>
+		<title><tiles:insertAttribute name="title" ignore="true"></tiles:insertAttribute></title>
+				<%--<link href="<c:url value="/resources/somecss/deferrals.css" />" rel="stylesheet">--%>  
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+		<%--<link href="css/bootstrap.css" rel="stylesheet" /> --%>
+		<style>
 .error { 
 	color: #ff0000; 
 } 
@@ -52,82 +51,78 @@ tr:nth-child(even) {
 </head>
 
 <body>
-<div data-role="page">
-	<!--header--> 
-	<div data-role="header" data-position="fixed" data-theme="b" > 	
-		<tiles:insertAttribute name="header"  />
-	</div> 
-	<!--main body with a panel to the left -->
-	<div data-role="main" class="ui-content" id="pageone">	
-		<a href="#myPanelDefault" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Menu Options</a>
-		<tiles:insertAttribute name="body" />
-	</div>			
+	<div data-role="page">
+		<!--header--> 
+		<div data-role="header" data-position="fixed" data-theme="b" > 	
+			<tiles:insertAttribute name="header"  />
+		</div> 
 		
-	<!--footer-->	
-	<div  data-role="footer" data-position="fixed" data-theme="b">
-		<tiles:insertAttribute name="footer" />
+		<!--main body with a panel to the left -->
+		<div data-role="main" class="ui-content" id="pageone">	
+			<a href="#myPanelDefault" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Menu Options</a>
+			<tiles:insertAttribute name="body" />
+		</div>			
+		
+		<!--footer-->	
+		<div  data-role="footer" data-position="fixed" data-theme="b">
+			<tiles:insertAttribute name="footer" />
+		</div>
+
+		<!-- Panel -->
+		<div data-role="panel" id="myPanelDefault" style="text-align:center;"> 
+			<div data-role="collapsibleset">
+				<div data-role="collapsible">
+				<h1 data-icon="plus">Deferral</h1>
+					<ul data-role="listview" data-inset="true">
+						<li><a href="<%= request.getContextPath() %>/deferral/addNew">Add</a></li>
+					 	<li><a href="<%= request.getContextPath() %>/deferral/delete">Delete</a></li>
+						<li><a href="<%= request.getContextPath() %>/deferral/listall">List All</a></li>  
+						<li><a href="<%= request.getContextPath() %>/deferral/modify">Modify</a></li> 
+						<li><a href="<%= request.getContextPath() %>/deferral/search">Search Deferrals</a></li>
+						<li><a href="<%= request.getContextPath() %>/deferral/modify">Approved Deferrals</a></li>
+						<li><a href="<%= request.getContextPath() %>/deferral/modify">Pending Deferrals</a></li>  
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h1 data-icon="plus">Student</h1>
+					<ul data-role="listview" data-inset="true">
+						<li><a href="<%= request.getContextPath() %>/student/addNew">Add</a></li>
+						<li><a href="<%= request.getContextPath() %>/student/delete">Delete</a></li>
+						<li><a href="<%= request.getContextPath() %>/student/listStudents">List All</a></li>
+						<li><a href="<%= request.getContextPath() %>/student/modify">Modify</a></li>
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h1 data-icon="plus">Module</h1>
+					<ul data-role="listview" data-inset="true">
+						<li><a href="<%= request.getContextPath() %>/module/addNew">Add</a></li>
+						<li><a href="<%= request.getContextPath() %>/module/delete">Delete</a></li>
+						<li><a href="<%= request.getContextPath() %>/module/listall">List All</a></li>
+						<li><a href="<%= request.getContextPath() %>/module/modify">Modify</a></li>
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h1 data-icon="plus">Lecturer</h1>
+					<ul data-role="listview" data-inset="true">
+						<li><a href="<%= request.getContextPath() %>/lecturer/addNew">Add</a></li>
+						<li><a href="<%= request.getContextPath() %>/lecturer/delete">Delete</a></li>
+						<li><a href="<%= request.getContextPath() %>/lecturer/listLecturers">List All</a></li>
+						<li><a href="<%= request.getContextPath() %>/lecturer/modify">Modify</a></li> 
+					</ul>
+				</div>
+				<div data-role="collapsible">
+					<h1 data-icon="plus">Programme</h1>
+					<ul data-role="listview" data-inset="true">
+						<li><a href="<%= request.getContextPath() %>/programme/addNew">Add</a></li>
+						<li><a href="<%= request.getContextPath() %>/programme/delete">Delete</a></li>
+						<li><a href="<%= request.getContextPath() %>/programme/listProgrammes">List All</a></li>
+						<li><a href="<%= request.getContextPath() %>/programme/modify">Modify</a></li>
+					</ul>
+				</div>	
+  			</div>  
+	
+			<a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close Menu</a>
+		</div> 
 	</div>
-
-	<!-- Panel -->
-	<div data-role="panel" id="myPanelDefault" style="text-align:center;"> 
-	<div data-role="collapsibleset">
-  	
-		<div data-role="collapsible">
-			
-<h1 data-icon="plus">Deferral</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/deferral/addNew">Add</a></li>
-			 	<li><a href="<%= request.getContextPath() %>/deferral/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/deferral/listall">List All</a></li>  
-				<li><a href="<%= request.getContextPath() %>/deferral/modify">Modify</a></li> 
-				<li><a href="<%= request.getContextPath() %>/deferral/search">Search Deferrals</a></li>
-				<li><a href="<%= request.getContextPath() %>/deferral/modify">Approved Deferrals</a></li>
-				<li><a href="<%= request.getContextPath() %>/deferral/modify">Pending Deferrals</a></li>  
-			</ul>
-		</div>
-		<div data-role="collapsible">
-			<h1 data-icon="plus">Student</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/student/addNew">Add</a></li>
-				<li><a href="<%= request.getContextPath() %>/student/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/student/listStudents">List All</a></li>
-				<li><a href="<%= request.getContextPath() %>/student/modify">Modify</a></li>
-      	
-			</ul>
-		</div>
-		<div data-role="collapsible">
-			<h1 data-icon="plus">Module</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/module/addNew">Add</a></li>
-				<li><a href="<%= request.getContextPath() %>/module/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/module/listall">List All</a></li>
-				<li><a href="<%= request.getContextPath() %>/module/modify">Modify</a></li>
-			</ul>
-		</div>
-		<div data-role="collapsible">
-			<h1 data-icon="plus">Lecturer</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/lecturer/addNew">Add</a></li>
-				<li><a href="<%= request.getContextPath() %>/lecturer/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/lecturer/listLecturers">List All</a></li>
-				<li><a href="<%= request.getContextPath() %>/lecturer/modify">Modify</a></li> 
-			</ul>
-		</div>
-		<div data-role="collapsible">
-			<h1 data-icon="plus">Programme</h1>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="<%= request.getContextPath() %>/programme/addNew">Add</a></li>
-				<li><a href="<%= request.getContextPath() %>/programme/delete">Delete</a></li>
-				<li><a href="<%= request.getContextPath() %>/programme/listProgrammes">List All</a></li>
-				<li><a href="<%= request.getContextPath() %>/programme/modify">Modify</a></li>
-				
-			</ul>
-		</div>	
-  </div>  
-
-	<a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close Menu</a>
-	</div>
-</div>
-
 </body> 
 </html>
