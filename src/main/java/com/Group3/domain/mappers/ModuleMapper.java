@@ -13,7 +13,7 @@ public class ModuleMapper implements RowMapper {
 	@Override
 	public Object mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		Module module = new Module();
-		module.setModuleAutoId(rs.getInt("ModuleAutoID"));
+		module.setModuleAutoID(rs.getInt("ModuleAutoID"));
 		module.setModuleId(rs.getString("Module_ID"));
 		module.setCrnNumber(rs.getInt("CRN"));
 		module.setName(rs.getString("Name"));

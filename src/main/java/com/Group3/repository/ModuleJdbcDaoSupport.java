@@ -30,13 +30,13 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Module> listModuleByProgrammeID(String programmeID){
+	public List<Module> listModuleByProgrammeAutoID(int programmeAutoID){
 		String SQL = "select m.* "
 				+ "from modules m "
 				+ "left join semester s on m.semester_id = s.semester_id "
-				+ "where s.programme_id = ?";
+				+ "where s.programmeAutoID = ?";
 		System.out.println("SQL : " + SQL);
-		List<Module> moduleList = getJdbcTemplate().query(SQL,  new Object[]{programmeID}, new ModuleMapper());
+		List<Module> moduleList = getJdbcTemplate().query(SQL,  new Object[]{programmeAutoID}, new ModuleMapper());
 		return moduleList;
 	}
 	

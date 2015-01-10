@@ -20,10 +20,10 @@
     <tr>
    	  <td><img alt="cit" width="24" border="0" align="middle" src="<c:url value="/resources/images/cit.jpg"/>"></td>
       <td>${deferral.defId}</td>
-      <td>${deferral.studentId}</td>
+      <td>${deferral.studentAutoID}</td>
       <td>${deferral.lectId}</td>
-      <td>${deferral.programmeId}</td>  
-      <td>${deferral.moduleId}</td>
+      <td>${deferral.programmeAutoID}</td>  
+      <td>${deferral.moduleAutoID}</td>
       <td>${deferral.approval}</td>
       <td><a href="<%= request.getContextPath() %>/deferral/downloadImage/${deferral.defId}"
 						class="ui-btn">Download Deferral Form</a></td>        
@@ -54,10 +54,10 @@
 				</span>
 				<span class="deferralText"> 
 				<c:out	value="${deferral.defId}" />
-				<c:out value="${deferral.studentId}" />
+				<c:out value="${deferral.studentAutoID}" />
 				<c:out value="${deferral.lectId}" />
-				<c:out value="${deferral.programmeId}" />
-				<c:out value="${deferral.moduleId}" />
+				<c:out value="${deferral.programmeAutoID}" />
+				<c:out value="${deferral.moduleAutoID}" />
 				<c:out value="${deferral.approval}" />	<br />
 				<small><fmt:formatDate value="${now}" pattern="hh:mma MMM d, yyyy" /></small>
 				</span>

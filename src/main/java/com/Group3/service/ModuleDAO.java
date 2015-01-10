@@ -74,5 +74,5 @@ public interface ModuleDAO {
 	 */
 	public int countRows();
 
-	public List<Module> listModuleByProgrammeID(String programmeID);
+	public List<Module> listModuleByProgrammeAutoID(int programmeAutoID);
 }

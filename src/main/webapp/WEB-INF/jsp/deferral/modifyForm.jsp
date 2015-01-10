@@ -18,8 +18,8 @@ $("#modify").click(function(){
 	<form:form modelAttribute="deferral">
 		
 		<div class="ui-field-contain">
- 			<form:label path="studentId">Student ID</form:label>
- 			<form:input path="studentId" value="${deferral.studentId}"
+ 			<form:label path="studentAutoID">Student ID</form:label>
+ 			<form:input path="studentAutoID" value="${deferral.studentAutoID}"
 				disabled="true" />
  		</div>
  		
@@ -30,14 +30,14 @@ $("#modify").click(function(){
  		</div>
  
  		<div class="ui-field-contain">
- 			<form:label path="programmeId">Programme ID</form:label>
- 			<form:input path="programmeId" value="${deferral.programmeId}"
+ 			<form:label path="programmeAutoID">Programme ID</form:label>
+ 			<form:input path="programmeAutoID" value="${deferral.programmeAutoID}"
 				disabled="true" />
  		</div>
  
  		<div class="ui-field-contain">
- 			<form:label path="moduleId">Module ID</form:label>
- 			<form:input path="moduleId" value="${deferral.moduleId}"
+ 			<form:label path="moduleAutoID">Module ID</form:label>
+ 			<form:input path="moduleAutoID" value="${deferral.moduleAutoID}"
 				disabled="true" />
  		</div>
  

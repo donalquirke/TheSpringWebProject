@@ -13,9 +13,9 @@
   <tbody>
     <c:forEach var="registration" items="${registrations}">
     <tr>
-      <td>${registration.studentId}</td>
+      <td>${registration.studentAutoID}</td>
 	  <td>${registration.crnNumber}</td>
-	  <td>${registration.programmeId}</td>      
+	  <td>${registration.programmeAutoID}</td>      
     </tr>
      </c:forEach>
   </tbody>

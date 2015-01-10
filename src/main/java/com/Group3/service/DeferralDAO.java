@@ -27,28 +27,18 @@ public interface DeferralDAO {
 	/**
 	 * This is the method to be used to create a Module Deferral.
 	 */
-	public void createModuleDeferral(String studentId, String moduleId,
-			int crnNumber);
-
-	/**
-	 * This is the method to be used to create a Programme Deferral .
-	 */
-	public void createProgrammeDeferral(String studentId, String programmeId);
-
-	/**
-	 * This is the method to be used to delete a Deferral entry.
-	 */
+	
 	public void deleteDeferralById(int id);
 
 	/**
 	 * This is the method to be used to delete a Deferral based on a student ID.
 	 */
-	void deleteDeferralsByStudentID(String studentId);
+	public void deleteDeferralsByStudentAutoID(int studentAutoID);
 
 	/**
 	 * This is the method to be used to delete a Deferral based on a module ID.
 	 */
-	void deleteDeferralsByModuleID(String moduleId);
+	public void deleteDeferralsByModuleAutoID(int moduleAutoID);
 
 	/**
 	 * This is the method to be retrieve a Deferral based on the ID.
@@ -71,7 +61,7 @@ public interface DeferralDAO {
 	 * This is the method to be used to list all deferrals of a particular
 	 * programme.
 	 */
-	public List<Deferral> listDeferralsByProgramme(String programmeID);
+	public List<Deferral> listDeferralsByProgramme(int programmeAutoID);
 
 	/**
 	 * This is the method to be used to list all unapproved deferrals.
@@ -83,7 +73,7 @@ public interface DeferralDAO {
 	 * particular programme.
 	 */
 	public List<Deferral> listUnapprovedDeferralsByProgramme(String unapproved,
-			String programmeID);
+			int programmeAutoID);
 
 	/**
 	 * This is the method to be used to list all unapproved deferrals by
@@ -97,17 +87,17 @@ public interface DeferralDAO {
 	 * particular programme.
 	 */
 	public List<Deferral> listApprovedDeferralsByStudent(String approved,
-			String studentID);
+			int studentAutoID);
 
 	/**
 	 * This is the method used to approve a module deferral.
 	 */
-	public void approveModuleDeferral(String studId, String moduleId);
+	public void approveModuleDeferral(String studId, int moduleAutoID);
 
 	/**
 	 * This is the method used to approve a programme deferral.
 	 */
-	public void approveProgrammeDeferral(String studId, String programmeId);
+	public void approveProgrammeDeferral(String studId, int programmeAutoID);
 
 	/**
 	 * This is the method used to count the rows in the table.
@@ -119,9 +109,14 @@ public interface DeferralDAO {
 	 */	
 	public int countRows();
 
-	void createModuleDeferral(int studentAutoID, String moduleId, int crnNumber);
+	void createModuleDeferral(int studentAutoID, int moduleAutoID, int crnNumber);
 
-	void createProgrammeDeferral(int studentAutoID, String programmeId);
+	void createProgrammeDeferral(int studentAutoID, int programmeAutoID);
+
+	void deleteDeferralsByStudentAutoID(String studentAutoID);
+
+	void createModuleDeferral(int studentAutoID, String moduleAutoID,
+			int crnNumber);
 
 	
 }

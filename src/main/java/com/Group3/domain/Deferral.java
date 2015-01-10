@@ -7,11 +7,11 @@ public class Deferral {
 
 	private int defId;
 	private int studentAutoID;
-	@Size(min=2, max=10, message="A student ID cannot have less than 2 characters or greater than 10")
+	//@Size(min=2, max=10, message="A student ID cannot have less than 2 characters or greater than 10")
 	private String lectId;
-	@Size(min=2, max=20)
+	//@Size(min=2, max=20)
 	private int programmeAutoID;
-	@Size(min=2, max=10)
+	//@Size(min=2, max=10)
 	private int moduleAutoID;
 	private String approval;
 	private MultipartFile file;

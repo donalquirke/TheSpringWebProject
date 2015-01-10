@@ -2,17 +2,17 @@
 
 <form:form method="POST" enctype="multipart/form-data" data-ajax="false" action="addNew" modelAttribute="deferral">
 
-<form:errors path="studentId" class="notification error" style="display:block"></form:errors>
+<form:errors path="studentAutoID" class="notification error" style="display:block"></form:errors>
 <form:errors path="lectId" class="notification error" style="display:block"></form:errors>
-<form:errors path="programmeId" class="notification error" style="display:block"></form:errors>
-<form:errors path="moduleId" class="notification error" style="display:block"></form:errors>
+<form:errors path="programmeAutoID" class="notification error" style="display:block"></form:errors>
+<form:errors path="moduleAutoID" class="notification error" style="display:block"></form:errors>
 <form:errors path="approval" class="notification error" style="display:block"></form:errors>
 <form:errors path="*" cssClass="errorblock" element="div" />
 
  <div class="ui-field-contain">
- <form:label path="studentId">Student ID</form:label>
- <form:input path="studentId" placeholder="Student ID.."  value=""/>
- <form:errors path="studentId" cssClass="error" class="notification error" style="display:block"></form:errors>
+ <form:label path="studentAutoID">Student ID</form:label>
+ <form:input path="studentAutoID" placeholder="Student ID.."  value=""/>
+ <form:errors path="studentAutoID" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  <div class="ui-field-contain">
  <form:label path="lectId">Lecturer ID</form:label>
@@ -20,14 +20,14 @@
  <form:errors path="lectId" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  <div class="ui-field-contain">
- <form:label path="programmeId">Programme ID</form:label>
- <form:input path="programmeId" placeholder="Programme ID.."   value=""/>
- <form:errors path="programmeId" cssClass="error" class="notification error" style="display:block"></form:errors>
+ <form:label path="programmeAutoID">Programme ID</form:label>
+ <form:input path="programmeAutoID" placeholder="Programme ID.."   value=""/>
+ <form:errors path="programmeAutoID" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  <div class="ui-field-contain">
- <form:label path="moduleId">Module ID</form:label>
- <form:input path="moduleId" placeholder="Module ID.."   value=""/>
- <form:errors path="moduleId" cssClass="error" class="notification error" style="display:block"></form:errors>
+ <form:label path="moduleAutoID">Module ID</form:label>
+ <form:input path="moduleAutoID" placeholder="Module ID.."   value=""/>
+ <form:errors path="moduleAutoID" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  <div class="ui-field-contain">
  <form:label path="approval">Approval</form:label>

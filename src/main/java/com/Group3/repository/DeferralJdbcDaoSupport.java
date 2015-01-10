@@ -38,7 +38,7 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void createModuleDeferral(int studentAutoID, String moduleId,
+	public void createModuleDeferral(int studentAutoID, String moduleAutoID,
 			int crnNumber) {
 
 		/*
@@ -49,16 +49,16 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 		List<Programme> programmeList;
 		String SQL2 = "SELECT * from programme"
 				+ " JOIN registration on registration.ProgrammeAutoID=programme.Programme_ID  "
-				+ " AND registration.Student_ID= ?"
+				+ " AND registration.StudentAutoID= ?"
 				+ " AND registration.CRN= ?";
 		programmeList = getJdbcTemplate().query(SQL2,new Object[] { studentAutoID, crnNumber }, new ProgrammeMapper());
-		String programmeId = programmeList.get(0).getProgrammeId();
+		int programmeAutoID = programmeList.get(0).getProgrammeAutoID();
 		int lecturerId= programmeList.get(0).getLecturerAutoID();
 
 		/* Execute Insert Statement */
 		String SQL3 = "insert into deferrals (Student_ID, Lect_ID, Programme_ID, Module_ID) values (?, ?, ?,?)";
 
-		Object[] params = new Object[] { studentAutoID, lecturerId, programmeId,moduleId };
+		Object[] params = new Object[] { studentAutoID, lecturerId, programmeAutoID,moduleAutoID };
 		PreparedStatementCreatorFactory psc = new PreparedStatementCreatorFactory(SQL3);
 		psc.addParameter(new SqlParameter("Student_ID", Types.VARCHAR));
 		psc.addParameter(new SqlParameter("Lect_ID", Types.VARCHAR));
@@ -73,7 +73,7 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void createProgrammeDeferral(final int studentAutoID, final String programmeId) {
+	public void createProgrammeDeferral(final int studentAutoID, final int programmeAutoID) {
 
 		/*
 		 * Get all the modules registered to the studentAutoID that 
@@ -82,9 +82,9 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 		final List<Module> studentModules;
 		String SQL = "SELECT * from modules"
 				+ " JOIN registration on registration.CRN=modules.CRN"
-				+ " AND registration.Student_ID=?"
+				+ " AND registration.studentAutoID=?"
 				+ " AND registration.Programme_ID=?";
-		studentModules = getJdbcTemplate().query(SQL,new Object[] { studentAutoID, programmeId }, new ModuleMapper());
+		studentModules = getJdbcTemplate().query(SQL,new Object[] { studentAutoID, programmeAutoID }, new ModuleMapper());
 
 		/*
 		 * Get the Coordinator Id for the Programme
@@ -92,7 +92,7 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 		List<Programme> programmeList;
 		String SQL2 = "SELECT * from programme "
 				+ " WHERE Programme_ID=?";
-		programmeList = getJdbcTemplate().query(SQL2,new Object[] { programmeId}, new ProgrammeMapper());
+		programmeList = getJdbcTemplate().query(SQL2,new Object[] { programmeAutoID}, new ProgrammeMapper());
 		final int lecturerID = programmeList.get(0).getLecturerAutoID();
 		
 		/*
@@ -112,8 +112,8 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 				Module modules = studentModules.get(i);
 				ps.setInt(1, studentAutoID);
 				ps.setInt(2, lecturerID);
-				ps.setString(3, programmeId);
-				ps.setString(4, modules.getModuleId());
+				ps.setInt(3, programmeAutoID);
+				ps.setInt(4, modules.getModuleAutoID());
 			}
 
 		});
@@ -141,19 +141,19 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void approveModuleDeferral(String studId, String moduleId) {
+	public void approveModuleDeferral(String studId, int moduleAutoID) {
 		
 		// Update approval
 		String SQL = "UPDATE deferrals SET Approved=True"
-				+ " WHERE Student_ID=? AND Module_ID=?";
-		getJdbcTemplate().update(SQL, new Object[] { studId, moduleId });
+				+ " WHERE Student_ID=? AND ModuleAutoID=?";
+		getJdbcTemplate().update(SQL, new Object[] { studId, moduleAutoID });
 
 		/*
 		 * The module must correspond to a specific CRN Get this CRN
 		 */
 		List<Module> moduleList;
-		String SQL2 = "SELECT * from modules" + " WHERE Module_ID=?";
-		moduleList = getJdbcTemplate().query(SQL2, new Object[] { moduleId },new ModuleMapper());
+		String SQL2 = "SELECT * from modules" + " WHERE ModuleAutoID=?";
+		moduleList = getJdbcTemplate().query(SQL2, new Object[] { moduleAutoID },new ModuleMapper());
 		int crn = moduleList.get(0).getCrnNumber();
 
 		/*
@@ -169,12 +169,12 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void approveProgrammeDeferral(String studId, String programmeId) {
+	public void approveProgrammeDeferral(String studId, int programmeAutoID) {
 		
 		// Update approval
 		String SQL = "UPDATE deferrals SET Approved=True"
 				+ " WHERE Student_ID=? AND Programme_ID=?";
-		getJdbcTemplate().update(SQL, new Object[] { studId, programmeId });
+		getJdbcTemplate().update(SQL, new Object[] { studId, programmeAutoID });
 
 		/*
 		 * Delete the modules corresponding to the student and programme from
@@ -182,7 +182,7 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 		 */
 		String SQL2 = "DELETE FROM registration"
 				+ " WHERE Student_ID=? AND Programme_ID=?";
-		getJdbcTemplate().update(SQL2, new Object[] { studId, programmeId });
+		getJdbcTemplate().update(SQL2, new Object[] { studId, programmeAutoID });
 
 		return;
 
@@ -244,17 +244,17 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void deleteDeferralsByStudentID(String studentId){
-		String SQL = "delete from deferrals where Student_ID = ?";
-		getJdbcTemplate().update(SQL, new Object[]{studentId});
+	public void deleteDeferralsByStudentAutoID(String studentAutoID){
+		String SQL = "delete from deferrals where StudentAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[]{studentAutoID});
 		return;
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void deleteDeferralsByModuleID(String moduleId){
+	public void deleteDeferralsByModuleAutoID(int moduleAutoID){
 		String SQL = "delete from deferrals where Module_ID = ?";
-		getJdbcTemplate().update(SQL, new Object[]{moduleId});
+		getJdbcTemplate().update(SQL, new Object[]{moduleAutoID});
 		return;
 	}
 
@@ -270,9 +270,9 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Deferral> listDeferralsByProgramme(String programmeID) {
-		String SQL = "select * from deferrals where Programme_ID = ?";
-		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{programmeID}, new DeferralMapper());
+	public List<Deferral> listDeferralsByProgramme(int programmeAutoID) {
+		String SQL = "select * from deferrals where ProgrammeAutoID = ?";
+		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{programmeAutoID}, new DeferralMapper());
 		return deferralsList;
 	}
 
@@ -286,9 +286,9 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Deferral> listUnapprovedDeferralsByProgramme(String unapproved, String programmeID) {
+	public List<Deferral> listUnapprovedDeferralsByProgramme(String unapproved, int programmeAutoID) {
 		String SQL = "select * from deferrals where Approved = ? and Programme_ID = ?";
-		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{unapproved, programmeID}, new DeferralMapper());
+		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{unapproved, programmeAutoID}, new DeferralMapper());
 		return deferralsList;
 	}
 
@@ -306,24 +306,25 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Deferral> listApprovedDeferralsByStudent(String approved, String studentID){
-		String SQL = "select * from deferrals where Approved = ? and Student_ID = ?";
-		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{approved, studentID}, new DeferralMapper());
+	public List<Deferral> listApprovedDeferralsByStudent(String approved, int studentAutoID){
+		String SQL = "select * from deferrals where Approved = ? and StudentAutoID = ?";
+		List<Deferral> deferralsList = getJdbcTemplate().query(SQL,  new Object[]{approved, studentAutoID}, new DeferralMapper());
 		return deferralsList;
 	}
 
 	@Override
-	public void createModuleDeferral(String studentId, String moduleId,
+	public void deleteDeferralsByStudentAutoID(int studentAutoID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createModuleDeferral(int studentAutoID, int moduleAutoID,
 			int crnNumber) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void createProgrammeDeferral(String studentId, String programmeId) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 	

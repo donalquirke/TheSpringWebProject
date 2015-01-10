@@ -4,7 +4,7 @@ import javax.validation.constraints.Size;
 
 public class Module {
 
-	private int ModuleAutoId;
+	private int ModuleAutoID;
 	private String moduleId;
 	@Size(min=2, max=15, message="A Module ID cannot have less than 2 characters or greater than 15")
 	private int crnNumber;
@@ -18,7 +18,7 @@ public class Module {
 
 
 	public String  getCombindedKey() {
-		return moduleId + "-" +crnNumber;
+		return ModuleAutoID + "-" +crnNumber;
 	}
 
 	public Module(String moduleId, int crnNumber, String name, String lectId,
@@ -67,13 +67,13 @@ public class Module {
 		return semesterId;
 	}
 
-	public int getModuleAutoId() {
-		return ModuleAutoId;
+	public int getModuleAutoID() {
+		return ModuleAutoID;
 	}
 
 
-	public void setModuleAutoId(int moduleAutoId) {
-		ModuleAutoId = moduleAutoId;
+	public void setModuleAutoID(int moduleAutoID) {
+		ModuleAutoID = moduleAutoID;
 	}
 
 

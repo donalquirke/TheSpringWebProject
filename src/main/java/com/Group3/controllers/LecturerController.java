@@ -117,7 +117,7 @@ public class LecturerController {
 		
 		/**model.addAttribute("lectId", lecturerModify.getFirstName());
 		model.addAttribute("lectId", lecturerModify.getLastName());
-		model.addAttribute("programmeId", lecturerModify.getEmail());
+		model.addAttribute("programmeAutoID", lecturerModify.getEmail());
 		return "displayLecturer";	**/
 		
 		modelAndView.addObject("lecturer", lecturerModify);

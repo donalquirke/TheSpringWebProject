@@ -70,10 +70,10 @@ public class DeferralController {
 		    return "displayDeferrals";			
 	}  //WORKING  
 		
-	@RequestMapping(value="/programme/{programmeID}", method = RequestMethod.GET) 
-	public String listDeferralsByProgramme(@PathVariable("programmeID") String programmeID, ModelMap model){
+	@RequestMapping(value="/programme/{programmeAutoID}", method = RequestMethod.GET) 
+	public String listDeferralsByProgramme(@PathVariable("programmeAutoID") int programmeAutoID, ModelMap model){
 		Date date = new java.util.Date();	
-		List <Deferral> deferrals=deferralDAO.listDeferralsByProgramme(programmeID);
+		List <Deferral> deferrals=deferralDAO.listDeferralsByProgramme(programmeAutoID);
 		model.addAttribute("deferrals", deferrals);
 		model.addAttribute("now", date);
 	    return "displayDeferrals";	
@@ -105,10 +105,10 @@ public class DeferralController {
 	    return "displayDeferrals";	
 	}
 	
-	@RequestMapping(value="list/{approval}/{programmeID}", method = RequestMethod.GET) 
-	public String listUnapprovedDeferralsByProgramme(@PathVariable("approval") String unapproved, @PathVariable("programmeID") String programmeID, ModelMap model){
+	@RequestMapping(value="list/{approval}/{programmeAutoID}", method = RequestMethod.GET) 
+	public String listUnapprovedDeferralsByProgramme(@PathVariable("approval") String unapproved, @PathVariable("programmeAutoID") int programmeAutoID, ModelMap model){
 		Date date = new java.util.Date();	
-		List <Deferral> deferrals=deferralDAO.listUnapprovedDeferralsByProgramme(unapproved, programmeID);
+		List <Deferral> deferrals=deferralDAO.listUnapprovedDeferralsByProgramme(unapproved, programmeAutoID);
 		model.addAttribute("deferrals", deferrals);
 		model.addAttribute("now", date);
 	    return "displayDeferrals";	
@@ -331,8 +331,8 @@ public class DeferralController {
 				+ "below have been deleted from the system");
 		model.addAttribute("studentAutoID", deferralDelete.getStudentAutoID());
 		model.addAttribute("lectId", deferralDelete.getLectId());
-		model.addAttribute("programmeId", deferralDelete.getProgrammeAutoID());
-		model.addAttribute("moduleId", deferralDelete.getModuleAutoID());
+		model.addAttribute("programmeAutoID", deferralDelete.getProgrammeAutoID());
+		model.addAttribute("moduleAutoID", deferralDelete.getModuleAutoID());
 		model.addAttribute("approval", deferralDelete.getApproval());
 		return "displayDeferral";
 	} //WORKING
@@ -369,11 +369,11 @@ public class DeferralController {
 
 	@RequestMapping(value={"/getStudentProgrammeList"})
 	@ResponseBody
-	public DeferralForm getStudentProgrammeList(@RequestParam String studentId) { 
+	public DeferralForm getStudentProgrammeList(@RequestParam int studentAutoID) { 
 		logger.info("getStudentProgrammeList");
 		DeferralForm deferralForm = new DeferralForm();
 
-		List<Programme> programmeList = programmeDAO.listProgrammeByStudentID(studentId);
+		List<Programme> programmeList = programmeDAO.listProgrammeByStudentAutoID(studentAutoID);
 		deferralForm.setProgrammeList(programmeList);
 		return deferralForm;
 	
@@ -381,11 +381,11 @@ public class DeferralController {
 	
 	@RequestMapping(value={"/getProgrammeModuleList"})
 	@ResponseBody
-	public DeferralForm getProgrammeModuleList(@RequestParam String programmeId) { 
+	public DeferralForm getProgrammeModuleList(@RequestParam int programmeAutoID) { 
 		logger.info("getProgrammeModuleList");
 		DeferralForm deferralForm = new DeferralForm();
 		
-		List<Module> moduleList = moduleDAO.listModuleByProgrammeID(programmeId);
+		List<Module> moduleList = moduleDAO.listModuleByProgrammeAutoID(programmeAutoID);
 		deferralForm.setModuleList(moduleList);
 		return deferralForm;
 	

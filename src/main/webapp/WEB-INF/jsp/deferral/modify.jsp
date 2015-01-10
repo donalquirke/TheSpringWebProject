@@ -23,10 +23,10 @@
 					<td><img alt="deferral" width="24" border="0" align="middle"
 						src='<c:url value="/resources/images/cit.jpg"/>'></td>
 					<td>${deferral.defId}</td>
-					<td>${deferral.studentId}</td>
+					<td>${deferral.studentAutoID}</td>
 					<td>${deferral.lectId}</td>
-					<td>${deferral.programmeId}</td>
-					<td>${deferral.moduleId}</td>
+					<td>${deferral.programmeAutoID}</td>
+					<td>${deferral.moduleAutoID}</td>
 					<td>${deferral.approval}</td>
 					<td><a
 						href="<%= request.getContextPath() %>/deferral/modify/defId/${status.current.defId}"

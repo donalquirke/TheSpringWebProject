@@ -30,12 +30,12 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Programme> listProgrammeByStudentID(String studentID){
+	public List<Programme> listProgrammeByStudentAutoID(int studentAutoID){
 		String SQL = "select p.* "
 				+ "from programme p "
 				+ "left join registration r on r.programme_id = p.programme_id "
-				+ "where r.student_id = ?";
-		List<Programme> programmeList = getJdbcTemplate().query(SQL,  new Object[]{studentID}, new ProgrammeMapper());
+				+ "where r.studentAutoID = ?";
+		List<Programme> programmeList = getJdbcTemplate().query(SQL,  new Object[]{studentAutoID}, new ProgrammeMapper());
 		return programmeList;
 	}
 	
