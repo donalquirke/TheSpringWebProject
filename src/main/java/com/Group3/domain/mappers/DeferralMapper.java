@@ -15,7 +15,7 @@ public class DeferralMapper implements RowMapper {
 		Deferral deferral = new Deferral();
 		deferral.setDefId(rs.getInt("Def_ID"));
 		deferral.setStudentAutoID(rs.getInt("StudentAutoID"));
-		deferral.setLectId(rs.getString("Lect_ID"));
+		deferral.setLectId(rs.getInt("Lect_ID"));
 		deferral.setProgrammeAutoID(rs.getInt("ProgrammeAutoID"));
 		deferral.setModuleAutoID(rs.getInt("ModuleAutoID"));
 		deferral.setApproval(rs.getString("Approved"));

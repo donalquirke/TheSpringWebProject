@@ -7,7 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,6 +19,7 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -34,11 +37,13 @@ import com.Group3.domain.Deferral;
 import com.Group3.domain.Lecturer;
 import com.Group3.domain.Module;
 import com.Group3.domain.Programme;
+import com.Group3.domain.Student;
 import com.Group3.exceptions.ImageUploadException;
 import com.Group3.service.DeferralDAO;
 import com.Group3.service.LecturerDAO;
 import com.Group3.service.ModuleDAO;
 import com.Group3.service.ProgrammeDAO;
+import com.Group3.service.StudentDAO;
 
 @Controller
 @RequestMapping("/deferral")
@@ -59,13 +64,47 @@ public class DeferralController {
 	LecturerDAO lecturerDAO;
 	
 	@Autowired
+	StudentDAO studentDAO;
+	
+	@Autowired
     private ServletContext servletContext;
 	
 	@RequestMapping(value="/listall", method = RequestMethod.GET) 
 	public String listAll(ModelMap model) {			
 			Date date = new java.util.Date();
-			List<Deferral> listDeferrals=deferralDAO.listDeferrals();
+			List<Deferral> listDeferrals  =deferralDAO.listDeferrals();
+			
+			List<Student> listStudents    =studentDAO.listStudentsWithdeferrals();
+			List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+			List<Programme> listProgrammes=programmeDAO.listProgrammesWithdeferrals();
+			List<Module> listModules      =moduleDAO.listModulesWithdeferrals();
+			
+			HashMap<Integer, Student> studentMap     = new HashMap<Integer, Student>();
+			HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
+			HashMap<Integer, Programme> programmeMap = new HashMap<Integer, Programme>();
+			HashMap<Integer, Module> moduleMap       = new HashMap<Integer, Module>();
+			
+			for(Student student : listStudents){
+				studentMap.put(student.getStudentAutoId(), student);
+			}
+			for(Lecturer lecturer : listLecturers){
+				lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
+			}
+			for(Programme programme : listProgrammes){
+				programmeMap.put(programme.getProgrammeAutoID(), programme);
+			}
+			for(Module module : listModules){
+				moduleMap.put(module.getModuleAutoID(), module);
+			}
+			
+			
 			model.addAttribute("deferrals", listDeferrals);
+			
+			model.addAttribute("studentMap", studentMap);
+			model.addAttribute("lecturerMap", lecturerMap);
+			model.addAttribute("programmeMap", programmeMap);
+			model.addAttribute("moduleMap", moduleMap);
+			
 			model.addAttribute("now", date);
 		    return "displayDeferrals";			
 	}  //WORKING  
@@ -124,12 +163,19 @@ public class DeferralController {
 	}
 	
 
-	@RequestMapping(value = "/addNewDeferralForStudent", method = RequestMethod.GET) 
-	public ModelAndView addNewDeferralForStudent() {
+	@RequestMapping(value = "/doDeferModule", method = RequestMethod.GET) 
+	public ModelAndView doDeferModule() {
+		logger.info("doDeferModule()");
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("deferral", new Deferral());  //sending a blank deferral
-		modelAndView.addObject("deferralForm", new DeferralForm());  //sending a blank deferral form
-		modelAndView.setViewName("addNewDeferralForStudent");
+		
+		DeferralForm deferralForm = new DeferralForm();
+//		deferralForm.setLectList(lecturerDAO.listLecturers());
+//		deferralForm.setProgrammeList(programmeDAO.listProgrammes());
+//		deferralForm.setModuleList(moduleDAO.listModules());
+		
+		modelAndView.addObject("deferral", new Deferral());  //sending a blank deferral		
+		modelAndView.addObject("deferralForm", deferralForm);  //sending a blank deferral form
+		modelAndView.setViewName("doDeferModule");
 		
 		return modelAndView;
 	} //
@@ -142,10 +188,12 @@ public class DeferralController {
 	} //WORKING
 
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
-	public ModelAndView displayDeferral(@ModelAttribute("deferral") @Valid Deferral deferral, 
-			@RequestParam("file") MultipartFile file, BindingResult result, ModelMap model) {
+	public ModelAndView displayDeferral(@ModelAttribute("deferral") @Valid Deferral deferral,
+			BindingResult result, ModelMap model) {
 		logger.debug("addNew Submit");
 		ModelAndView returnModel = new ModelAndView();
+		MultipartFile file = deferral.getFile();
+		
 		if(result.hasErrors()){
 			logger.debug("form errors found : redirect back to : newDeferral");
 			returnModel.setViewName("newDeferral");
@@ -160,7 +208,7 @@ public class DeferralController {
 				  
 		            try {
 		            		
-		            	
+		            	//deferral.setStudentAutoID(studentDAO.getStudentById(studentId).getStudentAutoID());
 			        	int defId = deferralDAO.createDeferralGetId(deferral.getStudentAutoID(), deferral.getLectId(),
 		            			deferral.getProgrammeAutoID(), deferral.getModuleAutoID(), deferral.getApproval());
 		            	logger.debug("new Deferral created with Id:" + defId);
@@ -369,12 +417,13 @@ public class DeferralController {
 
 	@RequestMapping(value={"/getStudentProgrammeList"})
 	@ResponseBody
-	public DeferralForm getStudentProgrammeList(@RequestParam int studentAutoID) { 
+	public DeferralForm getStudentProgrammeList(@RequestParam String studentId) { 
 		logger.info("getStudentProgrammeList");
 		DeferralForm deferralForm = new DeferralForm();
 
-		List<Programme> programmeList = programmeDAO.listProgrammeByStudentAutoID(studentAutoID);
+		List<Programme> programmeList = programmeDAO.listProgrammeByStudentID(studentId);
 		deferralForm.setProgrammeList(programmeList);
+		deferralForm.setStudentAutoID(studentDAO.getStudentByStudentID(studentId));
 		return deferralForm;
 	
 	}
@@ -391,15 +440,18 @@ public class DeferralController {
 	
 	}
 	
-	/**@RequestMapping(value={"/getModuleDetails"})
+	@RequestMapping(value={"/getModuleDetails"})
 	@ResponseBody
-	public Lecturer getModuleDetails(@RequestParam String combindedKey) { 
+	public DeferralForm getModuleDetails(@RequestParam Integer ModuleAutoID) { 
 		logger.info("getModuleDetails");
-		String combindedKeyArray[] = combindedKey.split("-");
 		
-		Module module = moduleDAO.getModule(combindedKeyArray[0], Integer.parseInt(combindedKeyArray[1]));
-		Lecturer lecturer = lecturerDAO.getLecturer(module.getLect());
-		return lecturer;
+		Module module = moduleDAO.getModule(ModuleAutoID);
+		Lecturer lecturer = lecturerDAO.getLecturer(module.getLectId());
+		List<Lecturer> lectList = new ArrayList<>();
+		lectList.add(lecturer);
+		DeferralForm deferralForm = new DeferralForm();
+		deferralForm.setLectList(lectList);
+		return deferralForm;
 	
-	}**/
+	}
 }

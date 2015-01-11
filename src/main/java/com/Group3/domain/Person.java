@@ -8,11 +8,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Person {
 
 	@Size(min=2, max=30)
-	private String firstName;
+	protected String firstName;
 	@Size(min=2, max=30)
-	private String lastName;
+	protected String lastName;
 	@NotEmpty @Email
-	private String email;
+	protected String email;
 
 	public Person() {
 		// Blank Contructor
@@ -25,6 +25,9 @@ public class Person {
 		this.email = email;
 	}
 
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

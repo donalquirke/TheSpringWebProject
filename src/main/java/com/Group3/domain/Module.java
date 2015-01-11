@@ -9,7 +9,7 @@ public class Module {
 	@Size(min=2, max=15, message="A Module ID cannot have less than 2 characters or greater than 15")
 	private int crnNumber;
 	private String name;
-	private String lectId;
+	private Integer lectId;
 	private String semesterId;
 	
 	public Module() {
@@ -21,7 +21,7 @@ public class Module {
 		return ModuleAutoID + "-" +crnNumber;
 	}
 
-	public Module(String moduleId, int crnNumber, String name, String lectId,
+	public Module(String moduleId, int crnNumber, String name, Integer lectId,
 			String semesterId) {
 		super();
 		this.moduleId = moduleId;
@@ -55,11 +55,11 @@ public class Module {
 		this.name = name;
 	}
 
-	public String getLectId() {
+	public Integer getLectId() {
 		return lectId;
 	}
 
-	public void setLectId(String lectId) {
+	public void setLectId(Integer lectId) {
 		this.lectId = lectId;
 	}
 

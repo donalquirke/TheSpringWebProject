@@ -1,18 +1,17 @@
 package com.Group3.domain;
 
-import javax.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Deferral {
 
-	private int defId;
-	private int studentAutoID;
+	private Integer defId;
+	private Integer studentAutoID;
 	//@Size(min=2, max=10, message="A student ID cannot have less than 2 characters or greater than 10")
-	private String lectId;
+	private Integer lectId;
 	//@Size(min=2, max=20)
-	private int programmeAutoID;
+	private Integer programmeAutoID;
 	//@Size(min=2, max=10)
-	private int moduleAutoID;
+	private Integer moduleAutoID;
 	private String approval;
 	private MultipartFile file;
 
@@ -20,8 +19,8 @@ public class Deferral {
 		// Blank Constructor
 	}
 
-	public Deferral(int defId, int studentAutoID, String lectId,
-			int programmeAutoID, int moduleAutoID) {
+	public Deferral(Integer defId, Integer studentAutoID, Integer lectId,
+			Integer programmeAutoID, Integer moduleAutoID) {
 		super();
 		this.defId = defId;
 		this.studentAutoID = studentAutoID;
@@ -30,43 +29,43 @@ public class Deferral {
 		this.moduleAutoID = moduleAutoID;
 	}
 
-	public int getDefId() {
+	public Integer getDefId() {
 		return defId;
 	}
 
-	public void setDefId(int defId) {
+	public void setDefId(Integer defId) {
 		this.defId = defId;
 	}
 
-	public int getStudentAutoID() {
+	public Integer getStudentAutoID() {
 		return studentAutoID;
 	}
 
-	public void setStudentAutoID(int studentAutoID) {
+	public void setStudentAutoID(Integer studentAutoID) {
 		this.studentAutoID = studentAutoID;
 	}
 
-	public String getLectId() {
+	public Integer getLectId() {
 		return lectId;
 	}
 
-	public void setLectId(String lectId) {
+	public void setLectId(Integer lectId) {
 		this.lectId = lectId;
 	}
 
-	public int getProgrammeAutoID() {
+	public Integer getProgrammeAutoID() {
 		return programmeAutoID;
 	}
 
-	public void setProgrammeAutoID(int programmeAutoID) {
+	public void setProgrammeAutoID(Integer programmeAutoID) {
 		this.programmeAutoID = programmeAutoID;
 	}
 
-	public int getModuleAutoID() {
+	public Integer getModuleAutoID() {
 		return moduleAutoID;
 	}
 
-	public void setModuleAutoID(int moduleAutoID) {
+	public void setModuleAutoID(Integer moduleAutoID) {
 		this.moduleAutoID = moduleAutoID;
 	}
 

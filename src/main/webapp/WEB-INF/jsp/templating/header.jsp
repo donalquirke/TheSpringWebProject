@@ -1,3 +1,5 @@
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#ajaxBtn").click(function(){
@@ -14,8 +16,8 @@ $(document).ready(function(){
  	<h1>
 		DEFERRALS
   	</h1> 
-  	<a href="/home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
-  	<a href="#/logout" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>
+  	<a href="<c:url value="/home"/>" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+  	<a href="<c:url value="/logout"/>" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>
 	<!--  <button type="button" id="ajaxBtn">ajax Button</button>  -->
    
 	<div data-role="navbar">

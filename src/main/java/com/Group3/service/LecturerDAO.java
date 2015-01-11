@@ -57,4 +57,6 @@ public interface LecturerDAO {
 	public void updateLecturer(String lectId, String email);
 
 	public Lecturer getLecturerByLectID(String lectId);
+
+	public List<Lecturer> listLecturersWithdeferrals();
 }

@@ -151,4 +151,15 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 		return;
 
 	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public List<Lecturer> listLecturersWithdeferrals() {
+		String SQL = "select DISTINCT lec.* from lecturer as lec"
+					+ " join deferrals as def on def.Lect_ID = lec.LecturerAutoID";
+		@SuppressWarnings("unchecked")
+		List<Lecturer> lecturerList = getJdbcTemplate().query(SQL, 
+						new LecturerMapper());
+		return lecturerList;
+	}
 }

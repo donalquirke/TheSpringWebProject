@@ -52,5 +52,7 @@ public interface ProgrammeDAO {
 	public int createProgrammeGetId(String programmeId, int numYears,
 			int lecturerAutoID, int progYear);
 
-	public List<Programme> listProgrammeByStudentAutoID(int studentAutoID);
+	public List<Programme> listProgrammeByStudentID(String studentID);
+
+	public List<Programme> listProgrammesWithdeferrals();
 }

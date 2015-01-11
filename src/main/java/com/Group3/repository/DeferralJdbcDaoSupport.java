@@ -211,7 +211,7 @@ public class DeferralJdbcDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public int createDeferralGetId(int studentAutoID, String lectId,
+	public int createDeferralGetId(int studentAutoID, int lectId,
 			int programmeAutoID, int moduleAutoID, String approval) {
 		String SQL = "INSERT into deferrals (StudentAutoID, Lect_ID, ProgrammeAutoID,  ModuleAutoID, Approved) values(?, ?, ?, ?, ?) ";
 		

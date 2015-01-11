@@ -3,10 +3,6 @@ package com.Group3.Form;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.Size;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import com.Group3.domain.Lecturer;
 import com.Group3.domain.Module;
 import com.Group3.domain.Programme;

@@ -20,10 +20,10 @@
     	<tr>
    	  		<td><img alt="cit" width="24" border="0" align="middle" src="<c:url value="/resources/images/cit.jpg"/>"></td>
       		<td>${deferral.defId}</td>
-      		<td>${deferral.studentAutoID}</td>
-      		<td>${deferral.lectId}</td>
-      		<td>${deferral.programmeAutoID}</td>  
-      		<td>${deferral.moduleAutoID}</td>
+      		<td>${studentMap[deferral.studentAutoID].studentId}</td>
+      		<td>${lecturerMap[deferral.lectId].fullName}</td>
+      		<td>${programmeMap[deferral.programmeAutoID].programmeId}</td>  
+      		<td>${moduleMap[deferral.moduleAutoID].moduleId}</td>
       		<td>${deferral.approval}</td>
       		<td><a href="<%= request.getContextPath() %>/deferral/downloadImage/${deferral.defId}"
 						class="ui-btn">Download</a></td>        

@@ -24,7 +24,7 @@
 				<tr>
 					<td class="deferralDescription">CIT are currently accepting applications for deferral of modules. 
 						If you wish to defer a module please click here</td>
-					<td><a href="deferral/addNewDeferralForStudent"><img alt="ModuleDeferral" src="resources/images/deferModule.png" width="180" height="40"></a></td>
+					<td><a href="deferral/doDeferModule"><img alt="ModuleDeferral" src="resources/images/deferModule.png" width="180" height="40"></a></td>
 				</tr>
 
 				<tr>

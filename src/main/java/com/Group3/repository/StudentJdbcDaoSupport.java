@@ -147,5 +147,24 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 		});
 	}
 
+	@Override
+	public List<Student> listStudentsWithdeferrals() {
+		String SQL = "select DISTINCT s.* from student as s"
+				+ " join deferrals as d on s.StudentAutoID = d.StudentAutoID";
+		@SuppressWarnings("unchecked")
+		List<Student> studentList = getJdbcTemplate().query(SQL, 
+						new StudentMapper());
+		return studentList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public int getStudentByStudentID(String studentId) {
+		String SQL = "select * from student where Student_ID = ?";
+		Student student= (Student) getJdbcTemplate().queryForObject(SQL, 
+						new Object[]{studentId}, new StudentMapper());
+		return student.getStudentAutoId();
+	}
 	
 }

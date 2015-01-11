@@ -14,10 +14,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Group3.domain.Module;
-import com.Group3.domain.Programme;
 import com.Group3.domain.Semester;
 import com.Group3.domain.mappers.ModuleMapper;
-import com.Group3.domain.mappers.ProgrammeMapper;
 import com.Group3.domain.mappers.SemesterMapper;
 import com.Group3.service.ModuleDAO;
 @Repository
@@ -33,7 +31,7 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 	public List<Module> listModuleByProgrammeAutoID(int programmeAutoID){
 		String SQL = "select m.* "
 				+ "from modules m "
-				+ "left join semester s on m.semester_id = s.semester_id "
+				+ "left join semester s on m.SemesterAutoID = s.SemesterAutoID "
 				+ "where s.programmeAutoID = ?";
 		System.out.println("SQL : " + SQL);
 		List<Module> moduleList = getJdbcTemplate().query(SQL,  new Object[]{programmeAutoID}, new ModuleMapper());
@@ -73,7 +71,7 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 				ps.setString(1, module.getModuleId());
 				ps.setInt(2, module.getCrnNumber());
 				ps.setString(3, module.getName());
-				ps.setString(4, module.getLectId());
+				ps.setInt(4, module.getLectId());
 				ps.setString(5, module.getSemesterId());
 			}
 
@@ -85,10 +83,12 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public Module getModule(String moduleId, int crnNumber) {
-		String SQL = "select * from modules where Module_ID = ? and CRN= ?";
+	public Module getModule(Integer ModuleAutoID) {
+		String SQL = "select * from modules where ModuleAutoID = ?";
+		logger.debug(SQL);
+		logger.debug("moduleId " + ModuleAutoID);
 		Module module= (Module) getJdbcTemplate().queryForObject(SQL, 
-						new Object[]{moduleId,crnNumber}, new ModuleMapper());
+						new Object[]{ModuleAutoID}, new ModuleMapper());
 		return module;
 	}
 	
@@ -167,6 +167,16 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 		String SQL = "select * from modules "
 				+ " WHERE Lect_ID=?";
 		List<Module> moduleList = getJdbcTemplate().query(SQL, new Object[]{lectId}, new ModuleMapper());
+		return moduleList;
+	}
+
+	@Override
+	public List<Module> listModulesWithdeferrals() {
+		String SQL = "select DISTINCT m.* from modules as m"
+				+ " join deferrals as d on m.ModuleAutoID = d.ModuleAutoID";
+		@SuppressWarnings("unchecked")
+		List<Module> moduleList = getJdbcTemplate().query(SQL, 
+						new ModuleMapper());
 		return moduleList;
 	}
 

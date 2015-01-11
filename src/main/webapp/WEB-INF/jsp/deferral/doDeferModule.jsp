@@ -4,6 +4,7 @@ $(document).ready(function(){  //don't execute until page is fully loaded
 	
 	//On the studentId field, on change, do ajax call
 	$("#studentId").change(function(){
+		
 	 $.ajax({
 		 //go to getStudentProgrammeList
 			 url:"getStudentProgrammeList",
@@ -12,38 +13,42 @@ $(document).ready(function(){  //don't execute until page is fully loaded
 			 //run this function with the response from the server
 			 success:function(result){
 				 //result is what the server has returned from the getStudentProgrammeList method
-				if(result.programmeList) //null check
-					$("#programmeId").html(  //this overwrites the contents of the programmeId element
-							createOptionList(result.programmeList, "programmeId", "programmeId")
-							);
+				if(result.programmeList){ //null check
+					$("#programmeAutoID").html(  //this overwrites the contents of the programmeId element
+							createOptionList(result.programmeList, "programmeAutoID", "programmeId")
+							).focus();
+					$("#studentAutoID").val(result.studentAutoID);
+				}
 		  	 }
 	 	});
 	});
 	
 	//On the programmeId dropdown, on change, do ajax call
-	$("#programmeId").change(function(){
+	$("#programmeAutoID").change(function(){
 		 $.ajax({
 			//go to getProgrammeModuleList
 			 	 url:"getProgrammeModuleList",
 			 	//send programmeId to the server
-				 data:{"programmeId" : $(this).val()},
+				 data:{"programmeAutoID" : $(this).val()},
 				//run this function with the response from the server
 			 	 success:function(result){
 			 		if(result.moduleList)
-						$("#moduleId").html(
-								createOptionList(result.moduleList, "combindedKey", "name")
-								);
+						$("#moduleAutoID").html(
+								createOptionList(result.moduleList, "moduleAutoID", "name")
+								).focus();
 				  }
 		 });
 	});
 
 	//On the moduleId dropdown, on change, do ajax call
-	$("#moduleId").change(function(){
+	$("#moduleAutoID").change(function(){
 		$.ajax({
 		 	 url:"getModuleDetails",
-			 data:{"combindedKey" : $(this).val()},
+			 data:{"ModuleAutoID" : $(this).val()},
 		 	 success:function(result){
-		 		$("#lectId").val(result.firstName + " " + result.lastName);
+		 		$("#lectId").html(
+						createOptionList(result.lectList, "lecturerAutoId", "fullName")
+					).focus();
 			  }
 	 });
 	});
@@ -52,7 +57,7 @@ $(document).ready(function(){  //don't execute until page is fully loaded
 
 //create contents of a dropdown
 function createOptionList(list, id, displayValue){
-	var optionList="";
+	var optionList="<option value='' selected>Please Select</option>'";
 	for(index in list){
 		optionList += "<option value='" + list[index][id] + "'>" + list[index][displayValue] + "</option>'";
 	}
@@ -63,38 +68,44 @@ function createOptionList(list, id, displayValue){
 
 <form:form method="POST" enctype="multipart/form-data" data-ajax="false" action="addNew" modelAttribute="deferral">
 
-<form:errors path="studentId" class="notification error" style="display:block"></form:errors>
 <form:errors path="lectId" class="notification error" style="display:block"></form:errors>
-<form:errors path="programmeId" class="notification error" style="display:block"></form:errors>
-<form:errors path="moduleId" class="notification error" style="display:block"></form:errors>
+<form:errors path="programmeAutoID" class="notification error" style="display:block"></form:errors>
+<form:errors path="moduleAutoID" class="notification error" style="display:block"></form:errors>
 <form:errors path="approval" class="notification error" style="display:block"></form:errors>
 <form:errors path="*" cssClass="errorblock" element="div" />
 
  <div class="ui-field-contain">
- <form:label path="studentId">Student ID</form:label>
- <form:input path="studentId" placeholder="Student ID.."  value=""/>
- <form:errors path="studentId" cssClass="error" class="notification error" style="display:block"></form:errors>
+ <label for="studentId">Student ID</label>
+ <input id="studentId" placeholder="Student ID.."  value=""/>
+ <form:hidden path="studentAutoID" value=""/>
+ 
+ </div>
+ 
+ 
+ <div class="ui-field-contain">
+ <form:label path="programmeAutoID">Programme ID</form:label>
+ <form:select path="programmeAutoID" placeholder="Programme ID..">
+ 	<form:option value="-1"> Please Select</form:option>
+	<form:options items="${deferralForm.programmeList }" itemValue="programmeAutoID" itemLabel="programmeId" />
+ </form:select>
+ <form:errors path="programmeAutoID" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  
  <div class="ui-field-contain">
- <form:label path="programmeId">Programme ID</form:label>
- <form:select path="programmeId" placeholder="Programme ID.."   value="">
-	<form:options list="${deferralForm.programmeList }"/>
+ <form:label path="moduleAutoID">Module ID</form:label>
+ <form:select path="moduleAutoID" placeholder="Module ID.."   value="">
+ 	<form:option value="-1"> Please Select</form:option>
+	<form:options items="${deferralForm.moduleList }" itemValue="moduleAutoID" itemLabel="moduleId" />
  </form:select>
- <form:errors path="programmeId" cssClass="error" class="notification error" style="display:block"></form:errors>
- </div>
- 
- <div class="ui-field-contain">
- <form:label path="moduleId">Module ID</form:label>
- <form:select path="moduleId" placeholder="Module ID.."   value="">
-	<form:options list="${deferralForm.moduleList }"/>
- </form:select>
- <form:errors path="moduleId" cssClass="error" class="notification error" style="display:block"></form:errors>
+ <form:errors path="moduleAutoID" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  
  <div class="ui-field-contain">
  <form:label path="lectId">Lecturer ID</form:label>
- <form:input path="lectId" placeholder="Lecturer ID.."   value=""/>
+ <form:select path="lectId" placeholder="Lecturer ID.."   value="">
+ 	<form:option value="-1"> Please Select</form:option>
+	<form:options items="${deferralForm.lectList }" itemValue="lecturerAutoId" itemLabel="lectId" />
+ </form:select>
  <form:errors path="lectId" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  

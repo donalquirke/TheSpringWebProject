@@ -62,4 +62,8 @@ public interface StudentDAO {
 
 	int createStudentGetId(String studId, String firstName, String lastName,
 			String email);
+
+	public List<Student> listStudentsWithdeferrals();
+
+	public int getStudentByStudentID(String studentId);
 }

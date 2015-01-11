@@ -15,10 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.Group3.domain.Lecturer;
 import com.Group3.domain.Programme;
-import com.Group3.domain.Student;
 import com.Group3.service.LecturerDAO;
 import com.Group3.service.ProgrammeDAO;
-import com.Group3.service.StudentDAO;
 
 @Controller
 @RequestMapping("/programme")

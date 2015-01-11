@@ -15,9 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.Group3.domain.Deferral;
 import com.Group3.domain.Programme;
-import com.Group3.domain.mappers.DeferralMapper;
 import com.Group3.domain.mappers.ProgrammeMapper;
 import com.Group3.service.ProgrammeDAO;
 @Repository
@@ -30,12 +28,13 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Programme> listProgrammeByStudentAutoID(int studentAutoID){
+	public List<Programme> listProgrammeByStudentID(String studentID){
 		String SQL = "select p.* "
 				+ "from programme p "
-				+ "left join registration r on r.programme_id = p.programme_id "
-				+ "where r.studentAutoID = ?";
-		List<Programme> programmeList = getJdbcTemplate().query(SQL,  new Object[]{studentAutoID}, new ProgrammeMapper());
+				+ "left join registration r on r.ProgrammeAutoID = p.ProgrammeAutoID "
+				+ "left join student s on s.StudentAutoID = r.StudentAutoID "
+				+ "where s.Student_ID = ?";
+		List<Programme> programmeList = getJdbcTemplate().query(SQL,  new Object[]{studentID}, new ProgrammeMapper());
 		return programmeList;
 	}
 	
@@ -153,6 +152,16 @@ public class ProgrammeJdbcDaoSupport extends JdbcDaoSupport implements Programme
 			String coordinatorId, String startMonth) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Programme> listProgrammesWithdeferrals() {
+		String SQL = "select DISTINCT p.* from programme as p"
+				+ " join deferrals as d on p.ProgrammeAutoID = d.ProgrammeAutoID";
+		@SuppressWarnings("unchecked")
+		List<Programme> programmeList = getJdbcTemplate().query(SQL, 
+						new ProgrammeMapper());
+		return programmeList;
 	}
 
 }

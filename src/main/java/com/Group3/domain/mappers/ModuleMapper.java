@@ -17,8 +17,8 @@ public class ModuleMapper implements RowMapper {
 		module.setModuleId(rs.getString("Module_ID"));
 		module.setCrnNumber(rs.getInt("CRN"));
 		module.setName(rs.getString("Name"));
-		module.setLectId(rs.getString("Lect_ID"));
-		module.setSemesterId(rs.getString("Semester_ID"));
+		module.setLectId(rs.getInt("LecturerAutoID"));
+		module.setSemesterId(rs.getString("SemesterAutoID"));
 		return module;
 
 	}

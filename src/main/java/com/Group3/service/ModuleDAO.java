@@ -44,7 +44,7 @@ public interface ModuleDAO {
 	 * This is the method to be used to list down a record from the Module table
 	 * corresponding to a passed Module ID and CRN.
 	 */
-	public Module getModule(String moduleId, int crnNumber);
+	public Module getModule(Integer ModuleAutoID);
 
 	/**
 	 * This is the method to be used to list all the modules corresponding to a
@@ -75,4 +75,6 @@ public interface ModuleDAO {
 	public int countRows();
 
 	public List<Module> listModuleByProgrammeAutoID(int programmeAutoID);
+
+	public List<Module> listModulesWithdeferrals();
 }

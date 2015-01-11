@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Service;
 
 import com.Group3.domain.Deferral;
-import com.Group3.domain.Programme;
 
 @Service
 public interface DeferralDAO {
@@ -21,7 +20,7 @@ public interface DeferralDAO {
 	 * This is the method to be used to create a Deferral entry and return the
 	 * id generated.
 	 */
-	public int createDeferralGetId(int studentAutoID, String lectID,
+	public int createDeferralGetId(int studentAutoID, int lectID,
 			int programmeAutoID, int moduleAutoID, String approval);
 
 	/**
