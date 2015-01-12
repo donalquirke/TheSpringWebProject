@@ -169,9 +169,10 @@ public class DeferralController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		DeferralForm deferralForm = new DeferralForm();
-//		deferralForm.setLectList(lecturerDAO.listLecturers());
-//		deferralForm.setProgrammeList(programmeDAO.listProgrammes());
-//		deferralForm.setModuleList(moduleDAO.listModules());
+
+		deferralForm.setLectList(lecturerDAO.listLecturers());
+		deferralForm.setProgrammeList(programmeDAO.listProgrammes());
+		deferralForm.setModuleList(moduleDAO.listModules());
 		
 		modelAndView.addObject("deferral", new Deferral());  //sending a blank deferral		
 		modelAndView.addObject("deferralForm", deferralForm);  //sending a blank deferral form
@@ -367,6 +368,34 @@ public class DeferralController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteDeferral(ModelMap model) {   
 		List<Deferral> listDeferrals=deferralDAO.listDeferrals();
+		
+		List<Student> listStudents    =studentDAO.listStudentsWithdeferrals();
+		List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+		List<Programme> listProgrammes=programmeDAO.listProgrammesWithdeferrals();
+		List<Module> listModules      =moduleDAO.listModulesWithdeferrals();
+		
+		HashMap<Integer, Student> studentMap     = new HashMap<Integer, Student>();
+		HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
+		HashMap<Integer, Programme> programmeMap = new HashMap<Integer, Programme>();
+		HashMap<Integer, Module> moduleMap       = new HashMap<Integer, Module>();
+		
+		for(Student student : listStudents){
+			studentMap.put(student.getStudentAutoId(), student);
+		}
+		for(Lecturer lecturer : listLecturers){
+			lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
+		}
+		for(Programme programme : listProgrammes){
+			programmeMap.put(programme.getProgrammeAutoID(), programme);
+		}
+		for(Module module : listModules){
+			moduleMap.put(module.getModuleAutoID(), module);
+		}
+		
+		model.addAttribute("studentMap", studentMap);
+		model.addAttribute("lecturerMap", lecturerMap);
+		model.addAttribute("programmeMap", programmeMap);
+		model.addAttribute("moduleMap", moduleMap);
 		model.addAttribute("deferrals", listDeferrals);		
 		return "delete";
 	} //WORKING
@@ -388,8 +417,36 @@ public class DeferralController {
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
 		List<Deferral> listDeferrals=deferralDAO.listDeferrals();
+		
+		List<Student> listStudents    =studentDAO.listStudentsWithdeferrals();
+		List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+		List<Programme> listProgrammes=programmeDAO.listProgrammesWithdeferrals();
+		List<Module> listModules      =moduleDAO.listModulesWithdeferrals();
+		
+		HashMap<Integer, Student> studentMap     = new HashMap<Integer, Student>();
+		HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
+		HashMap<Integer, Programme> programmeMap = new HashMap<Integer, Programme>();
+		HashMap<Integer, Module> moduleMap       = new HashMap<Integer, Module>();
+		
+		for(Student student : listStudents){
+			studentMap.put(student.getStudentAutoId(), student);
+		}
+		for(Lecturer lecturer : listLecturers){
+			lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
+		}
+		for(Programme programme : listProgrammes){
+			programmeMap.put(programme.getProgrammeAutoID(), programme);
+		}
+		for(Module module : listModules){
+			moduleMap.put(module.getModuleAutoID(), module);
+		}
+		
 		Date date = new java.util.Date();	
 		model.addAttribute("deferrals", listDeferrals);
+		model.addAttribute("studentMap", studentMap);
+		model.addAttribute("lecturerMap", lecturerMap);
+		model.addAttribute("programmeMap", programmeMap);
+		model.addAttribute("moduleMap", moduleMap);
 		model.addAttribute("now", date);
 		return "modify";			
 	} //WORKING

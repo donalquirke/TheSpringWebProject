@@ -5,10 +5,9 @@
 		id="myTable">
 		<thead>
 			<tr>
-				<th data-priority="3">Programme Auto ID</th>
     			<th data-priority="1">Programme ID</th>
     			<th data-priority="3">No. of Years</th>
-    			<th data-priority="2">Co-Ordinator Id</th>  
+    			<th data-priority="2">Co-Ordinator</th>  
     			<th data-priority="4">Year of Programme</th>
     			<th data-priority="2">Action</th>
 			</tr>
@@ -18,10 +17,9 @@
 
 			<c:forEach var="programme" items="${programmes}" varStatus="status">
 				<tr>
-					<td>${programme.programmeAutoID}</td>
 					<td>${programme.programmeId}</td>
 	  				<td>${programme.numYears}</td>
-	  				<td>${programme.lecturerAutoID}</td>
+	  				<td>${lecturerMap[programme.lecturerAutoID].fullName}</td>
 	  				<td>${programme.progYear}</td>
 					<td><a
 						href="<%= request.getContextPath() %>/programme/modify/programmeAutoID/${status.current.programmeAutoID}"

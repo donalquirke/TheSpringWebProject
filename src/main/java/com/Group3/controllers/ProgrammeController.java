@@ -1,6 +1,7 @@
 package com.Group3.controllers;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -34,7 +35,17 @@ public class ProgrammeController {
 	public String listAll(ModelMap model) {			
 			Date date = new java.util.Date();
 			List<Programme> listProgrammes=programmeDAO.listProgrammes();
+			
+			List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+			
+			HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
+			
+			for(Lecturer lecturer : listLecturers){
+				lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
+			}
+			
 			model.addAttribute("programmes", listProgrammes);
+			model.addAttribute("lecturerMap", lecturerMap);
 			model.addAttribute("now", date);
 		    return "displayProgrammes";			
 		}  //working
@@ -108,7 +119,17 @@ public class ProgrammeController {
 	public String modify(ModelMap model) {		
 		logger.debug("modify programme");
 		List<Programme> listProgrammes=programmeDAO.listProgrammes();
-		Date date = new java.util.Date();	
+		
+		List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+		
+		HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
+		
+		for(Lecturer lecturer : listLecturers){
+			lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
+		}
+		
+		Date date = new java.util.Date();
+		model.addAttribute("lecturerMap", lecturerMap);	
 		model.addAttribute("programmes", listProgrammes);
 		model.addAttribute("now", date);
 		System.out.println(" " + listProgrammes);

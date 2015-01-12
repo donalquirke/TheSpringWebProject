@@ -4,7 +4,6 @@
 <table data-role="table" class="ui-responsive" data-mode="columntoggle" id="myTable">
   <thead>
     <tr>
-    <th data-priority="5">Image </th>
     <th data-priority="3">Deferral ID</th>
     <th data-priority="4">Student ID</th>
     <th data-priority="1">Lecturer ID</th>
@@ -18,7 +17,6 @@
   <tbody>
     <c:forEach var="deferral" items="${deferrals}">
     	<tr>
-   	  		<td><img alt="cit" width="24" border="0" align="middle" src="<c:url value="/resources/images/cit.jpg"/>"></td>
       		<td>${deferral.defId}</td>
       		<td>${studentMap[deferral.studentAutoID].studentId}</td>
       		<td>${lecturerMap[deferral.lectId].fullName}</td>

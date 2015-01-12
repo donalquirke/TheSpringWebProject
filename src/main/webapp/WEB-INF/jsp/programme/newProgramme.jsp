@@ -28,12 +28,12 @@
  --%>
  
  <div class="ui-field-contain">
- <form:label path="lecturerAutoID">No. Of Years</form:label>
+ <form:label path="lecturerAutoID">Lecturer</form:label>
  <form:input path="lecturerAutoID" placeholder="Enter lecturerAutoID.." value=""/>
  </div>
  
  <div class="ui-field-contain">
- <form:label path="progYear">progYear</form:label>
+ <form:label path="progYear">Year of Programme</form:label>
  <form:input path="progYear" placeholder="Enter year of programme.."   value=""/>
  </div>
  
