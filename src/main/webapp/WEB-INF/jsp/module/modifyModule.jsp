@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-
-<c:if test="${not empty programmes}">
+<c:if test="${not empty modules}">
 	<table data-role="table" class="ui-responsive" data-mode="columntoggle"
 		id="myTable">
 		<thead>
@@ -16,7 +15,7 @@
 
 		<tbody>
 
-			<c:forEach var="programme" items="${programmes}" varStatus="status">
+			<c:forEach var="module" items="${modules}" varStatus="status">
 				<tr>
 					<td>${module.moduleId}</td>
 	  				<td>${module.crnNumber}</td>

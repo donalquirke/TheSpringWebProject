@@ -55,7 +55,7 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void deleteModule(int moduleAutoID) {
-		String SQL = "delete from modules where ModuleAutoID = ? and CRN= ?";
+		String SQL = "delete from modules where ModuleAutoID = ?";
 		getJdbcTemplate().update(SQL, new Object[] { moduleAutoID });
 		return;
 	}

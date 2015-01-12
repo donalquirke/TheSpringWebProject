@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Group3.domain.Lecturer;
 import com.Group3.domain.Module;
 import com.Group3.domain.Programme;
+import com.Group3.domain.Semester;
 import com.Group3.service.LecturerDAO;
 import com.Group3.service.ModuleDAO;
 import com.Group3.service.ProgrammeDAO;
@@ -101,7 +102,8 @@ public class ModuleController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteModule(ModelMap model) {   
 		List<Module> listModules=moduleDAO.listModules();
-		model.addAttribute("modules", listModules);		
+		model.addAttribute("modules", listModules);	
+		System.out.println(listModules);
 		return "deleteModule";
 	} 
 	
@@ -109,7 +111,7 @@ public class ModuleController {
 	public String deleteProgrammeById(@PathVariable int moduleAutoID, ModelMap model) { 
 		Module moduleDelete=moduleDAO.getModule(moduleAutoID);
 		moduleDAO.deleteModule(moduleAutoID);
-		model.addAttribute("message", "Programme with Programme id "+ moduleAutoID +" and details "
+		model.addAttribute("message", "Module with Module id "+ moduleAutoID +" and details "
 				+ "below have been deleted from the system");
 		model.addAttribute("moduleId", moduleDelete.getModuleId());
 		model.addAttribute("crnNumber", moduleDelete.getCrnNumber());
@@ -132,8 +134,10 @@ public class ModuleController {
 			lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
 		}
 		
+		
+		
 		Date date = new java.util.Date();
-		model.addAttribute("lecturerMap", lecturerMap);	
+		model.addAttribute("lecturerMap", lecturerMap);
 		model.addAttribute("modules", listModules);
 		model.addAttribute("now", date);
 		System.out.println(" " + listModules);

@@ -14,7 +14,7 @@ $(document).ready(function(){
 
 <div data-role="header" data-position="inline">  
  	<h1>
-		DEFERRALS
+		Cork Institute of Technology
   	</h1> 
   	<a href="<c:url value="/home"/>" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
   	<a href="<c:url value="/logout"/>" class="ui-btn ui-icon-search ui-btn-icon-left">Log out</a>

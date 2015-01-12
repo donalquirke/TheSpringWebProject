@@ -116,6 +116,6 @@ public class StudentController {
 		modelAndView.addObject("student", studentModify);
 		modelAndView.setViewName("displayStudent");
 		return modelAndView;		
-	} //NOT WORKING - not updating database
+	} 
 	
 }

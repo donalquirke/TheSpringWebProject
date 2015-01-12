@@ -8,7 +8,10 @@
 	
 	
 	 <http auto-config="true">
-        <intercept-url pattern="/deferral/**" access="ROLE_USER" />
+        <intercept-url pattern="/deferral/delete" access="ROLE_USER" />
+        <intercept-url pattern="/deferral/listall" access="ROLE_USER" />
+        <intercept-url pattern="/deferral/modify" access="ROLE_USER" />
+        <intercept-url pattern="/deferral/search" access="ROLE_USER" />
         <intercept-url pattern="/lecturer/**" access="ROLE_USER" />
         <intercept-url pattern="/programme/**" access="ROLE_USER" />
         <intercept-url pattern="/module/**" access="ROLE_USER" />

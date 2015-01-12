@@ -155,8 +155,7 @@ public class ProgrammeController {
 		modelAndView.addObject("programme", programmeModify);
 		modelAndView.setViewName("displayProgramme");
 		return modelAndView;	
-	}  //NOT WORKING - nothing happening, not updating database
+	}  
 	
 }
 	
-
