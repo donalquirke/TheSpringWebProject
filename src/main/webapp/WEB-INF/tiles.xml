@@ -163,10 +163,34 @@
         <put-attribute name="body" value="/WEB-INF/jsp/lecturer/modifyLecturerForm.jsp"></put-attribute>  
 </definition>
 
-
 <definition extends="base.definition" name="displayModules">  
-       <put-attribute name="title" value="Module List"></put-attribute>  
-       <put-attribute name="body" value="/WEB-INF/jsp/programme/listModules.jsp"></put-attribute>  
+       <put-attribute name="title" value="Modules List"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/module/listModules.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="newModule">  
+       <put-attribute name="title" value="Add New Module"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/module/newModule.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayModule">  
+       <put-attribute name="title" value="Module Data Form"></put-attribute>  
+       <put-attribute name="body" value="/WEB-INF/jsp/module/displayModule.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="deleteModule">  
+        <put-attribute name="title" value="Delete Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/deleteModule.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyModule">  
+        <put-attribute name="title" value="Modify Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/modifyModule.jsp"></put-attribute>  
+</definition>
+
+<definition extends="base.definition" name="modifyModuleForm">  
+        <put-attribute name="title" value="Modify Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/modifyModuleForm.jsp"></put-attribute>  
 </definition>
 
 <definition extends="base.definition" name="email">  

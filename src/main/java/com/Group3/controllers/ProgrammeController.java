@@ -36,7 +36,7 @@ public class ProgrammeController {
 			Date date = new java.util.Date();
 			List<Programme> listProgrammes=programmeDAO.listProgrammes();
 			
-			List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+			List<Lecturer> listLecturers   =lecturerDAO.listLecturers();
 			
 			HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
 			
@@ -120,7 +120,7 @@ public class ProgrammeController {
 		logger.debug("modify programme");
 		List<Programme> listProgrammes=programmeDAO.listProgrammes();
 		
-		List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
+		List<Lecturer> listLecturers   =lecturerDAO.listLecturers();
 		
 		HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
 		

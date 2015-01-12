@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 public class Semester {
 
+	private int semesterAutoID;
 	private String semesterId;
 	private int programmeAutoID;
 	@Size(min=2, max=15, message="A Programme ID cannot have less than 2 characters or greater than 15")
@@ -53,6 +54,14 @@ public class Semester {
 
 	public void setEndMonth(String endMonth) {
 		this.endMonth = endMonth;
+	}
+
+	public int getSemesterAutoID() {
+		return semesterAutoID;
+	}
+
+	public void setSemesterAutoID(int semesterAutoID) {
+		this.semesterAutoID = semesterAutoID;
 	}
 
 }

@@ -4,13 +4,13 @@ import javax.validation.constraints.Size;
 
 public class Module {
 
-	private int ModuleAutoID;
+	private int moduleAutoID;
 	private String moduleId;
 	@Size(min=2, max=15, message="A Module ID cannot have less than 2 characters or greater than 15")
 	private int crnNumber;
 	private String name;
-	private Integer lectId;
-	private String semesterId;
+	private int lecturerAutoID;
+	private int semesterAutoID;
 	
 	public Module() {
 		// Blank Constructor
@@ -18,17 +18,17 @@ public class Module {
 
 
 	public String  getCombindedKey() {
-		return ModuleAutoID + "-" +crnNumber;
+		return moduleAutoID + "-" +crnNumber;
 	}
 
-	public Module(String moduleId, int crnNumber, String name, Integer lectId,
-			String semesterId) {
+	public Module(int moduleAutoID, String moduleId, int crnNumber, String name, Integer lecturerAutoID,
+			int semesterAutoID) {
 		super();
 		this.moduleId = moduleId;
 		this.crnNumber = crnNumber;
 		this.name = name;
-		this.lectId = lectId;
-		this.semesterId = semesterId;
+		this.lecturerAutoID = lecturerAutoID;
+		this.semesterAutoID = semesterAutoID;
 	}
 
 	public String getModuleId() {
@@ -55,30 +55,30 @@ public class Module {
 		this.name = name;
 	}
 
-	public Integer getLectId() {
-		return lectId;
+	public Integer getLecturerAutoID() {
+		return lecturerAutoID;
 	}
 
-	public void setLectId(Integer lectId) {
-		this.lectId = lectId;
+	public void setLecturerAutoId(Integer lecturerAutoID) {
+		this.lecturerAutoID = lecturerAutoID;
 	}
 
-	public String getSemesterId() {
-		return semesterId;
+	public int getSemesterAutoID() {
+		return semesterAutoID;
 	}
 
 	public int getModuleAutoID() {
-		return ModuleAutoID;
+		return moduleAutoID;
 	}
 
 
 	public void setModuleAutoID(int moduleAutoID) {
-		ModuleAutoID = moduleAutoID;
+		this.moduleAutoID = moduleAutoID;
 	}
 
 
-	public void setSemesterId(String semesterId) {
-		this.semesterId = semesterId;
+	public void setSemesterAutoID(int semesterAutoID) {
+		this.semesterAutoID = semesterAutoID;
 	}
 	
 

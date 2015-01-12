@@ -97,7 +97,7 @@ tr:nth-child(even) {
 					<ul data-role="listview" data-inset="true">
 						<li><a href="<%= request.getContextPath() %>/module/addNew">Add</a></li>
 						<li><a href="<%= request.getContextPath() %>/module/delete">Delete</a></li>
-						<li><a href="<%= request.getContextPath() %>/module/listall">List All</a></li>
+						<li><a href="<%= request.getContextPath() %>/module/listModules">List All</a></li>
 						<li><a href="<%= request.getContextPath() %>/module/modify">Modify</a></li>
 					</ul>
 				</div>

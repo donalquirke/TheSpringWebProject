@@ -21,19 +21,19 @@ public interface ModuleDAO {
 	 */
 
 	public void createModule(String moduleId, int crnNumber, String name,
-			String lectId, String semesterId);
+			int lecturerAutoId, int semesterAutoId);
 
 	/**
 	 * This is the method to be used to update a record in the Module table.
 	 */
 
-	public void updateModuleName(String id, int crn, String name);
+	public void updateModuleName(int moduleAutoID, String name);
 
 	/**
 	 * This is the method to be used to delete a record from the Module table
 	 * corresponding to a passed Module ID and CRN.
 	 */
-	public void deleteModule(String moduleId, int crnNumber);
+	public void deleteModule(int moduleAutoID);
 
 	/**
 	 * This is the method to be used to create multiple Modules.
@@ -67,14 +67,15 @@ public interface ModuleDAO {
 	/**
 	 * This is the method to be used to register a student for a specfic module.
 	 */
-	public void registerStudentForModule(String studId, int crnNumber);
-
-	/**
-	 * This is the method used to count the rows in the table.
-	 */
+	
 	public int countRows();
 
 	public List<Module> listModuleByProgrammeAutoID(int programmeAutoID);
 
 	public List<Module> listModulesWithdeferrals();
+
+	public int createModuleGetId(String moduleId, int crnNumber, String name,
+			Integer lecturerAutoID, int semesterAutoId);
+
+	public void updateModule(int moduleAutoID, int lecturerAutoID);
 }

@@ -2,13 +2,18 @@ package com.Group3.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,25 +45,25 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void createModule(String moduleId, int crnNumber, String name, String lectId, String semesterId) {
-		String SQL = "insert into modules (Module_ID, CRN, Name, Lect_ID, Semester_ID) values (?, ?, ?,?,?)";
-		getJdbcTemplate().update(SQL,new Object[] { moduleId, crnNumber, name, lectId, semesterId  });
+	public void createModule(String moduleId, int crnNumber, String name, int lecturerAutoId, int semesterAutoId) {
+		String SQL = "insert into modules (Module_ID, CRN, Name, LecturerAutoID, SemesterAutoID) values (?, ?, ?,?,?)";
+		getJdbcTemplate().update(SQL,new Object[] { moduleId, crnNumber, name, lecturerAutoId, semesterAutoId  });
 		return;
 		}
 	
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void deleteModule(String moduleId,int crnNumber) {
-		String SQL = "delete from modules where Module_ID = ? and CRN= ?";
-		getJdbcTemplate().update(SQL, new Object[] { moduleId, crnNumber });
+	public void deleteModule(int moduleAutoID) {
+		String SQL = "delete from modules where ModuleAutoID = ? and CRN= ?";
+		getJdbcTemplate().update(SQL, new Object[] { moduleAutoID });
 		return;
 	}
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public void createMultipleModules(final List<Module> modules) {
-		String SQL = "insert into modules (Module_ID, CRN, Name, Lect_ID, Semester_ID) values (?, ?, ?,?,?)";
+		String SQL = "insert into modules (Module_ID, CRN, Name, LecturerAutoID, SemesterAutoID) values (?, ?, ?,?,?)";
 		getJdbcTemplate().batchUpdate(SQL, new BatchPreparedStatementSetter() {
 
 			public int getBatchSize() {
@@ -71,8 +76,8 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 				ps.setString(1, module.getModuleId());
 				ps.setInt(2, module.getCrnNumber());
 				ps.setString(3, module.getName());
-				ps.setInt(4, module.getLectId());
-				ps.setString(5, module.getSemesterId());
+				ps.setInt(4, module.getLecturerAutoID());
+				ps.setInt(5, module.getSemesterAutoID());
 			}
 
 						
@@ -115,33 +120,6 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 		return moduleList;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void registerStudentForModule(String studId,int crnNumber) {
-		
-		/*The module must correspond to a specific programme ID
-		Get this programme ID*/
-		List<Module> moduleList;
-		String SQL="SELECT * from modules"
-				+ " WHERE CRN=?";
-		moduleList = getJdbcTemplate().query(SQL, new Object[] {crnNumber}, new ModuleMapper());
-		String semesterId=moduleList.get(0).getSemesterId();
-		
-		List<Semester> semesterList;
-		String SQL2="SELECT * from semester"
-				+ " WHERE Semester_ID=?";
-		semesterList = getJdbcTemplate().query(SQL2, new Object[] {semesterId}, new SemesterMapper());
-		int moduleProgramme=semesterList.get(0).getProgrammeAutoID();
-		
-		/*Now that we have the correct programme ID.
-		Excecute insert statement*/ 
-		String SQL3 = "insert into registration (Student_ID, CRN,Programme_ID) values (?, ?,?)";
-		getJdbcTemplate().update(SQL3, new Object[] { studId, crnNumber, moduleProgramme });
-		return;
-	}
-
-	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public int countRows() {
@@ -153,10 +131,10 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void updateModuleName(String id, int crn, String name) {
-		String SQL = "update modules set Name =? where Module_ID = ? and CRN = ?";
-		getJdbcTemplate().update(SQL, new Object[] {name, id, crn});
-		System.out.println("Updated record with id: "+ id);
+	public void updateModuleName(int moduleAutoID, String name) {
+		String SQL = "update modules set Name =? where ModuleAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] {name, moduleAutoID});
+		System.out.println("Updated record with id: "+ moduleAutoID);
 		return;	
 		
 	}
@@ -178,6 +156,36 @@ public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {
 		List<Module> moduleList = getJdbcTemplate().query(SQL, 
 						new ModuleMapper());
 		return moduleList;
+	}
+
+	@Override
+	public int createModuleGetId(String moduleId, int crnNumber, String name,
+			Integer lecturerAutoID, int semesterAutoId) {
+		String SQL = "insert into modules (Module_ID, CRN, Name, LecturerAutoID, SemesterAutoID) values (?, ?, ?, ?, ?)";
+		
+		Object[] params=new Object[]{moduleId, crnNumber, name, lecturerAutoID, semesterAutoId};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("Module_ID", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("CRN", Types.INTEGER));
+		psc.addParameter(new SqlParameter("Name", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("LecturerAutoID", Types.INTEGER));
+		psc.addParameter(new SqlParameter("SemesterAutoID", Types.INTEGER));
+		
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+		System.out.println("holder: " + holder.getKey().toString());
+		
+		String key = holder.getKey().toString();
+		return Integer.parseInt(key);
+	}
+
+	@Override
+	public void updateModule(int moduleAutoID, int lecturerAutoID) {
+		String SQL = "update modules set LecturerAutoID = ? where ModuleAutoID = ?";
+		getJdbcTemplate().update(SQL, new Object[] {lecturerAutoID, moduleAutoID});
+		System.out.println("Updated record with Module ID: "+ moduleAutoID);
+		return;	
+		
 	}
 
 	

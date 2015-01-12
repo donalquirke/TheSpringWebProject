@@ -1,7 +1,8 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
-<c:if test="${not empty modules}">
-<table data-role="table" class="ui-responsive" data-mode="columntoggle" id="myTable">
+<h2>${message}</h2>
+
+<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myTable">
   <thead>
     <tr>
       <th data-priority="1">Module Id</th>
@@ -11,20 +12,13 @@
       <th data-priority="4">Semester Id</th>  
     </tr>
   </thead>
-
   <tbody>
-    <c:forEach var="module" items="${modules}">
     <tr>
       <td>${module.moduleId}</td>
 	  <td>${module.crnNumber}</td>
 	  <td>${module.name}</td> 
 	  <td>${lecturerMap[module.lecturerAutoID].fullName}</td> 
-	  <td>${module.semesterAutoID}</td>    
+	  <td>${module.semesterAutoID}</td>           
     </tr>
-     </c:forEach>
   </tbody>
- 
-</table>			
-		
-</c:if>
-	
+</table>

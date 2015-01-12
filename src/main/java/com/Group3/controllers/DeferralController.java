@@ -503,7 +503,7 @@ public class DeferralController {
 		logger.info("getModuleDetails");
 		
 		Module module = moduleDAO.getModule(ModuleAutoID);
-		Lecturer lecturer = lecturerDAO.getLecturer(module.getLectId());
+		Lecturer lecturer = lecturerDAO.getLecturer(module.getLecturerAutoID());
 		List<Lecturer> lectList = new ArrayList<>();
 		lectList.add(lecturer);
 		DeferralForm deferralForm = new DeferralForm();
