@@ -27,5 +27,5 @@ public class RegistrationController {
 			model.addAttribute("registrations", listRegistrations);
 			model.addAttribute("now", date);
 		    return "displayRegistrations";			
-		}  //Working - displaying all registrations in database
+		}  
 }

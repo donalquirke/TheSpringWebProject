@@ -48,7 +48,7 @@ public class ProgrammeController {
 			model.addAttribute("lecturerMap", lecturerMap);
 			model.addAttribute("now", date);
 		    return "displayProgrammes";			
-		}  //working
+		}  
 	
 	@RequestMapping(value="/listById/{programmeId}", method = RequestMethod.GET) 
 	public String getProgramme(ModelMap model) {			
@@ -69,7 +69,7 @@ public class ProgrammeController {
 		//modelAndView.addObject("lecturerList", lecturerList);
 		modelAndView.setViewName("newProgramme");
 		return modelAndView;
-	}  //
+	}  
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public ModelAndView displayProgramme(@ModelAttribute("programme") Programme programme, ModelMap model) {
@@ -93,14 +93,14 @@ public class ProgrammeController {
 		}
 		modelAndView.setViewName("displayProgramme");
 		return modelAndView;
-	}  //NOT WORKING - FOREIGN KEY RESTRAINT
+	}  
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteProgramme(ModelMap model) {   
 		List<Programme> listProgrammes=programmeDAO.listProgrammes();
 		model.addAttribute("programmes", listProgrammes);		
 		return "deleteProgramme";
-	} //Working - displaying all programmes with delete buttons
+	} 
 	
 	@RequestMapping(value = "/delete/programmeAutoID/{programmeAutoID}", method = RequestMethod.GET) 
 	public String deleteProgrammeById(@PathVariable int programmeAutoID, ModelMap model) { 
@@ -134,7 +134,7 @@ public class ProgrammeController {
 		model.addAttribute("now", date);
 		System.out.println(" " + listProgrammes);
 		return "modifyProgramme";			
-	}  // WORKING
+	}  
 	
 	@RequestMapping(value = "/modify/programmeAutoID/{programmeAutoID}", method = RequestMethod.GET) 
 	public String modifyProgramme(@PathVariable int programmeAutoID, ModelMap model) { 
@@ -143,7 +143,7 @@ public class ProgrammeController {
 		model.addAttribute("message", "Programme with id "+ programmeAutoID +" can now be modified");
 		model.addAttribute("programme", programmeModify);
 		return "modifyProgrammeForm";	
-	}  // WORKING
+	}  
 	
 	@RequestMapping(value="/modify/programmeAutoID/{programmeAutoID}/lecturerAutoID/{lecturerAutoID}", method = RequestMethod.GET) 
 	public ModelAndView modifyProgramme(@PathVariable int programmeAutoID, @PathVariable int lecturerAutoID, ModelMap model) {			

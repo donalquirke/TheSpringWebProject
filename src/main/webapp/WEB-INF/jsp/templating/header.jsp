@@ -1,17 +1,5 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#ajaxBtn").click(function(){
-	
-	  $.ajax({url:"ajaxCall",success:function(result){
-		  
-	    alert(result);
-	  }});
-	});
-});
-</script>
-
 <div data-role="header" data-position="inline">  
  	<h1>
 		Cork Institute of Technology
@@ -22,35 +10,11 @@ $(document).ready(function(){
    
 	<div data-role="navbar">
  		<ul>
-       		<li><a href="#">BSc Cloud</a></li>
-        	<li><a href="#">MSc Cloud</a></li>
-        	<li><a href="#">HDip Cloud</a></li>
+       		<li><a href="http://www.mycit.ie">MyCIT</a></li>
+        	<li><a href="http://cloud.cit.ie">Cloud Home</a></li>
+        	<li><a href="http://cloud.cit.ie/graduate-conversion-programmes/">HDip</a></li>
+        	<li><a href="http://cloud.cit.ie/msc-cloud-computing/">MSc</a></li>
+        	<li><a href="http://cloud.cit.ie/bsc-cloud-computing/">BSc (Hons)</a></li>
  		</ul>
  	</div>
 </div>
-<%-- 
-<%@ include file="/WEB-INF/jsp/include.jsp"%>
-<html>
-
-<head>
-<title>Header</title>
-<link href="<c:url value="/resources/somecss/deferrals.css" />" rel="stylesheet">
-</head>
-<body>
-
-<div>
-<ul class="tabs">
-<li><a href="/TheSpringWebProject/home">Home</a></li>
-<li><a href="#">Apply For Deferral</a></li>
-<li>Students</li>
-<li><a href="#">View Deferrals</a></li>           
-</ul> 
-</div>
-
-<div>
-<img class="banner" alt="Banner" src="<c:url value="/resources/images/banner.jpg"/>">
-</div>
-
-</body>
-</html>
---%>

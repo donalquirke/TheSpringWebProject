@@ -32,7 +32,7 @@ public class StudentController {
 			model.addAttribute("students", listStudents);
 			model.addAttribute("now", date);
 		    return "displayStudents";			
-		}  //WORKING
+		}  
 	
 	@RequestMapping(value="/listById/{studentId}", method = RequestMethod.GET) 
 	public String getStudent(ModelMap model) {			
@@ -47,7 +47,7 @@ public class StudentController {
 	public String createStudent(ModelMap model) {
 		model.addAttribute("student", new Student());
 		return "newStudent";
-	}  //WORKING
+	}  
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public String displayStudent(@ModelAttribute("student") Student student, ModelMap model) {
@@ -66,14 +66,14 @@ public class StudentController {
 		}
 
 		return "displayStudent";
-	}  //WORKING
+	}  
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteStudent(ModelMap model) {   
 		List<Student> listStudents=studentDAO.listStudents();
 		model.addAttribute("students", listStudents);		
 		return "deleteStudent";
-	} //WORKING
+	} 
 	
 	@RequestMapping(value = "/delete/studentAutoId/{studentAutoId}", method = RequestMethod.GET) 
 	public String deleteStudentById(@PathVariable int studentAutoId, ModelMap model) { 
@@ -86,7 +86,7 @@ public class StudentController {
 		model.addAttribute("lastName", studentDelete.getLastName());
 		model.addAttribute("email", studentDelete.getEmail());
 		return "displayStudent";
-	} // WORKING
+	} 
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
@@ -95,7 +95,7 @@ public class StudentController {
 		model.addAttribute("students", listStudents);
 		model.addAttribute("now", date);
 		return "modifyStudent";			
-	} //Working - displaying all students with modify buttons
+	} //displaying all students with modify buttons
 	
 	@RequestMapping(value = "/modify/studentAutoId/{studentAutoId}", method = RequestMethod.GET) 
 	public String modifyStudent(@PathVariable int studentAutoId, ModelMap model) { 
@@ -104,7 +104,7 @@ public class StudentController {
 		model.addAttribute("message", "Student with id "+ studentAutoId +" can now be modified");
 		model.addAttribute("student", studentModify);
 		return "modifyStudentForm";	
-	} //Working - displaying student modify form
+	} //displaying student modify form
 	
 	@RequestMapping(value="/modify/studentAutoId/{studentAutoId}/email/{email}", method = RequestMethod.GET) 
 	public ModelAndView modifyStudent(@PathVariable int studentAutoId, @PathVariable String email, ModelMap model) {

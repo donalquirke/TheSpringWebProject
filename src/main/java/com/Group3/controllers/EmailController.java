@@ -20,6 +20,7 @@ public class EmailController {
 	@Autowired
 	private Mail mail;	
      
+	//Create an email
 	@RequestMapping(value = "/createEmail", method = RequestMethod.GET) 
 	public ModelAndView createEmail() {                                
 		System.out.println("Create an email.");

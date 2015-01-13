@@ -19,9 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Group3.domain.Module;
-import com.Group3.domain.Semester;
 import com.Group3.domain.mappers.ModuleMapper;
-import com.Group3.domain.mappers.SemesterMapper;
 import com.Group3.service.ModuleDAO;
 @Repository
 public class ModuleJdbcDaoSupport extends JdbcDaoSupport implements ModuleDAO {

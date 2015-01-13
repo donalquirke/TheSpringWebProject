@@ -32,7 +32,7 @@ public class LecturerController {
 			model.addAttribute("lecturers", listLecturers);
 			model.addAttribute("now", date);
 		    return "displayLecturers";			
-		}  //WORKING
+		}  
 	
 	@RequestMapping(value="/listById/{lectId}", method = RequestMethod.GET) 
 	public String getLecturer(ModelMap model) {			
@@ -47,7 +47,7 @@ public class LecturerController {
 	public String createLecturer(ModelMap model) {
 		model.addAttribute("lecturer", new Lecturer());
 		return "newLecturer";
-	}  // WORKING
+	}  
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public String displayLecturer(@ModelAttribute("lecturer") Lecturer lecturer, ModelMap model) {
@@ -66,14 +66,14 @@ public class LecturerController {
 		}
 
 		return "displayLecturer";
-	}  // WORKING
+	}  
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteLecturer(ModelMap model) {   
 		List<Lecturer> listLecturers=lecturerDAO.listLecturers();
 		model.addAttribute("lecturers", listLecturers);		
 		return "deleteLecturer";
-	} // WORKING
+	}
 	
 	@RequestMapping(value = "/delete/lecturerAutoId/{lecturerAutoId}", method = RequestMethod.GET) 
 	public String deleteLecturerById(@PathVariable int lecturerAutoId, ModelMap model) {
@@ -87,7 +87,7 @@ public class LecturerController {
 		model.addAttribute("lastName", lecturerDelete.getLastName());
 		model.addAttribute("email", lecturerDelete.getEmail());
 		return "displayLecturer";
-	} // WORKING
+	} 
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
@@ -96,7 +96,7 @@ public class LecturerController {
 		model.addAttribute("lecturers", listLecturers);
 		model.addAttribute("now", date);
 		return "modifyLecturer";			
-	} //WORKING
+	} 
 	
 	@RequestMapping(value = "/modify/lecturerAutoId/{lecturerAutoId}", method = RequestMethod.GET) 
 	public String modifyLecturer(@PathVariable int lecturerAutoId, ModelMap model) { 
@@ -105,7 +105,7 @@ public class LecturerController {
 		model.addAttribute("message", "Lecturer with id "+ lecturerAutoId +" can now be modified");
 		model.addAttribute("lecturer", lecturerModify);
 		return "modifyLecturerForm";	
-	} //WORKING
+	} 
 	
 	@RequestMapping(value="/modify/lecturerAutoId/{lecturerAutoId}/email/{email}", method = RequestMethod.GET) 
 	public ModelAndView modifyLecturer(@PathVariable int lecturerAutoId, @PathVariable String email, ModelMap model) {
@@ -123,21 +123,6 @@ public class LecturerController {
 		modelAndView.addObject("lecturer", lecturerModify);
 		modelAndView.setViewName("displayLecturer");
 		return modelAndView;
-	} // WORKING
+	} 
 	
 }
-
-
-/**
-public void createLecturer(String lectId, String firstName, String lastName, String email);
-
-public void deleteLecturer(String lectId);
-
-public void createMultipleLecturers(final List<Lecturer> lecturers);
-
-public Lecturer getLecturer(String id);
-
-public List<Lecturer> listLecturers();
-
-public int countRows();
-**/

@@ -19,7 +19,6 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -48,7 +47,7 @@ import com.Group3.service.StudentDAO;
 @Controller
 @RequestMapping("/deferral")
 public class DeferralController {
-
+	//Logger for debugging
 	Logger logger = Logger.getLogger(DeferralController.class);
 	
 	@Autowired
@@ -69,48 +68,52 @@ public class DeferralController {
 	@Autowired
     private ServletContext servletContext;
 	
+	//List All Deferrals
 	@RequestMapping(value="/listall", method = RequestMethod.GET) 
-	public String listAll(ModelMap model) {			
-			Date date = new java.util.Date();
-			List<Deferral> listDeferrals  =deferralDAO.listDeferrals();
-			
-			List<Student> listStudents    =studentDAO.listStudentsWithdeferrals();
-			List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
-			List<Programme> listProgrammes=programmeDAO.listProgrammesWithdeferrals();
-			List<Module> listModules      =moduleDAO.listModulesWithdeferrals();
-			
-			HashMap<Integer, Student> studentMap     = new HashMap<Integer, Student>();
-			HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
-			HashMap<Integer, Programme> programmeMap = new HashMap<Integer, Programme>();
-			HashMap<Integer, Module> moduleMap       = new HashMap<Integer, Module>();
-			
-			for(Student student : listStudents){
-				studentMap.put(student.getStudentAutoId(), student);
-			}
-			for(Lecturer lecturer : listLecturers){
-				lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
-			}
-			for(Programme programme : listProgrammes){
-				programmeMap.put(programme.getProgrammeAutoID(), programme);
-			}
-			for(Module module : listModules){
-				moduleMap.put(module.getModuleAutoID(), module);
-			}
-			
-			
-			model.addAttribute("deferrals", listDeferrals);
-			
-			model.addAttribute("studentMap", studentMap);
-			model.addAttribute("lecturerMap", lecturerMap);
-			model.addAttribute("programmeMap", programmeMap);
-			model.addAttribute("moduleMap", moduleMap);
-			
-			model.addAttribute("now", date);
-		    return "displayDeferrals";			
-	}  //WORKING  
+	public String listAll(ModelMap model) {	
 		
+		Date date = new java.util.Date();
+		
+		//create object lists
+		List<Deferral> listDeferrals =deferralDAO.listDeferrals();		
+		List<Student> listStudents =studentDAO.listStudentsWithdeferrals();
+		List<Lecturer> listLecturers =lecturerDAO.listLecturersWithdeferrals();
+		List<Programme> listProgrammes =programmeDAO.listProgrammesWithdeferrals();
+		List<Module> listModules =moduleDAO.listModulesWithdeferrals();
+			
+		//create HashMaps for each object
+		HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
+		HashMap<Integer, Lecturer> lecturerMap = new HashMap<Integer, Lecturer>();
+		HashMap<Integer, Programme> programmeMap = new HashMap<Integer, Programme>();
+		HashMap<Integer, Module> moduleMap = new HashMap<Integer, Module>();
+		
+		//get the AutoId for each entry in the list
+		for(Student student : listStudents){
+			studentMap.put(student.getStudentAutoId(), student);
+		}
+		for(Lecturer lecturer : listLecturers){
+			lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
+		}
+		for(Programme programme : listProgrammes){
+			programmeMap.put(programme.getProgrammeAutoID(), programme);
+		}
+		for(Module module : listModules){
+			moduleMap.put(module.getModuleAutoID(), module);
+		}
+					
+		model.addAttribute("deferrals", listDeferrals);
+		model.addAttribute("studentMap", studentMap);
+		model.addAttribute("lecturerMap", lecturerMap);
+		model.addAttribute("programmeMap", programmeMap);
+		model.addAttribute("moduleMap", moduleMap);
+		model.addAttribute("now", date);
+		return "displayDeferrals";			
+	}   
+		
+	//List Deferrals By Programme ID
 	@RequestMapping(value="/programme/{programmeAutoID}", method = RequestMethod.GET) 
 	public String listDeferralsByProgramme(@PathVariable("programmeAutoID") int programmeAutoID, ModelMap model){
+		
 		Date date = new java.util.Date();	
 		List <Deferral> deferrals=deferralDAO.listDeferralsByProgramme(programmeAutoID);
 		model.addAttribute("deferrals", deferrals);
@@ -118,6 +121,7 @@ public class DeferralController {
 	    return "displayDeferrals";	
 	}
 	
+	//Search Deferrals
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String SearchDeferrals(ModelMap model) {
 		logger.debug("search form");
@@ -125,6 +129,7 @@ public class DeferralController {
 	    return "searchDeferral";
 	}
 	
+	//Search Deferrals By StudentAutoID
 	@RequestMapping(value="/search/studentAutoID/{studentAutoID}", method = RequestMethod.GET) 
 	public String listDeferralsByStudent(@PathVariable("studentAutoID") int studentAutoID, ModelMap model){
 		logger.debug("search by Id");
@@ -135,6 +140,7 @@ public class DeferralController {
 	    return "displayDeferrals";	
 	}
 	
+	//List Unapproved Deferrals
 	@RequestMapping(value="list/{approval}", method = RequestMethod.GET) 
 	public String listUnapprovedDeferrals(@PathVariable("approval") String unapproved, ModelMap model){
 		Date date = new java.util.Date();	
@@ -144,50 +150,34 @@ public class DeferralController {
 	    return "displayDeferrals";	
 	}
 	
-	@RequestMapping(value="list/{approval}/{programmeAutoID}", method = RequestMethod.GET) 
-	public String listUnapprovedDeferralsByProgramme(@PathVariable("approval") String unapproved, @PathVariable("programmeAutoID") int programmeAutoID, ModelMap model){
-		Date date = new java.util.Date();	
-		List <Deferral> deferrals=deferralDAO.listUnapprovedDeferralsByProgramme(unapproved, programmeAutoID);
-		model.addAttribute("deferrals", deferrals);
-		model.addAttribute("now", date);
-	    return "displayDeferrals";	
-	}
-	
-	@RequestMapping(value="list/coord/{approval}/{firstname}", method = RequestMethod.GET) 
-	public String listUnapprovedDeferralsByProgrammeCoordinatorName(@PathVariable("approval") String unapproved, @PathVariable("firstname") String firstname, ModelMap model){
-		Date date = new java.util.Date();	
-		List <Deferral> deferrals=deferralDAO.listUnapprovedDeferralsByProgrammeCoordinatorName(unapproved, firstname);
-		model.addAttribute("deferrals", deferrals);
-		model.addAttribute("now", date);
-	    return "displayDeferrals";	
-	}
-	
-
+	//Defer a Module
 	@RequestMapping(value = "/doDeferModule", method = RequestMethod.GET) 
 	public ModelAndView doDeferModule() {
 		logger.info("doDeferModule()");
-		ModelAndView modelAndView = new ModelAndView();
-		
+		ModelAndView modelAndView = new ModelAndView();	
 		DeferralForm deferralForm = new DeferralForm();
 
+		//Populate the lists of lecturers, programmes and modules
 		deferralForm.setLectList(lecturerDAO.listLecturers());
 		deferralForm.setProgrammeList(programmeDAO.listProgrammes());
 		deferralForm.setModuleList(moduleDAO.listModules());
 		
 		modelAndView.addObject("deferral", new Deferral());  //sending a blank deferral		
-		modelAndView.addObject("deferralForm", deferralForm);  //sending a blank deferral form
+		modelAndView.addObject("deferralForm", deferralForm);
 		modelAndView.setViewName("doDeferModule");
 		
 		return modelAndView;
-	} //
+	} 
 	
+	//Add a new deferral
 	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
 	public String addNewDeferral(ModelMap model) {
 		logger.debug("addNew");
 		model.addAttribute("deferral", new Deferral());
 		return "newDeferral";
-	} //WORKING
+	} 
 
+	//Submitting new deferral and uploading file
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public ModelAndView displayDeferral(@ModelAttribute("deferral") @Valid Deferral deferral,
 			BindingResult result, ModelMap model) {
@@ -201,22 +191,19 @@ public class DeferralController {
 			return returnModel;
 		}
 		
+		//checking for errors on file upload
 		try {
 			 if (!file.isEmpty()) {
 				 logger.trace("file not empty");
-				 validateImage(file);
-				 
+				 validateImage(file);		 
 				  
 		            try {
-		            		
-		            	//deferral.setStudentAutoID(studentDAO.getStudentById(studentId).getStudentAutoID());
 			        	int defId = deferralDAO.createDeferralGetId(deferral.getStudentAutoID(), deferral.getLectId(),
 		            			deferral.getProgrammeAutoID(), deferral.getModuleAutoID(), deferral.getApproval());
 		            	logger.debug("new Deferral created with Id:" + defId);
 		            	deferral.setDefId(defId); //update deferral with new ID
 		            	returnModel.addObject("deferral", deferral);  //add the deferral to the new model
 		            	returnModel.addObject("message", "The following deferral has been added to the system");
-
 		
 		            	byte[] bytes = file.getBytes(); 
 		            	File dir = new File(servletContext.getRealPath("/")+"/resources/uploads");
@@ -243,7 +230,8 @@ public class DeferralController {
 		            	returnModel.setViewName("displayError");
 		        		return returnModel;
 		            }
-			 }else{
+		            
+			 } else {
 				 logger.error("You failed to upload " + (file!=null?file.getOriginalFilename():"no File found") + " because the file was empty.");
 				 returnModel.addObject("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
 				 returnModel.setViewName("displayError");
@@ -258,8 +246,9 @@ public class DeferralController {
 		}
 		returnModel.setViewName("displayDeferral");
 		return returnModel;
-	} //WORKING
+	}
 	
+	//Downloading students completed application form
 	@RequestMapping(value = "/downloadImage/{defId}", method = RequestMethod.GET) 
 	public @ResponseBody void downloadImageDeferral(@PathVariable int defId, HttpServletRequest request, HttpServletResponse response) {   
 		try {
@@ -298,86 +287,77 @@ public class DeferralController {
         outStream.close();
         
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
 	
+	//Validating the image
 	private void validateImage(MultipartFile image){
 		if(!image.getContentType().equals("image/jpeg")){
 			throw new ImageUploadException("OnlyJPGimagesaccepted");
 		}
-	}
+	}	
 	
-	
-	
-	
-	
-	
-	
+	//Downloading Application Form
 	@RequestMapping(value = "/downloadForm", method = RequestMethod.GET) 
 	public @ResponseBody void downloadApplicationForm(HttpServletRequest request, HttpServletResponse response) {   
 		try {
-	 
-		File fullPath = new File(servletContext.getRealPath("/")+"/resources/images");
-        System.out.println(fullPath.getAbsolutePath());
+			File fullPath = new File(servletContext.getRealPath("/")+"/resources/images");
+			System.out.println(fullPath.getAbsolutePath());
         
-        File downloadFile = new File(fullPath+"/deferralApplication.jpg");
-        FileInputStream inputStream = new FileInputStream(downloadFile);		     
+			File downloadFile = new File(fullPath+"/deferralApplication.jpg");
+			FileInputStream inputStream = new FileInputStream(downloadFile);		     
        
-        // get MIME type of the file
-        String mimeType = "image/jpeg";         
+			// get MIME type of the file
+			String mimeType = "image/jpeg";         
  
-        // set content attributes for the response
-        response.setContentType(mimeType);
-        response.setContentLength((int) downloadFile.length());
+			// set content attributes for the response
+			response.setContentType(mimeType);
+			response.setContentLength((int) downloadFile.length());
  
-        // set headers for the response
-        String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"",
+			// set headers for the response
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"",
                 downloadFile.getName());
-        response.setHeader(headerKey, headerValue);
+			response.setHeader(headerKey, headerValue);
  
-        // get output stream of the response
-        OutputStream outStream = response.getOutputStream();
+			// get output stream of the response
+			OutputStream outStream = response.getOutputStream();
  
-        byte[] buffer = new byte[1024];
-        int bytesRead = -1;
+			byte[] buffer = new byte[1024];
+			int bytesRead = -1;
  
-        // write bytes read from the input stream into the output stream
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
+			// write bytes read from the input stream into the output stream
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
             outStream.write(buffer, 0, bytesRead);
-        }		   
+			}		   
  
-        inputStream.close();
-        outStream.close();
+			inputStream.close();
+			outStream.close();
         
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+		}
 	
-	
+	//Delete a Deferral
 	@RequestMapping(value = "/delete", method = RequestMethod.GET) 
 	public String deleteDeferral(ModelMap model) {   
 		List<Deferral> listDeferrals=deferralDAO.listDeferrals();
 		
-		List<Student> listStudents    =studentDAO.listStudentsWithdeferrals();
-		List<Lecturer> listLecturers   =lecturerDAO.listLecturersWithdeferrals();
-		List<Programme> listProgrammes=programmeDAO.listProgrammesWithdeferrals();
-		List<Module> listModules      =moduleDAO.listModulesWithdeferrals();
+		List<Student> listStudents =studentDAO.listStudentsWithdeferrals();
+		List<Lecturer> listLecturers =lecturerDAO.listLecturersWithdeferrals();
+		List<Programme> listProgrammes =programmeDAO.listProgrammesWithdeferrals();
+		List<Module> listModules =moduleDAO.listModulesWithdeferrals();
 		
-		HashMap<Integer, Student> studentMap     = new HashMap<Integer, Student>();
-		HashMap<Integer, Lecturer> lecturerMap   = new HashMap<Integer, Lecturer>();
+		HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
+		HashMap<Integer, Lecturer> lecturerMap = new HashMap<Integer, Lecturer>();
 		HashMap<Integer, Programme> programmeMap = new HashMap<Integer, Programme>();
-		HashMap<Integer, Module> moduleMap       = new HashMap<Integer, Module>();
+		HashMap<Integer, Module> moduleMap = new HashMap<Integer, Module>();
 		
 		for(Student student : listStudents){
 			studentMap.put(student.getStudentAutoId(), student);
@@ -398,7 +378,7 @@ public class DeferralController {
 		model.addAttribute("moduleMap", moduleMap);
 		model.addAttribute("deferrals", listDeferrals);		
 		return "delete";
-	} //WORKING
+	} 
 	
 	@RequestMapping(value = "/delete/defId/{defId}", method = RequestMethod.GET) 
 	public String deleteDeferralById(@PathVariable int defId, ModelMap model) { 
@@ -412,8 +392,9 @@ public class DeferralController {
 		model.addAttribute("moduleAutoID", deferralDelete.getModuleAutoID());
 		model.addAttribute("approval", deferralDelete.getApproval());
 		return "displayDeferral";
-	} //WORKING
+	} 
 	
+	//Modify the approval of a deferral
 	@RequestMapping(value="/modify", method = RequestMethod.GET) 
 	public String modify(ModelMap model) {			
 		List<Deferral> listDeferrals=deferralDAO.listDeferrals();
@@ -449,7 +430,7 @@ public class DeferralController {
 		model.addAttribute("moduleMap", moduleMap);
 		model.addAttribute("now", date);
 		return "modify";			
-	} //WORKING
+	} 
 	
 	@RequestMapping(value = "/modify/defId/{defId}", method = RequestMethod.GET) 
 	public String modifyDeferral(@PathVariable int defId, ModelMap model) { 
@@ -458,7 +439,7 @@ public class DeferralController {
 		model.addAttribute("message", "Deferral with id "+ defId +" can now be modified");
 		model.addAttribute("deferral", deferralModify);
 		return "modifyForm";	
-	} //WORKING
+	} 
 	
 	@RequestMapping(value="/modify/defId/{defId}/approval/{approval}", method = RequestMethod.GET) 
 	public ModelAndView modifyDeferral(@PathVariable int defId, @PathVariable String approval,  ModelMap model) {			
@@ -470,7 +451,7 @@ public class DeferralController {
 		modelAndView.addObject("deferral", deferralModify);
 		modelAndView.setViewName("displayDeferral");
 		return modelAndView;		
-	} //WORKING
+	} 
 
 	@RequestMapping(value={"/getStudentProgrammeList"})
 	@ResponseBody

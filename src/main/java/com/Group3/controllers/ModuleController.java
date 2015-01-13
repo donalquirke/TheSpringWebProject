@@ -16,11 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.Group3.domain.Lecturer;
 import com.Group3.domain.Module;
-import com.Group3.domain.Programme;
-import com.Group3.domain.Semester;
 import com.Group3.service.LecturerDAO;
 import com.Group3.service.ModuleDAO;
-import com.Group3.service.ProgrammeDAO;
 
 @Controller
 @RequestMapping("/module")
@@ -51,7 +48,7 @@ public class ModuleController {
 			model.addAttribute("lecturerMap", lecturerMap);
 			model.addAttribute("now", date);
 		    return "displayModules";			
-		}  //working
+		}  
 	
 	@RequestMapping(value="/listById/{moduleId}", method = RequestMethod.GET) 
 	public String getModule(ModelMap model) {			
@@ -69,10 +66,9 @@ public class ModuleController {
 		List<Lecturer> lecturerList=lecturerDAO.listLecturers();
 		System.out.println("list: " +lecturerList);
 		model.addAttribute("module", new Module());
-		//modelAndView.addObject("lecturerList", lecturerList);
 		modelAndView.setViewName("newModule");
 		return modelAndView;
-	}  //
+	} 
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public ModelAndView displayModule(@ModelAttribute("module") Module module, ModelMap model) {
@@ -133,9 +129,7 @@ public class ModuleController {
 		for(Lecturer lecturer : listLecturers){
 			lecturerMap.put(lecturer.getLecturerAutoId(), lecturer);
 		}
-		
-		
-		
+	
 		Date date = new java.util.Date();
 		model.addAttribute("lecturerMap", lecturerMap);
 		model.addAttribute("modules", listModules);

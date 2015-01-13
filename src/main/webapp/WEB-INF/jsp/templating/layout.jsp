@@ -77,10 +77,8 @@ tr:nth-child(even) {
 						<li><a href="<%= request.getContextPath() %>/deferral/addNew">Add</a></li>
 					 	<li><a href="<%= request.getContextPath() %>/deferral/delete">Delete</a></li>
 						<li><a href="<%= request.getContextPath() %>/deferral/listall">List All</a></li>  
-						<li><a href="<%= request.getContextPath() %>/deferral/modify">Modify</a></li> 
-						<li><a href="<%= request.getContextPath() %>/deferral/search">Search Deferrals</a></li>
-						<li><a href="<%= request.getContextPath() %>/deferral/modify">Approved Deferrals</a></li>
-						<li><a href="<%= request.getContextPath() %>/deferral/modify">Pending Deferrals</a></li>  
+						<li><a href="<%= request.getContextPath() %>/deferral/modify">Approve Deferral</a></li> 
+						<li><a href="<%= request.getContextPath() %>/deferral/search">Search Deferrals</a></li>  
 					</ul>
 				</div>
 				<div data-role="collapsible">
